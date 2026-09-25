@@ -1,0 +1,28 @@
+.status {
+	display: flex;
+	min-height: 50vh;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 8px;
+	padding: 64px 0;
+}
+
+.title {
+	font-size: 2rem;
+	font-weight: 700;
+	line-height: 1.1;
+}
+
+.detail {
+	max-width: 34rem;
+	color: var(--codely-gray);
+	line-height: 1.6;
+}
+
+.actions {
+	display: flex;
+	margin-top: 16px;
+	flex-wrap: wrap;
+	gap: 12px;
+}
