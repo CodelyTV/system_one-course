@@ -1,3 +1,15 @@
+create extension if not exists jev cascade;
+
+do $$
+begin
+	execute format('alter database %I set jev.api_url = %L', current_database(), 'http://laya:8000/v1/systemone');
+	execute format('alter database %I set jev.api_key = %L', current_database(), 'retail-laya');
+	execute format('alter database %I set jev.batch_size = %L', current_database(), '1');
+	execute format('alter database %I set jev.concurrency = %L', current_database(), '4');
+	execute format('alter database %I set jev.timeout = %L', current_database(), '120');
+end
+$$;
+
 drop table if exists order_lines;
 drop table if exists orders;
 drop table if exists checkout_lines;
