@@ -2,6 +2,7 @@ import { ContainerBuilder } from "diod";
 
 import { CoursesByIdsSearcher } from "../../../mooc/courses/application/search-by-ids/CoursesByIdsSearcher";
 import { CourseRepository } from "../../../mooc/courses/domain/CourseRepository";
+import { OllamaCourseEmbeddingsGenerator } from "../../../mooc/courses/infrastructure/OllamaCourseEmbeddingsGenerator";
 import { PostgresCourseRepository } from "../../../mooc/courses/infrastructure/PostgresCourseRepository";
 import { UserCourseProgressCompleter } from "../../../mooc/user-course-progress/application/complete/UserCourseProgressCompleter";
 import { GenerateUserCourseSuggestionsOnUserCourseProgressCompleted } from "../../../mooc/user-course-suggestions/application/generate/GenerateUserCourseSuggestionsOnUserCourseProgressCompleted";
@@ -69,6 +70,7 @@ builder.registerAndUse(UserCourseProgressCompleter);
 
 // Course
 builder.register(CourseRepository).use(PostgresCourseRepository);
+builder.registerAndUse(OllamaCourseEmbeddingsGenerator);
 builder.registerAndUse(PostgresCourseRepository);
 builder.registerAndUse(CoursesByIdsSearcher);
 

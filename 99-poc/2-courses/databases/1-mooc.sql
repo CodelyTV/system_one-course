@@ -21,5 +21,9 @@ CREATE TABLE mooc.courses (
 	summary TEXT,
 	categories jsonb NOT NULL,
 	published_at DATE NOT NULL,
-	embedding vector(768)
+	embedding vector(2560)
 );
+
+CREATE VIEW mooc.course_search_documents AS
+SELECT name, summary
+FROM mooc.courses;

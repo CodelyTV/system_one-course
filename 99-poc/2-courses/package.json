@@ -13,7 +13,8 @@
 		"test:ci": "jest --testMatch '**/*.ci.test.ts'",
 		"build:scripts": "swc ./src/app/scripts ./src/contexts --out-dir dist --strip-leading-paths --copy-files",
 		"create-courses": "pnpm build:scripts && node ./dist/app/scripts/create-courses.js",
-		"search-courses": "pnpm build:scripts && node ./dist/app/scripts/search-courses.js"
+		"search-courses": "pnpm build:scripts && node ./dist/app/scripts/search-courses.js",
+		"compare-searches": "pnpm build:scripts && node ./dist/app/scripts/compare-searches.js"
 	},
 	"dependencies": {
 		"@langchain/core": "^1.2.11",

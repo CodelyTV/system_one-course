@@ -1,17 +1,16 @@
 /* eslint-disable no-console */
 import "reflect-metadata";
 
-import { OllamaEmbeddings } from "@langchain/ollama";
-
+import { OllamaCourseEmbeddingsGenerator } from "../../contexts/mooc/courses/infrastructure/OllamaCourseEmbeddingsGenerator";
 import { container } from "../../contexts/shared/infrastructure/dependency-injection/diod.config";
 import { PostgresConnection } from "../../contexts/shared/infrastructure/postgres/PostgresConnection";
 
 async function main(
 	query: string,
 	connection: PostgresConnection,
-	embeddingsGenerator: OllamaEmbeddings,
+	embeddingsGenerator: OllamaCourseEmbeddingsGenerator,
 ): Promise<void> {
-	const embedding = `[${(await embeddingsGenerator.embedQuery(query)).join(",")}]`;
+	const embedding = `[${(await embeddingsGenerator.generateForSearchQuery(query)).join(",")}]`;
 
 	const results = await connection.sql`
 		SELECT id, name, summary, categories, published_at
@@ -25,10 +24,7 @@ async function main(
 
 const pgConnection = container.get(PostgresConnection);
 
-const embeddingsGenerator = new OllamaEmbeddings({
-	model: "nomic-embed-text",
-	baseUrl: "http://localhost:11434",
-});
+const embeddingsGenerator = container.get(OllamaCourseEmbeddingsGenerator);
 
 main(process.argv[2], pgConnection, embeddingsGenerator)
 	.catch(console.error)

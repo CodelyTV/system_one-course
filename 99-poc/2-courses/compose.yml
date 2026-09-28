@@ -1,17 +1,45 @@
 services:
-  poc_postgres_pgvector:
-    image: pgvector/pgvector:0.7.4-pg16
+  postgres:
+    build: etc/postgres
+    image: courses-postgres-jev
     restart: always
-
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: codely
       POSTGRES_PASSWORD: c0d3ly7v
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U codely -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
       - ./databases:/docker-entrypoint-initdb.d
 
+  laya:
+    build: etc/laya
+    image: courses-laya
+    environment:
+      LAYA_PORT: "8000"
+      LAYA_DEVICE: cpu
+      LAYA_PRELOAD: "1"
+      LAYA_MODELS: english,multilingual
+      LAYA_MAX_CONCURRENT: "4"
+      LAYA_API_KEY: courses-laya
+    ports:
+      - "127.0.0.1:${LAYA_PORT:-58000}:8000"
+    init: true
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4)"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10m
+    volumes:
+      - laya_models:/home/laya/.cache/huggingface
+
 volumes:
-  db_data:
+  postgres_data:
+  laya_models:

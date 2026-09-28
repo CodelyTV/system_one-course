@@ -1,5 +1,4 @@
-import { ISODateTime, Primitives } from "@codelytv/primitives-type";
-import { OllamaEmbeddings } from "@langchain/ollama";
+import { ISODateTime } from "@codelytv/primitives-type";
 import { Service } from "diod";
 
 import { PostgresConnection } from "../../../shared/infrastructure/postgres/PostgresConnection";
@@ -7,6 +6,8 @@ import { PostgresRepository } from "../../../shared/infrastructure/postgres/Post
 import { Course } from "../domain/Course";
 import { CourseId } from "../domain/CourseId";
 import { CourseRepository } from "../domain/CourseRepository";
+
+import { OllamaCourseEmbeddingsGenerator } from "./OllamaCourseEmbeddingsGenerator";
 
 type DatabaseCourseRow = {
 	id: string;
@@ -21,21 +22,18 @@ export class PostgresCourseRepository
 	extends PostgresRepository<Course>
 	implements CourseRepository
 {
-	private readonly embeddingsGenerator: OllamaEmbeddings;
-
-	constructor(connection: PostgresConnection) {
+	constructor(
+		connection: PostgresConnection,
+		private readonly embeddingsGenerator: OllamaCourseEmbeddingsGenerator,
+	) {
 		super(connection);
-
-		this.embeddingsGenerator = new OllamaEmbeddings({
-			model: "nomic-embed-text",
-			baseUrl: "http://localhost:11434",
-		});
 	}
 
 	async save(course: Course): Promise<void> {
 		const userPrimitives = course.toPrimitives();
-		const embedding =
-			await this.generateCourseDocumentEmbedding(userPrimitives);
+		const embedding = JSON.stringify(
+			await this.embeddingsGenerator.generateForCourse(userPrimitives),
+		);
 
 		await this.execute`
 			INSERT INTO mooc.courses (id, name, summary, categories, published_at, embedding)
@@ -71,8 +69,10 @@ export class PostgresCourseRepository
 			return [];
 		}
 
-		const embeddings = await this.generateCoursesQueryEmbeddings(
-			coursesToSearchSimilar.map((course) => course.toPrimitives()),
+		const embeddings = JSON.stringify(
+			await this.embeddingsGenerator.generateForSimilarCourses(
+				coursesToSearchSimilar.map((course) => course.toPrimitives()),
+			),
 		);
 
 		const plainIds = ids.map((id) => id.value);
@@ -107,35 +107,5 @@ export class PostgresCourseRepository
 			categories: row.categories,
 			publishedAt: row.published_at.toISOString() as ISODateTime,
 		});
-	}
-
-	private async generateCourseDocumentEmbedding(
-		course: Primitives<Course>,
-	): Promise<string> {
-		const [vectorEmbedding] = await this.embeddingsGenerator.embedDocuments(
-			[this.serializeCourseForEmbedding(course)],
-		);
-
-		return JSON.stringify(vectorEmbedding);
-	}
-
-	private async generateCoursesQueryEmbeddings(
-		courses: Primitives<Course>[],
-	): Promise<string> {
-		const vectorEmbedding = await this.embeddingsGenerator.embedQuery(
-			courses
-				.map((course) => this.serializeCourseForEmbedding(course))
-				.join("\n"),
-		);
-
-		return JSON.stringify(vectorEmbedding);
-	}
-
-	private serializeCourseForEmbedding(course: Primitives<Course>): string {
-		return [
-			`Name: ${course.name}`,
-			`Summary: ${course.summary}`,
-			`Categories: ${course.categories.join(", ")}`,
-		].join("|");
 	}
 }
