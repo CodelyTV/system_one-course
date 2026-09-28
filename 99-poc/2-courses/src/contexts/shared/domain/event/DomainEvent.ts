@@ -1,5 +1,3 @@
-import { v4 } from "uuid";
-
 export type DomainEventAttributes = { [key: string]: unknown };
 
 export abstract class DomainEvent {
@@ -12,7 +10,7 @@ export abstract class DomainEvent {
 		eventId?: string,
 		occurredOn?: Date,
 	) {
-		this.eventId = eventId ?? v4();
+		this.eventId = eventId ?? crypto.randomUUID();
 		this.occurredOn = occurredOn ?? new Date();
 	}
 
@@ -22,7 +20,6 @@ export abstract class DomainEvent {
 		eventId: string,
 		occurredOn: Date,
 		attributes: DomainEventAttributes,
-		// eslint-disable-next-line no-use-before-define
 	) => DomainEvent;
 
 	abstract toPrimitives(): DomainEventAttributes;

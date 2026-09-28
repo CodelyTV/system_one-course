@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 import "reflect-metadata";
 
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { NextResponse } from "next/server";
 
 import {
@@ -15,13 +14,13 @@ import { HttpNextResponse } from "../../../../../contexts/shared/infrastructure/
 
 export async function GET(
 	_request: Request,
-	context: { params: Params },
+	context: { params: Promise<{ "user-id": string }> },
 ): Promise<NextResponse> {
 	return executeWithErrorHandling(
 		async () => {
 			const finder = container.get(UserFinder);
 
-			const userId = context.params["user-id"] as string;
+			const { "user-id": userId } = await context.params;
 
 			const user = await finder.find(userId);
 
@@ -35,12 +34,12 @@ export async function GET(
 
 export async function PUT(
 	request: Request,
-	context: { params: Params },
+	context: { params: Promise<{ "user-id": string }> },
 ): Promise<NextResponse> {
 	return executeWithErrorHandling(async () => {
 		const registrar = container.get(UserRegistrar);
 
-		const id = context.params["user-id"] as string;
+		const { "user-id": id } = await context.params;
 		const { name, email, profile_picture } = (await request.json()) as {
 			name: string;
 			email: string;

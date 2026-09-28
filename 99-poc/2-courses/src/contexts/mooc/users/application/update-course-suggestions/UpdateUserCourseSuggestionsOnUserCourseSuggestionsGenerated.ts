@@ -7,9 +7,7 @@ import { UserCourseSuggestionsGeneratedDomainEvent } from "../../../user-course-
 import { UserCourseSuggestionsUpdater } from "./UserCourseSuggestionsUpdater";
 
 @Service()
-export class UpdateUserCourseSuggestionsOnUserCourseSuggestionsGenerated
-	implements DomainEventSubscriber<UserCourseSuggestionsGeneratedDomainEvent>
-{
+export class UpdateUserCourseSuggestionsOnUserCourseSuggestionsGenerated implements DomainEventSubscriber<UserCourseSuggestionsGeneratedDomainEvent> {
 	constructor(private readonly updater: UserCourseSuggestionsUpdater) {}
 
 	async on(event: UserCourseSuggestionsGeneratedDomainEvent): Promise<void> {

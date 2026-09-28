@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-import { Primitives } from "@codelytv/primitives-type";
+import { ISODateTime, Primitives } from "@codelytv/primitives-type";
 import { OllamaEmbeddings } from "@langchain/ollama";
 import { Service } from "diod";
 
@@ -106,7 +105,7 @@ export class PostgresCourseRepository
 			name: row.name,
 			summary: row.summary,
 			categories: row.categories,
-			publishedAt: row.published_at,
+			publishedAt: row.published_at.toISOString() as ISODateTime,
 		});
 	}
 

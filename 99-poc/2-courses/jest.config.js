@@ -1,5 +1,10 @@
-/** @type {import('ts-jest').JestConfigWithTsJest} */
+/** @type {import('jest').Config} */
 module.exports = {
-	preset: "ts-jest",
 	testEnvironment: "node",
+	transform: {
+		"^.+\\.(t|j)sx?$": "@swc/jest",
+	},
+	transformIgnorePatterns: [
+		"/node_modules/(?!\\.pnpm/@faker-js\\+faker@|@faker-js/faker/)",
+	],
 };

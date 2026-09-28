@@ -3,6 +3,9 @@ import eslintConfigCodely from "eslint-config-codely";
 import globals from "globals";
 
 export default [
+	{
+		ignores: ["next-env.d.ts", "dist/"],
+	},
 	...eslintConfigCodely.course,
 	{
 		files: ["**/**.ts"],

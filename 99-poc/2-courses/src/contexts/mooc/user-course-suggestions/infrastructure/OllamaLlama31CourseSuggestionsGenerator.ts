@@ -17,9 +17,7 @@ import { CourseSuggestionsGenerator } from "../domain/CourseSuggestionsGenerator
 import { UserCourseSuggestions } from "../domain/UserCourseSuggestions";
 
 @Service()
-export class OllamaLlama31CourseSuggestionsGenerator
-	implements CourseSuggestionsGenerator
-{
+export class OllamaLlama31CourseSuggestionsGenerator implements CourseSuggestionsGenerator {
 	constructor(private readonly courseRepository: CourseRepository) {}
 
 	async generate(

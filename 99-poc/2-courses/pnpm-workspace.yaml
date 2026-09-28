@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://json.schemastore.org/pnpm-workspace.json
+packages:
+  - "."
+
+# Supply-chain protection
+minimumReleaseAge: 10080 # 7 days (pnpm uses minutes)
+minimumReleaseAgeStrict: true
+trustPolicy: no-downgrade
+blockExoticSubdeps: true
+dedupePeerDependents: true
+
+engineStrict: true
+
+overrides:
+  "@types/node": ^24.13.5
+  eslint-config-prettier: ^10.1.8
+  semver: ^7.8.0
+
+allowBuilds:
+  "@parcel/watcher": false
+  "@swc/core": false
+  unrs-resolver: false

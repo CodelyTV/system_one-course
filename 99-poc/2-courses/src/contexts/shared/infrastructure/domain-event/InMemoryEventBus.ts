@@ -15,9 +15,9 @@ export class InMemoryEventBus implements EventBus {
 
 	async publish(events: DomainEvent[]): Promise<void> {
 		const subscribers = container
-			.findTaggedServiceIdentifiers<
-				DomainEventSubscriber<DomainEvent>
-			>("subscriber")
+			.findTaggedServiceIdentifiers<DomainEventSubscriber<DomainEvent>>(
+				"subscriber",
+			)
 			.map((id) => container.get(id));
 
 		this.registerSubscribers(subscribers);
