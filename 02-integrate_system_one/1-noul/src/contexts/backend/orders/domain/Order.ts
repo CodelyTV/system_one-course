@@ -68,6 +68,10 @@ export class Order {
 		return this.lines.reduce((total, line) => total + line.quantity, 0);
 	}
 
+	containsProduct(productId: string): boolean {
+		return this.lines.some((line) => line.productId === productId);
+	}
+
 	toPrimitives(): OrderPrimitives {
 		return {
 			id: this.id.value,

@@ -8,6 +8,7 @@ import { ProductVisual } from "@/contexts/frontend/retail/sections/ProductVisual
 import { formatMoney } from "@/contexts/frontend/retail/ui/format";
 
 import { ProductPurchasePanel } from "./ProductPurchasePanel";
+import { ProductReviews } from "./ProductReviews";
 
 import styles from "./page.module.scss";
 
@@ -66,7 +67,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
 	const selectedVariantId = product.firstAvailableVariantId;
 	const sizeGuide = buildSizeGuide(product.variants);
-	const related = await relatedProducts(product.id, product.collection);
+	const [related, reviews] = await Promise.all([
+		relatedProducts(product.id, product.collection),
+		retailContainer.allProductReviewsSearcher.search(product.id),
+	]);
 
 	return (
 		<main className={`container ${styles.main}`}>
@@ -158,6 +162,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
 					/>
 				</section>
 			</div>
+
+			<ProductReviews productId={product.id} reviews={reviews} />
 
 			{related.length > 0 ? (
 				<section className={styles.related}>

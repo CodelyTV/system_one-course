@@ -1,7 +1,7 @@
 # Architecture: Project layout
 
 - `src/app/` — App Router routes, server actions (`src/app/actions/`) and route-local `*.module.scss` styles.
-- `src/contexts/backend/` — business logic by bounded context (`products`, `checkout`, `orders`, `users`), each split into `domain/application/infrastructure`. See [hexagonal-architecture.md](./hexagonal-architecture.md).
+- `src/contexts/backend/` — business logic by bounded context (`products`, `checkout`, `orders`, `reviews`, `users`), each split into `domain/application/infrastructure`. See [hexagonal-architecture.md](./hexagonal-architecture.md).
 - `src/contexts/frontend/` — `design-system/` (the Codely design system: settings, atoms, molecules, objects, icons) and `retail/` (app-specific sections, UI components and frontend application logic).
 - `src/contexts/shared/` — domain primitives shared across contexts (value objects).
 - `database/` — `schema.sql` and `seed.sql`, applied by the `db:*` npm scripts.

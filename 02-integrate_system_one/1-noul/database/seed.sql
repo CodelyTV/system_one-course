@@ -141,3 +141,34 @@ on conflict (order_id, variant_id) do nothing;
 update orders o
 set subtotal_amount = coalesce((select sum(ol.quantity * ol.unit_price_amount) from order_lines ol where ol.order_id = o.id), 0)
 where o.id like 'order-%';
+
+with purchases as (
+	select distinct o.user_id, ol.product_id, min(o.created_at) over (partition by o.user_id, ol.product_id) as purchased_at
+	from orders o
+	join order_lines ol on ol.order_id = o.id
+	where o.user_id <> 'user-a1c92f04'
+),
+numbered as (
+	select user_id, product_id, purchased_at,
+		abs(hashtext(user_id || product_id)) as rn
+	from purchases
+)
+insert into product_reviews (id, product_id, user_id, rating, comment, status, created_at)
+select 'review-' || substr(md5(user_id || product_id), 1, 8),
+	product_id,
+	user_id,
+	(array[5, 4, 5, 3, 4, 5, 2, 4])[1 + (rn % 8)],
+	(array[
+		'Great fit and the fabric feels premium.',
+		'Runs a bit large, size down if you are between sizes.',
+		'My new favourite piece. Wearing it every week.',
+		'Nice design, but the colour is darker than in the photos.',
+		null,
+		'Super comfortable and survived the washing machine perfectly.',
+		'Expected better stitching for the price.',
+		'Got compliments the first day I wore it.'
+	])[1 + (rn % 8)],
+	'published',
+	purchased_at + interval '3 days'
+from numbered
+on conflict (product_id, user_id) do nothing;

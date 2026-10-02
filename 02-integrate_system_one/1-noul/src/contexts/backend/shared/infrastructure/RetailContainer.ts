@@ -15,12 +15,20 @@ import { InventoryLister } from "@/contexts/backend/products/application/invento
 import { LowStockLister } from "@/contexts/backend/products/application/low-stock/LowStockLister";
 import { ProductsSearcher } from "@/contexts/backend/products/application/search/ProductsSearcher";
 import { PostgresProductRepository } from "@/contexts/backend/products/infrastructure/PostgresProductRepository";
+import { ProductReviewPublisher } from "@/contexts/backend/reviews/application/create/ProductReviewPublisher";
+import { AllProductReviewsSearcher } from "@/contexts/backend/reviews/application/search-all/AllProductReviewsSearcher";
+import { ProductReviewValidator } from "@/contexts/backend/reviews/application/validate/ProductReviewValidator";
+import { ValidateProductReviewOnProductReviewPublished } from "@/contexts/backend/reviews/application/validate/ValidateProductReviewOnProductReviewPublished";
+import { PostgresProductReviewRepository } from "@/contexts/backend/reviews/infrastructure/PostgresProductReviewRepository";
+import { RuleBasedProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/RuleBasedProductReviewSpamDetector";
 import { CurrentUserGetter } from "@/contexts/backend/users/application/current/CurrentUserGetter";
 import type { CurrentUserProvider } from "@/contexts/backend/users/domain/CurrentUserProvider";
 import { FakeSessionCurrentUserProvider } from "@/contexts/backend/users/infrastructure/FakeSessionCurrentUserProvider";
 import { PostgresUserRepository } from "@/contexts/backend/users/infrastructure/PostgresUserRepository";
 
+import { InMemoryEventBus } from "./event-bus/InMemoryEventBus";
 import { PostgresConnection } from "./PostgresConnection";
+import { SystemClock } from "./SystemClock";
 
 class RetailContainer {
 	private readonly connection = new PostgresConnection();
@@ -41,8 +49,22 @@ class RetailContainer {
 		this.connection,
 	);
 
+	private readonly productReviewRepository =
+		new PostgresProductReviewRepository(this.connection);
+
 	private readonly currentUserProviderInstance =
 		new FakeSessionCurrentUserProvider();
+
+	private readonly clock = new SystemClock();
+
+	private readonly eventBus = new InMemoryEventBus([
+		new ValidateProductReviewOnProductReviewPublished(
+			new ProductReviewValidator(
+				this.productReviewRepository,
+				new RuleBasedProductReviewSpamDetector(),
+			),
+		),
+	]);
 
 	get productsSearcher(): ProductsSearcher {
 		return new ProductsSearcher(this.productRepository);
@@ -122,6 +144,22 @@ class RetailContainer {
 			this.checkoutRepository,
 			this.productRepository,
 			this.orderPlacer,
+			this.currentUserProviderInstance,
+		);
+	}
+
+	get productReviewPublisher(): ProductReviewPublisher {
+		return new ProductReviewPublisher(
+			this.productReviewRepository,
+			this.clock,
+			this.eventBus,
+		);
+	}
+
+	get allProductReviewsSearcher(): AllProductReviewsSearcher {
+		return new AllProductReviewsSearcher(
+			this.productReviewRepository,
+			this.userRepository,
 			this.currentUserProviderInstance,
 		);
 	}

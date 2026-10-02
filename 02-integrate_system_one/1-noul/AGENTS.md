@@ -15,7 +15,7 @@ npm run test:integration
 
 - Next.js 16 (App Router), Hexagonal Architecture, DDD.
 - Frontend routes and server actions in `src/app/` (`src/app/actions/`).
-- Backend business logic in `src/contexts/backend/`, split by bounded context (`products`, `checkout`, `orders`, `users`), each with `domain/application/infrastructure`.
+- Backend business logic in `src/contexts/backend/`, split by bounded context (`products`, `checkout`, `orders`, `reviews`, `users`), each with `domain/application/infrastructure`.
 - Shared domain primitives in `src/contexts/shared/`.
 
 # Documentation

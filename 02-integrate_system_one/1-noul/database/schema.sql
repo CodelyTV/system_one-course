@@ -1,3 +1,4 @@
+drop table if exists product_reviews;
 drop table if exists order_lines;
 drop table if exists orders;
 drop table if exists checkout_lines;
@@ -66,4 +67,15 @@ create table order_lines (
 	quantity integer not null,
 	unit_price_amount integer not null,
 	primary key (order_id, variant_id)
+);
+
+create table product_reviews (
+	id text primary key,
+	product_id text not null references products(id) on delete cascade,
+	user_id text not null references users(id),
+	rating integer not null check (rating between 1 and 5),
+	comment text,
+	status text not null check (status in ('pending-validation', 'published', 'spam')),
+	created_at timestamptz not null default now(),
+	unique (product_id, user_id)
 );
