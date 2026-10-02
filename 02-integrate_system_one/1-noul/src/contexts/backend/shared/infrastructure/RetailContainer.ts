@@ -1,3 +1,5 @@
+import { createGateway } from "ai";
+
 import { CartVariantAdder } from "@/contexts/backend/checkout/application/add/CartVariantAdder";
 import { CheckoutConfirmer } from "@/contexts/backend/checkout/application/confirm/CheckoutConfirmer";
 import { CartItemCounter } from "@/contexts/backend/checkout/application/count/CartItemCounter";
@@ -19,8 +21,8 @@ import { ProductReviewPublisher } from "@/contexts/backend/reviews/application/c
 import { AllProductReviewsSearcher } from "@/contexts/backend/reviews/application/search-all/AllProductReviewsSearcher";
 import { ProductReviewValidator } from "@/contexts/backend/reviews/application/validate/ProductReviewValidator";
 import { ValidateProductReviewOnProductReviewPublished } from "@/contexts/backend/reviews/application/validate/ValidateProductReviewOnProductReviewPublished";
+import { JevProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/JevProductReviewSpamDetector";
 import { PostgresProductReviewRepository } from "@/contexts/backend/reviews/infrastructure/PostgresProductReviewRepository";
-import { RuleBasedProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/RuleBasedProductReviewSpamDetector";
 import { CurrentUserGetter } from "@/contexts/backend/users/application/current/CurrentUserGetter";
 import type { CurrentUserProvider } from "@/contexts/backend/users/domain/CurrentUserProvider";
 import { FakeSessionCurrentUserProvider } from "@/contexts/backend/users/infrastructure/FakeSessionCurrentUserProvider";
@@ -61,7 +63,11 @@ class RetailContainer {
 		new ValidateProductReviewOnProductReviewPublished(
 			new ProductReviewValidator(
 				this.productReviewRepository,
-				new RuleBasedProductReviewSpamDetector(),
+				new JevProductReviewSpamDetector(
+					createGateway({
+						apiKey: process.env.VERCEL_AI_GATEWAY_API_KEY,
+					}).evaluationModel("typesafe-ai/jev"),
+				),
 			),
 		),
 	]);

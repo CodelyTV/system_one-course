@@ -22,6 +22,7 @@
 		"db:test:reset": "npm run db:wait && (docker compose exec -T postgres psql -U retail -d retail -tc \"select 1 from pg_database where datname='retail_test'\" | grep -q 1 || docker compose exec -T postgres psql -U retail -d retail -c \"create database retail_test\") && docker compose exec -T postgres psql -U retail -d retail_test -f /dev/stdin < database/schema.sql"
 	},
 	"dependencies": {
+		"ai": "7.0.127",
 		"cross-env": "10.1.0",
 		"next": "16.2.9",
 		"postgres": "3.4.9",
