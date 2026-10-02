@@ -14,7 +14,9 @@
 		"build:scripts": "swc ./src/app/scripts ./src/contexts --out-dir dist --strip-leading-paths --copy-files",
 		"create-courses": "pnpm build:scripts && node ./dist/app/scripts/create-courses.js",
 		"search-courses": "pnpm build:scripts && node ./dist/app/scripts/search-courses.js",
-		"compare-searches": "pnpm build:scripts && node ./dist/app/scripts/compare-searches.js"
+		"compare-searches": "pnpm build:scripts && node ./dist/app/scripts/compare-searches.js",
+		"laya-mlx": "uv run etc/laya-mlx/server.py",
+		"kev": "KEV_API_KEY=courses-kev uv run --python 3.13 --with 'kev[serve] @ git+https://github.com/jaredpalmer/kev@3e1cd3bb588a388a06827443380befece23e68c7' python -m kev.serve --run ${KEV_MODEL:-jaredpalmer/kev-4b} --port 58002"
 	},
 	"dependencies": {
 		"@langchain/core": "^1.2.11",
