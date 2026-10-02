@@ -1,0 +1,47 @@
+{
+	"name": "@codely/retail-app",
+	"version": "0.1.0",
+	"private": true,
+	"engines": {
+		"node": ">=20.9.0"
+	},
+	"scripts": {
+		"dev": "cross-env WATCHPACK_POLLING=true next dev",
+		"build": "next build",
+		"typecheck": "tsc --noEmit",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"prep": "npm run typecheck && npm run lint && npm run test",
+		"test": "vitest run",
+		"test:integration": "vitest run --config vitest.integration.config.ts",
+		"db:up": "docker compose up -d",
+		"db:wait": "node scripts/wait-for-db.mjs",
+		"db:reset": "npm run db:wait && npm run db:schema && npm run db:seed",
+		"db:schema": "docker compose exec -T postgres psql -U retail -d retail -f /dev/stdin < database/schema.sql",
+		"db:seed": "docker compose exec -T postgres psql -U retail -d retail -f /dev/stdin < database/seed.sql",
+		"db:test:reset": "npm run db:wait && (docker compose exec -T postgres psql -U retail -d retail -tc \"select 1 from pg_database where datname='retail_test'\" | grep -q 1 || docker compose exec -T postgres psql -U retail -d retail -c \"create database retail_test\") && docker compose exec -T postgres psql -U retail -d retail_test -f /dev/stdin < database/schema.sql"
+	},
+	"dependencies": {
+		"cross-env": "10.1.0",
+		"next": "16.2.9",
+		"postgres": "3.4.9",
+		"react": "19.2.7",
+		"react-dom": "19.2.7"
+	},
+	"devDependencies": {
+		"@faker-js/faker": "^10.5.0",
+		"@next/eslint-plugin-next": "^16.1.1",
+		"@svgr/webpack": "8.1.0",
+		"@types/node": "25.9.4",
+		"@types/react": "19.2.17",
+		"@types/react-dom": "19.2.3",
+		"eslint": "^9.39.1",
+		"eslint-config-codely": "^4.5.0",
+		"eslint-config-next": "^16.1.1",
+		"globals": "^17.3.0",
+		"sass": "1.83.4",
+		"typescript": "6.0.3",
+		"vite-tsconfig-paths": "^6.1.1",
+		"vitest": "4.1.9"
+	}
+}

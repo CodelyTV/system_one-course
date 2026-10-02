@@ -1,0 +1,18 @@
+@use "../settings/colors";
+@use "../settings/typography";
+
+.table {
+	width: 100%;
+	font: typography.$b200-regular;
+
+	th,
+	td {
+		height: 4.2rem;
+		border-bottom: 1px solid colors.$border;
+	}
+
+	th {
+		font: typography.$b200-bold;
+		text-align: left;
+	}
+}
