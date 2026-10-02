@@ -1,0 +1,117 @@
+@use "sass:color";
+@use "sass:map";
+@use "../settings/colors";
+
+$color-with-enough-contrast-configs: (
+	alt-1: (
+		base: colors.$product-alt1,
+		text_representation: 25%,
+		bg_representation: 15%,
+	),
+	alt-2: (
+		base: colors.$product-alt2,
+		text_representation: 75%,
+		bg_representation: 10%,
+	),
+	alt-3: (
+		base: colors.$product-alt3,
+		text_representation: 25%,
+		bg_representation: 40%,
+	),
+	alt-4: (
+		base: colors.$product-alt4,
+		text_representation: 25%,
+		bg_representation: 30%,
+	),
+	live: (
+		base: colors.$state-error,
+		text_representation: 50%,
+		bg_representation: 10%,
+	),
+);
+
+@mixin color-with-bg($color) {
+	$color-config: map.get($color-with-enough-contrast-configs, $color);
+
+	$base: map.get($color-config, base);
+	$text-representation: map.get($color-config, text_representation);
+
+	color: color.mix($base, colors.$bg-darkTheme, $text-representation);
+
+	$bg-representation: map.get($color-config, bg_representation);
+
+	background: color.mix($base, colors.$white, $bg-representation);
+}
+
+@mixin color-outline($color) {
+	$base: map.get(map.get($color-with-enough-contrast-configs, $color), base);
+
+	@if $color == "alt-1" or $color == "alt-3" {
+		color: color.mix($base, #000, 50%);
+		background: colors.$white;
+		border: 1px solid color.mix($base, #000, 50%);
+	} @else {
+		color: $base;
+		background: colors.$white;
+		border: 1px solid $base;
+	}
+}
+
+@mixin color-modifiers() {
+	&--green {
+		background: colors.$product-alt1;
+	}
+
+	&--violet {
+		color: colors.$white;
+		background: colors.$product-alt2;
+
+		a {
+			color: colors.$white;
+		}
+	}
+
+	&--yellow {
+		background: colors.$product-alt3;
+	}
+
+	&--pink {
+		background: colors.$product-alt4;
+	}
+}
+
+@mixin color-with-bg-modifiers() {
+	&--alt-1 {
+		@include color-with-bg("alt-1");
+	}
+
+	&--alt-2 {
+		@include color-with-bg("alt-2");
+	}
+
+	&--alt-3 {
+		@include color-with-bg("alt-3");
+	}
+
+	&--alt-4 {
+		@include color-with-bg("alt-4");
+	}
+}
+
+@mixin color-outline-modifiers() {
+	&--alt-1 {
+		@include color-outline("alt-1");
+	}
+
+	&--alt-2 {
+		@include color-outline("alt-2");
+	}
+
+	&--alt-3 {
+		@include color-outline("alt-3");
+	}
+
+	&--alt-4 {
+		@include color-outline("alt-4");
+	}
+}

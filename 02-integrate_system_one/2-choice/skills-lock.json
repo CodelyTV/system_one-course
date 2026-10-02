@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "skills": {
+    "codely-doc-create": {
+      "source": "codelytv/agent-harness",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/codely-doc-create/SKILL.md",
+      "computedHash": "7946fceeb354d719d3fb38ed84f520a7c934c1c6d73514609c41444a8beb2dc3"
+    },
+    "codely-git-conventional_commit": {
+      "source": "codelytv/agent-harness",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/codely-git-conventional_commit/SKILL.md",
+      "computedHash": "c93b42f2e58e08ce031c383ef30784bb326d1645eccacd3be7d300ad974bc424"
+    },
+    "codely-plan-create": {
+      "source": "codelytv/agent-harness",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/codely-plan-create/SKILL.md",
+      "computedHash": "9369e67cd2abc52c528d49fe2b35977fdb4f2d85772a3fd4543bd1405f52dc35"
+    },
+    "codely-plan_phase-implement": {
+      "source": "codelytv/agent-harness",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/codely-plan_phase-implement/SKILL.md",
+      "computedHash": "01538e16258d063b6742dfd326b1fbd0201ca56588a83f6eb7454e59ea0a8cc8"
+    },
+    "doc-create": {
+      "source": "codelytv/agent-harness",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/doc-create/SKILL.md",
+      "computedHash": "741e79d6dd50573f072144129d02fc5fd723e0b54fc62c08c405b173ad450bfd"
+    },
+    "git-commit": {
+      "source": "codelytv/agent-harness",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/git-commit/SKILL.md",
+      "computedHash": "c2ecc81fabd60ccd3ab9793d43c8e6b0662857e08a85fda4bf73195926a290bf"
+    },
+    "plan-create": {
+      "source": "codelytv/agent-harness",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/plan-create/SKILL.md",
+      "computedHash": "866cf7219a6be65074f0172992aba21615c52a789104d65a9be79c6b2c16398a"
+    },
+    "plan-implement-phase": {
+      "source": "codelytv/agent-harness",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/plan-implement-phase/SKILL.md",
+      "computedHash": "7e35360ddf7717a6c8bc2cfd55eab5f7be7beda82468795f40d596e0c679a6da"
+    },
+    "plan-phase-implement": {
+      "source": "codelytv/agent-harness",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/plan-phase-implement/SKILL.md",
+      "computedHash": "37fd427553b73961ad799216ecddf3c751e4e3ba540b849d93692441a78dda42"
+    }
+  }
+}

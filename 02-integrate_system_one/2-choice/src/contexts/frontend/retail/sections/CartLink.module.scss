@@ -1,0 +1,32 @@
+.cart {
+	position: relative;
+	display: grid;
+	width: 44px;
+	height: 44px;
+	place-items: center;
+	color: var(--codely-blue);
+	background: var(--codely-white);
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	transition: background 0.15s ease;
+
+	&:hover {
+		background: var(--codely-gray-lighter);
+	}
+}
+
+.count {
+	position: absolute;
+	top: -4px;
+	right: -4px;
+	display: grid;
+	min-width: 20px;
+	height: 20px;
+	place-items: center;
+	padding: 0 6px;
+	color: var(--codely-blue);
+	font-size: 11px;
+	font-weight: 700;
+	background: var(--codely-green);
+	border-radius: 999px;
+}
