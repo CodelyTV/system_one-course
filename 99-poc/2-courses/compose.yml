@@ -7,6 +7,7 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_USER: codely
       POSTGRES_PASSWORD: c0d3ly7v
+      TYPESAFE_API_KEY: ${VERCEL_AI_GATEWAY_API_KEY:?Export VERCEL_AI_GATEWAY_API_KEY to use pg-jev through Vercel AI Gateway}
     ports:
       - "5432:5432"
     healthcheck:
@@ -21,6 +22,7 @@ services:
   laya:
     build: etc/laya
     image: courses-laya
+    restart: always
     environment:
       LAYA_PORT: "8000"
       LAYA_DEVICE: cpu
