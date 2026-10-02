@@ -13,7 +13,7 @@ services:
       timeout: 5s
       retries: 10
     volumes:
-      - retail-postgres-data:/var/lib/postgresql/data
+      - retail-postgres-data:/var/lib/postgresql
 
 volumes:
   retail-postgres-data:
