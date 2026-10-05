@@ -1,0 +1,87 @@
+@use "../contexts/frontend/design-system/settings/border";
+
+:root {
+	--codely-green: #3cff64;
+	--codely-blue: #1a2233;
+	--codely-gray: #787676;
+	--codely-gray-light: #b1b1b1;
+	--codely-gray-lighter: #efefef;
+	--codely-white: #ffffff;
+	--codely-violet: #7026f4;
+	--codely-yellow: #fef878;
+	--codely-pink: #e0a4bf;
+	--codely-red: #f83d32;
+
+	--surface: #f7f7f4;
+	--surface-strong: #eef0e9;
+	--border: #d9dbd4;
+
+	--radius-sm: #{border.$radius-default};
+	--radius-md: #{border.$radius-large};
+	--radius-lg: #{border.$radius-xl};
+
+	--font-sans: Moderat, Arial, sans-serif;
+	--font-mono: "Moderat Mono", "SFMono-Regular", Consolas, monospace;
+}
+
+html {
+	background: var(--surface);
+}
+
+body {
+	font-family: var(--font-sans);
+	font-size: 1rem;
+	line-height: 1.5;
+	color: var(--codely-blue);
+	background: var(--surface);
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+a[href],
+label[for],
+summary,
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+	cursor: pointer;
+}
+
+button:disabled {
+	cursor: not-allowed;
+}
+
+.app-shell {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+.container {
+	width: min(1180px, calc(100% - 32px));
+	margin: 0 auto;
+}
+
+.eyebrow {
+	color: var(--codely-gray);
+	font-family: var(--font-sans);
+	font-size: 0.74rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.page-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 24px;
+}
+
+@media (min-width: 860px) {
+	.page-grid {
+		grid-template-columns: 1.35fr 0.65fr;
+		align-items: start;
+	}
+}
