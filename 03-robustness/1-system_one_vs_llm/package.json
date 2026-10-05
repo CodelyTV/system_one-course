@@ -14,6 +14,7 @@
 		"prep": "npm run typecheck && npm run lint && npm run test",
 		"test": "vitest run",
 		"test:integration": "vitest run --config vitest.integration.config.ts",
+		"eval": "vitest run --config vitest.eval.config.ts",
 		"db:up": "docker compose up -d",
 		"db:wait": "node scripts/wait-for-db.mjs",
 		"db:reset": "npm run db:wait && npm run db:schema && npm run db:seed",

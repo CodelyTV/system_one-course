@@ -33,6 +33,13 @@ export default [
 		},
 	},
 	{
+		files: ["evals/**/*.ts"],
+		rules: {
+			"no-console": "off",
+			"no-await-in-loop": "off",
+		},
+	},
+	{
 		files: ["**/*.tsx"],
 		rules: {
 			"import/no-unresolved": "off",
