@@ -7,9 +7,4 @@ export abstract class ProductReviewRepository {
 	abstract search(id: ProductReviewId): Promise<ProductReview | null>;
 
 	abstract searchByProduct(productId: string): Promise<ProductReview[]>;
-
-	abstract searchByProductAndUser(
-		productId: string,
-		userId: string,
-	): Promise<ProductReview | null>;
 }

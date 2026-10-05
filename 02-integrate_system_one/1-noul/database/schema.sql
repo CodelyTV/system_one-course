@@ -76,6 +76,5 @@ create table product_reviews (
 	rating integer not null check (rating between 1 and 5),
 	comment text,
 	status text not null check (status in ('pending-validation', 'published', 'spam')),
-	created_at timestamptz not null default now(),
-	unique (product_id, user_id)
+	created_at timestamptz not null default now()
 );
