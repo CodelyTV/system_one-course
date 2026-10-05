@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Inbox · Codely Retail Support</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="/styles.css" />
+	</head>
+	<body>
+		<div class="app">
+			<nav class="rail" aria-label="Main">
+				<div class="rail__logo">C</div>
+				<a class="rail__item rail__item--active" href="#/" title="Inbox">
+					<svg viewBox="0 0 24 24"><path d="M4 4h16v10h-4.5a3.5 3.5 0 0 1-7 0H4z" /><path d="M4 14v6h16v-6" /></svg>
+				</a>
+				<span class="rail__item" title="Contacts">
+					<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></svg>
+				</span>
+				<span class="rail__item" title="Reports">
+					<svg viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7" /></svg>
+				</span>
+				<span class="rail__item rail__item--bottom" title="Settings">
+					<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1" /></svg>
+				</span>
+			</nav>
+
+			<aside class="inboxes" aria-label="Inboxes">
+				<h1 class="inboxes__title">Inbox</h1>
+				<div id="views" class="inboxes__group"></div>
+				<h2 class="inboxes__subtitle">Teammates</h2>
+				<div id="teammates" class="inboxes__group"></div>
+				<h2 class="inboxes__subtitle">Tags</h2>
+				<div id="tags" class="inboxes__group"></div>
+			</aside>
+
+			<section class="list" aria-label="Conversations">
+				<header class="list__header">
+					<h2 id="list-title" class="list__title">All conversations</h2>
+					<div class="list__filters">
+						<select id="status-filter" aria-label="Status">
+							<option value="open">Open</option>
+							<option value="pending">Pending</option>
+							<option value="snoozed">Snoozed</option>
+							<option value="closed">Closed</option>
+							<option value="all">All</option>
+						</select>
+						<span id="list-count" class="list__count"></span>
+					</div>
+					<input id="search" class="list__search" type="search" placeholder="Search conversations" />
+				</header>
+				<ul id="conversations" class="list__items"></ul>
+			</section>
+
+			<main id="conversation" class="conversation" aria-label="Conversation"></main>
+
+			<aside id="details" class="details" aria-label="Details"></aside>
+		</div>
+		<script type="module" src="/app.js"></script>
+	</body>
+</html>

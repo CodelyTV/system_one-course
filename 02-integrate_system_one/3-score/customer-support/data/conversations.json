@@ -1,0 +1,4224 @@
+[
+	{
+		"id": "conv-001",
+		"subject": "Received the wrong jacket",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-3f9a1c7e",
+			"name": "Lucía Fernández",
+			"email": "lucia.fernandez@example.com",
+			"location": "Valencia, Spain",
+			"segment": "returning",
+			"lifetimeValue": 312
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"shipping",
+			"exchange"
+		],
+		"orderId": "order-8b2e4f19",
+		"createdAt": "2026-10-02T08:14:00Z",
+		"updatedAt": "2026-10-02T09:40:00Z",
+		"messages": [
+			{
+				"id": "msg-001-1",
+				"author": "customer",
+				"authorName": "Lucía Fernández",
+				"body": "Hi, I ordered an Observability Jacket in M (order-8b2e4f19) and what arrived is a Facade Overshirt in L. Not even the same product. I need the jacket for a trip on the 12th, so please tell me how we fix this quickly. I can send photos of the label if needed.",
+				"sentAt": "2026-10-02T08:14:00Z"
+			},
+			{
+				"id": "msg-001-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Hi Lucía, I'm really sorry about the mix-up. Could you send me a photo of the item and the packing slip? As soon as I have it I'll ship the correct jacket with express delivery and send you a prepaid return label for the overshirt.",
+				"sentAt": "2026-10-02T09:02:00Z"
+			},
+			{
+				"id": "msg-001-3",
+				"author": "customer",
+				"authorName": "Lucía Fernández",
+				"body": "Photos attached. Packing slip says Observability Jacket M, so it's definitely a warehouse error. Please confirm the express shipment today.",
+				"sentAt": "2026-10-02T09:40:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-002",
+		"subject": "Change size before it ships?",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-a71d04b2",
+			"name": "Pablo Ruiz",
+			"email": "pablo.ruiz@example.com",
+			"location": "Sevilla, Spain",
+			"segment": "new",
+			"lifetimeValue": 79
+		},
+		"assignee": null,
+		"tags": [
+			"exchange"
+		],
+		"orderId": "order-c41a9e02",
+		"createdAt": "2026-10-04T17:22:00Z",
+		"updatedAt": "2026-10-04T17:22:00Z",
+		"messages": [
+			{
+				"id": "msg-002-1",
+				"author": "customer",
+				"authorName": "Pablo Ruiz",
+				"body": "hey! just ordered the Bounded Context Trousers in S but checked the size chart again and I think M is better for me. can you change it if it hasn't shipped yet? thanks",
+				"sentAt": "2026-10-04T17:22:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-003",
+		"subject": "CHARGED TWICE - fix this now",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-5e8c2d61",
+			"name": "Javier Moreno",
+			"email": "javier.moreno@example.com",
+			"location": "Madrid, Spain",
+			"segment": "returning",
+			"lifetimeValue": 418
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"billing",
+			"refund"
+		],
+		"orderId": "order-2d7f6b3a",
+		"createdAt": "2026-10-04T21:05:00Z",
+		"updatedAt": "2026-10-05T08:03:00Z",
+		"messages": [
+			{
+				"id": "msg-003-1",
+				"author": "customer",
+				"authorName": "Javier Moreno",
+				"body": "I just checked my bank app and you charged me 224€ TWICE for the same order (order-2d7f6b3a: Aggregate Hoodie + Merge Conflict Jeans + Pure Function Tee). That's 448€ gone from my account and my rent is due on Tuesday. I want the duplicate charge reversed immediately.",
+				"sentAt": "2026-10-04T21:05:00Z"
+			},
+			{
+				"id": "msg-003-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Javier, I'm very sorry. I can see two captured payments for the same order and I've escalated it to our payments team as a priority. Could you confirm the last 4 digits of the card so I can match both transactions?",
+				"sentAt": "2026-10-05T07:48:00Z"
+			},
+			{
+				"id": "msg-003-3",
+				"author": "customer",
+				"authorName": "Javier Moreno",
+				"body": "4417. And to be clear, if the money isn't back by tomorrow I'm opening a dispute with my bank. I've been a customer for two years and this is unacceptable.",
+				"sentAt": "2026-10-05T08:03:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-004",
+		"subject": "Washing the Event Storm Knit",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-0b6e93f4",
+			"name": "Anna Schmidt",
+			"email": "anna.schmidt@example.com",
+			"location": "Berlin, Germany",
+			"segment": "returning",
+			"lifetimeValue": 203
+		},
+		"assignee": null,
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-01T12:31:00Z",
+		"updatedAt": "2026-10-01T12:31:00Z",
+		"messages": [
+			{
+				"id": "msg-004-1",
+				"author": "customer",
+				"authorName": "Anna Schmidt",
+				"body": "Hello :) Quick question, can the Event Storm Knit go in the washing machine on a wool programme or is it hand wash only? The label is a bit faded on mine. Love it by the way!",
+				"sentAt": "2026-10-01T12:31:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-005",
+		"subject": "Discount code DEVFRIDAY not working",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-d28f5a19",
+			"name": "Marc Puig",
+			"email": "marc.puig@example.com",
+			"location": "Barcelona, Spain",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"discount"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-03T19:44:00Z",
+		"updatedAt": "2026-10-03T20:02:00Z",
+		"messages": [
+			{
+				"id": "msg-005-1",
+				"author": "customer",
+				"authorName": "Marc Puig",
+				"body": "Hi, I'm trying to use DEVFRIDAY at checkout and it says the code is invalid. I got it in your newsletter yesterday. Cart is Hexagonal Overshirt + Domain Event Tee.",
+				"sentAt": "2026-10-03T19:44:00Z"
+			},
+			{
+				"id": "msg-005-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Marc! DEVFRIDAY applies to orders over 100€. Your cart is at 128€ so it should work, could you tell me if you're typing it in uppercase and if there's any space at the end?",
+				"sentAt": "2026-10-03T19:51:00Z"
+			},
+			{
+				"id": "msg-005-3",
+				"author": "customer",
+				"authorName": "Marc Puig",
+				"body": "Uppercase, no spaces, copied straight from the email. Still \"invalid code\". Tried on my phone too.",
+				"sentAt": "2026-10-03T20:02:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-006",
+		"subject": "Refund still not received after 3 weeks",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-7c3b1e8d",
+			"name": "Sofia Rossi",
+			"email": "sofia.rossi@example.com",
+			"location": "Milan, Italy",
+			"segment": "returning",
+			"lifetimeValue": 254
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"refund"
+		],
+		"orderId": "order-f03c7a55",
+		"createdAt": "2026-09-29T10:12:00Z",
+		"updatedAt": "2026-10-04T16:20:00Z",
+		"messages": [
+			{
+				"id": "msg-006-1",
+				"author": "customer",
+				"authorName": "Sofia Rossi",
+				"body": "Good morning. I returned a Circuit Breaker Knit (75€) on September 8th and the tracking shows you received it on the 11th. Your policy says refunds within 14 days. It's now been 18 days and I still have nothing. Could you please look into this?",
+				"sentAt": "2026-09-29T10:12:00Z"
+			},
+			{
+				"id": "msg-006-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Sofia, apologies for the delay. I can confirm the return was received. I've asked our finance team to check why the refund hasn't been issued and will get back to you within 48h.",
+				"sentAt": "2026-09-29T11:30:00Z"
+			},
+			{
+				"id": "msg-006-3",
+				"author": "customer",
+				"authorName": "Sofia Rossi",
+				"body": "It's been more than 48h and I haven't heard anything. I'd appreciate an actual date for the refund, please.",
+				"sentAt": "2026-10-02T09:15:00Z"
+			},
+			{
+				"id": "msg-006-4",
+				"author": "customer",
+				"authorName": "Sofia Rossi",
+				"body": "Still nothing. This is getting really frustrating.",
+				"sentAt": "2026-10-04T16:20:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-007",
+		"subject": "Tracking stuck for 4 days",
+		"status": "pending",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-e94a27c0",
+			"name": "Tomás Herrera",
+			"email": "tomas.herrera@example.com",
+			"location": "Bilbao, Spain",
+			"segment": "returning",
+			"lifetimeValue": 158
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-6a91d0e4",
+		"createdAt": "2026-10-01T15:08:00Z",
+		"updatedAt": "2026-10-01T15:20:00Z",
+		"messages": [
+			{
+				"id": "msg-007-1",
+				"author": "customer",
+				"authorName": "Tomás Herrera",
+				"body": "My tracking says \"in transit\" since Sept 27th and hasn't moved. Order is a Null Pointer Tee and Ubiquitous Chinos. Is it lost?",
+				"sentAt": "2026-10-01T15:08:00Z"
+			},
+			{
+				"id": "msg-007-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Tomás, I've opened an inquiry with the carrier. Sometimes scans are skipped at the hub. I'll update you as soon as they reply, usually within 1-2 working days.",
+				"sentAt": "2026-10-01T15:20:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-008",
+		"subject": "Just wanted to say thanks",
+		"status": "closed",
+		"channel": "email",
+		"customer": {
+			"id": "customer-1f5c8b3a",
+			"name": "Elena Navarro",
+			"email": "elena.navarro@example.com",
+			"location": "Zaragoza, Spain",
+			"segment": "vip",
+			"lifetimeValue": 1240
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"feedback"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-28T18:40:00Z",
+		"updatedAt": "2026-09-29T08:15:00Z",
+		"messages": [
+			{
+				"id": "msg-008-1",
+				"author": "customer",
+				"authorName": "Elena Navarro",
+				"body": "Hi team! Got my Refactor Utility Vest today and wore it to a meetup tonight. Three people asked where it was from. The quality is great as always, and the little \"git push --force with care\" note in the box made me laugh. Keep it up!",
+				"sentAt": "2026-09-28T18:40:00Z"
+			},
+			{
+				"id": "msg-008-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Elena, this made our morning! Thank you so much for being with us all this time. Enjoy the vest, and say hi to the meetup crew from us.",
+				"sentAt": "2026-09-29T08:15:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-009",
+		"subject": "Parcel arrived ripped open",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-8d02f6e7",
+			"name": "Hugo Lefèvre",
+			"email": "hugo.lefevre@example.com",
+			"location": "Lyon, France",
+			"segment": "new",
+			"lifetimeValue": 158
+		},
+		"assignee": null,
+		"tags": [
+			"shipping",
+			"refund"
+		],
+		"orderId": "order-9e4b2c17",
+		"createdAt": "2026-10-05T09:12:00Z",
+		"updatedAt": "2026-10-05T09:12:00Z",
+		"messages": [
+			{
+				"id": "msg-009-1",
+				"author": "customer",
+				"authorName": "Hugo Lefèvre",
+				"body": "Hi. The box arrived completely torn and soaked. The Idempotent Shirt has a big stain and the Value Object Shirt is missing. Courier just left it at the door. What do I do??",
+				"sentAt": "2026-10-05T09:12:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-010",
+		"subject": "Update delivery address",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-4a6d9b20",
+			"name": "Carmen López",
+			"email": "carmen.lopez@example.com",
+			"location": "Málaga, Spain",
+			"segment": "returning",
+			"lifetimeValue": 187
+		},
+		"assignee": null,
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-b75e3d08",
+		"createdAt": "2026-10-04T22:31:00Z",
+		"updatedAt": "2026-10-04T22:31:00Z",
+		"messages": [
+			{
+				"id": "msg-010-1",
+				"author": "customer",
+				"authorName": "Carmen López",
+				"body": "Hello,\n\nI placed order-b75e3d08 this evening and realised I used my old address (Calle Larios 12). I've moved to Calle Alamos 34, 3ºB, 29012 Málaga. Could you update it before it's dispatched?\n\nThanks a lot,\nCarmen",
+				"sentAt": "2026-10-04T22:31:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-011",
+		"subject": "Someone ordered from my account",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-c6e81f3d",
+			"name": "Daniel Ortega",
+			"email": "daniel.ortega@example.com",
+			"location": "Granada, Spain",
+			"segment": "vip",
+			"lifetimeValue": 960
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"account",
+			"privacy",
+			"billing"
+		],
+		"orderId": "order-4c0a8f6b",
+		"createdAt": "2026-10-05T06:58:00Z",
+		"updatedAt": "2026-10-05T07:34:00Z",
+		"messages": [
+			{
+				"id": "msg-011-1",
+				"author": "customer",
+				"authorName": "Daniel Ortega",
+				"body": "I got an email confirming an order of 3 Observability Jackets shipped to an address in Lisbon. I did NOT place this order. My password was also changed — I had to reset it just now. Someone got into my account and used my saved card. Please cancel the order before it ships and tell me what data they could see.",
+				"sentAt": "2026-10-05T06:58:00Z"
+			},
+			{
+				"id": "msg-011-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Daniel, thank you for flagging this so quickly. I've put the order on hold and locked the account. Can you confirm whether you still have access to the email on file and if you've used the same password on other sites?",
+				"sentAt": "2026-10-05T07:20:00Z"
+			},
+			{
+				"id": "msg-011-3",
+				"author": "customer",
+				"authorName": "Daniel Ortega",
+				"body": "Yes I have access to the email. The password might be reused, I'm not sure. I've also called my bank to block the card. Please confirm the order is cancelled, not just on hold.",
+				"sentAt": "2026-10-05T07:34:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-012",
+		"subject": "Exchange Aggregate Hoodie for a smaller size",
+		"status": "pending",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-2b9f7a64",
+			"name": "Inés García",
+			"email": "ines.garcia@example.com",
+			"location": "Salamanca, Spain",
+			"segment": "returning",
+			"lifetimeValue": 271
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"exchange"
+		],
+		"orderId": "order-17d3c9a2",
+		"createdAt": "2026-10-02T11:05:00Z",
+		"updatedAt": "2026-10-02T11:12:00Z",
+		"messages": [
+			{
+				"id": "msg-012-1",
+				"author": "customer",
+				"authorName": "Inés García",
+				"body": "Hi there! The Aggregate Hoodie in L is a bit too baggy on me. Can I exchange it for an M?",
+				"sentAt": "2026-10-02T11:05:00Z"
+			},
+			{
+				"id": "msg-012-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Of course, Inés! M is in stock. I've generated a free return label, I just need you to confirm the hoodie is unworn and still has the tags on.",
+				"sentAt": "2026-10-02T11:12:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-013",
+		"subject": "Will the Merge Conflict Jeans come back in M?",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-6f1e0c95",
+			"name": "Erik Johansson",
+			"email": "erik.johansson@example.com",
+			"location": "Stockholm, Sweden",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": null,
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-03T13:47:00Z",
+		"updatedAt": "2026-10-03T13:47:00Z",
+		"messages": [
+			{
+				"id": "msg-013-1",
+				"author": "customer",
+				"authorName": "Erik Johansson",
+				"body": "Any idea when Merge Conflict Jeans will be back in M? Been sold out for a while.",
+				"sentAt": "2026-10-03T13:47:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-014",
+		"subject": "Payment declined but money taken",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-9a4c3e18",
+			"name": "Raquel Domínguez",
+			"email": "raquel.dominguez@example.com",
+			"location": "Murcia, Spain",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"billing"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-04T12:10:00Z",
+		"updatedAt": "2026-10-04T12:41:00Z",
+		"messages": [
+			{
+				"id": "msg-014-1",
+				"author": "customer",
+				"authorName": "Raquel Domínguez",
+				"body": "Hi, I tried to buy the Hexagonal Overshirt and the checkout said \"payment failed\". But my bank shows 89€ pending. I don't have any order confirmation. Did it go through or not? I don't want to pay twice.",
+				"sentAt": "2026-10-04T12:10:00Z"
+			},
+			{
+				"id": "msg-014-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Raquel, I can't see an order under your email, so the 89€ is most likely a pre-authorisation that will be released automatically in 3-5 days. Could you send me a screenshot of the pending charge so I can double check with our payment provider?",
+				"sentAt": "2026-10-04T12:34:00Z"
+			},
+			{
+				"id": "msg-014-3",
+				"author": "customer",
+				"authorName": "Raquel Domínguez",
+				"body": "Ok sending it. But I still want the shirt, should I try again now or wait?",
+				"sentAt": "2026-10-04T12:41:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-015",
+		"subject": "Size chart for Value Object Shirt",
+		"status": "closed",
+		"channel": "email",
+		"customer": {
+			"id": "customer-b3d7e520",
+			"name": "Oliver Bennett",
+			"email": "oliver.bennett@example.com",
+			"location": "Dublin, Ireland",
+			"segment": "returning",
+			"lifetimeValue": 133
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-30T14:22:00Z",
+		"updatedAt": "2026-09-30T15:30:00Z",
+		"messages": [
+			{
+				"id": "msg-015-1",
+				"author": "customer",
+				"authorName": "Oliver Bennett",
+				"body": "Hello, is the Value Object Shirt slim fit or regular? I'm 182cm, 78kg, usually M in most brands but your Domain Event Tee in M was slightly tight on the shoulders.",
+				"sentAt": "2026-09-30T14:22:00Z"
+			},
+			{
+				"id": "msg-015-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Oliver! The Value Object Shirt is a regular fit and runs a bit roomier than the tees. With your measurements M should fit comfortably. If not, exchanges are free within 30 days.",
+				"sentAt": "2026-09-30T15:05:00Z"
+			},
+			{
+				"id": "msg-015-3",
+				"author": "customer",
+				"authorName": "Oliver Bennett",
+				"body": "Perfect, thanks. Ordering the M.",
+				"sentAt": "2026-09-30T15:30:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-016",
+		"subject": "Dark mode for the website?",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-5c8a1d7f",
+			"name": "Álvaro Castillo",
+			"email": "alvaro.castillo@example.com",
+			"location": "Valladolid, Spain",
+			"segment": "returning",
+			"lifetimeValue": 104
+		},
+		"assignee": null,
+		"tags": [
+			"feedback"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-01T23:48:00Z",
+		"updatedAt": "2026-10-01T23:48:00Z",
+		"messages": [
+			{
+				"id": "msg-016-1",
+				"author": "customer",
+				"authorName": "Álvaro Castillo",
+				"body": "Not a complaint, just a suggestion: a store for developers without dark mode? My eyes at midnight beg you. Also it'd be cool to filter products by \"fits a laptop in the pocket\" lol",
+				"sentAt": "2026-10-01T23:48:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-017",
+		"subject": "Damaged zip on Observability Jacket",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-f2a6e9b1",
+			"name": "Clara Jiménez",
+			"email": "clara.jimenez@example.com",
+			"location": "Alicante, Spain",
+			"segment": "vip",
+			"lifetimeValue": 845
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"product",
+			"exchange"
+		],
+		"orderId": "order-3e8d1a70",
+		"createdAt": "2026-10-03T10:02:00Z",
+		"updatedAt": "2026-10-04T18:10:00Z",
+		"messages": [
+			{
+				"id": "msg-017-1",
+				"author": "customer",
+				"authorName": "Clara Jiménez",
+				"body": "Hi Marta,\n\nI received my Observability Jacket (S) yesterday and the main zip came off on the second try. The slider is completely detached. I've bought from you many times and never had a problem, so I assume it's a defective unit. I'd like a replacement rather than a refund if possible.\n\nBest,\nClara",
+				"sentAt": "2026-10-03T10:02:00Z"
+			},
+			{
+				"id": "msg-017-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Clara, so sorry to hear that! Replacement it is. I'm reserving an S for you now. Could you send a quick photo of the zip so I can report it to the manufacturer?",
+				"sentAt": "2026-10-03T10:45:00Z"
+			},
+			{
+				"id": "msg-017-3",
+				"author": "customer",
+				"authorName": "Clara Jiménez",
+				"body": "Photo attached. Thanks for being so quick as always.",
+				"sentAt": "2026-10-03T11:20:00Z"
+			},
+			{
+				"id": "msg-017-4",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Received, thank you. The replacement leaves our warehouse tomorrow morning and a courier will collect the faulty one at the same time. You'll get the tracking by email.",
+				"sentAt": "2026-10-03T11:42:00Z"
+			},
+			{
+				"id": "msg-017-5",
+				"author": "customer",
+				"authorName": "Clara Jiménez",
+				"body": "Hi, no tracking email yet and nobody came to collect the jacket today. Can you check?",
+				"sentAt": "2026-10-04T18:10:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-018",
+		"subject": "Order not here yet",
+		"status": "snoozed",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-0e7b4c2a",
+			"name": "Nerea Etxeberria",
+			"email": "nerea.etxeberria@example.com",
+			"location": "San Sebastián, Spain",
+			"segment": "new",
+			"lifetimeValue": 39
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-a2f58e3c",
+		"createdAt": "2026-09-30T09:10:00Z",
+		"updatedAt": "2026-09-30T09:25:00Z",
+		"messages": [
+			{
+				"id": "msg-018-1",
+				"author": "customer",
+				"authorName": "Nerea Etxeberria",
+				"body": "hello when will my Pure Function Tee arrive? ordered 5 days ago",
+				"sentAt": "2026-09-30T09:10:00Z"
+			},
+			{
+				"id": "msg-018-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Nerea! Your parcel is with the carrier and the estimated delivery is October 6th. I'll check again that day in case it hasn't arrived.",
+				"sentAt": "2026-09-30T09:25:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-019",
+		"subject": "Rash after wearing the Circuit Breaker Knit",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-7d4f2b96",
+			"name": "Isabel Martínez",
+			"email": "isabel.martinez@example.com",
+			"location": "Córdoba, Spain",
+			"segment": "returning",
+			"lifetimeValue": 223
+		},
+		"assignee": null,
+		"tags": [
+			"product",
+			"refund"
+		],
+		"orderId": "order-5b1c7e9d",
+		"createdAt": "2026-10-05T08:42:00Z",
+		"updatedAt": "2026-10-05T08:42:00Z",
+		"messages": [
+			{
+				"id": "msg-019-1",
+				"author": "customer",
+				"authorName": "Isabel Martínez",
+				"body": "Hello,\n\nI wore the Circuit Breaker Knit for a few hours yesterday and woke up today with a red, itchy rash on my neck and arms. My doctor thinks it's a contact reaction, possibly to a dye or a finishing treatment. The product page says 100% merino but I'd like to know exactly what treatments and dyes are used, because I need to tell my dermatologist.\n\nI obviously want to return it, but the most important thing right now is the composition information. Please reply as soon as possible.\n\nIsabel",
+				"sentAt": "2026-10-05T08:42:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-020",
+		"subject": "Can I add an item to my order?",
+		"status": "pending",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-1a9d6c3e",
+			"name": "Lukas Novak",
+			"email": "lukas.novak@example.com",
+			"location": "Prague, Czech Republic",
+			"segment": "returning",
+			"lifetimeValue": 147
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-e6c2b048",
+		"createdAt": "2026-10-04T10:15:00Z",
+		"updatedAt": "2026-10-04T10:22:00Z",
+		"messages": [
+			{
+				"id": "msg-020-1",
+				"author": "customer",
+				"authorName": "Lukas Novak",
+				"body": "Hi! I ordered the Facade Overshirt an hour ago. Can I add a Null Pointer Tee (M) to the same order so it ships together?",
+				"sentAt": "2026-10-04T10:15:00Z"
+			},
+			{
+				"id": "msg-020-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Hi Lukas! We can't modify the order directly, but if you place a second order with the tee now I can ask the warehouse to pack both together and refund the second shipping fee. Let me know once it's placed.",
+				"sentAt": "2026-10-04T10:22:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-021",
+		"subject": "Gift wrapping?",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-3c5e8f01",
+			"name": "Beatriz Romero",
+			"email": "beatriz.romero@example.com",
+			"location": "Oviedo, Spain",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": null,
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-02T20:05:00Z",
+		"updatedAt": "2026-10-02T20:05:00Z",
+		"messages": [
+			{
+				"id": "msg-021-1",
+				"author": "customer",
+				"authorName": "Beatriz Romero",
+				"body": "Hi! I want to buy the Domain Event Tee for my boyfriend's birthday (he's a backend dev, he'll get the joke). Do you offer gift wrapping or a gift note without prices? Thanks!",
+				"sentAt": "2026-10-02T20:05:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-022",
+		"subject": "Missing item in my order",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-8f3a5d72",
+			"name": "Matteo Bianchi",
+			"email": "matteo.bianchi@example.com",
+			"location": "Rome, Italy",
+			"segment": "returning",
+			"lifetimeValue": 296
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-0d9e4a1b",
+		"createdAt": "2026-10-03T16:30:00Z",
+		"updatedAt": "2026-10-04T09:30:00Z",
+		"messages": [
+			{
+				"id": "msg-022-1",
+				"author": "customer",
+				"authorName": "Matteo Bianchi",
+				"body": "Package came today, Ubiquitous Chinos are there but the Event Storm Knit isn't. Invoice says both. Paid 134€.",
+				"sentAt": "2026-10-03T16:30:00Z"
+			},
+			{
+				"id": "msg-022-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Matteo, thanks for letting us know. Sometimes items ship in two parcels — let me check with the warehouse whether the knit left separately.",
+				"sentAt": "2026-10-03T16:41:00Z"
+			},
+			{
+				"id": "msg-022-3",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Update: the warehouse confirms it was shipped in one parcel only, so the knit was missed. I can send it today or refund the 69€, whichever you prefer.",
+				"sentAt": "2026-10-04T09:05:00Z"
+			},
+			{
+				"id": "msg-022-4",
+				"author": "customer",
+				"authorName": "Matteo Bianchi",
+				"body": "send it please, I wanted the knit not the money",
+				"sentAt": "2026-10-04T09:30:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-023",
+		"subject": "Student discount",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-6b2e9d48",
+			"name": "Irene Sánchez",
+			"email": "irene.sanchez@example.com",
+			"location": "Salamanca, Spain",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": null,
+		"tags": [
+			"discount"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-01T11:18:00Z",
+		"updatedAt": "2026-10-01T11:18:00Z",
+		"messages": [
+			{
+				"id": "msg-023-1",
+				"author": "customer",
+				"authorName": "Irene Sánchez",
+				"body": "Hi, I'm a computer science student at USAL. I saw a friend got a student discount code from you a few months ago, is that still available? How do I get one? I'd like to buy the Aggregate Hoodie but 95€ is a lot for my budget right now.",
+				"sentAt": "2026-10-01T11:18:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-024",
+		"subject": "Do you ship to Canada?",
+		"status": "closed",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-4d8c1a6f",
+			"name": "Chloé Martin",
+			"email": "chloe.martin@example.com",
+			"location": "Montréal, Canada",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": "Marta Vidal",
+		"tags": [],
+		"orderId": null,
+		"createdAt": "2026-09-29T19:12:00Z",
+		"updatedAt": "2026-09-29T19:23:00Z",
+		"messages": [
+			{
+				"id": "msg-024-1",
+				"author": "customer",
+				"authorName": "Chloé Martin",
+				"body": "Bonjour! Do you ship to Canada? And would I pay customs?",
+				"sentAt": "2026-09-29T19:12:00Z"
+			},
+			{
+				"id": "msg-024-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Bonjour Chloé! Yes, we ship to Canada (5-8 working days, 15€). Customs duties may apply on arrival and are paid by the recipient, depending on the order value.",
+				"sentAt": "2026-09-29T19:20:00Z"
+			},
+			{
+				"id": "msg-024-3",
+				"author": "customer",
+				"authorName": "Chloé Martin",
+				"body": "Ok merci!",
+				"sentAt": "2026-09-29T19:23:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-025",
+		"subject": "Conference tomorrow - order lost",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-e5f1b7c3",
+			"name": "Raúl Gil",
+			"email": "raul.gil@example.com",
+			"location": "Madrid, Spain",
+			"segment": "vip",
+			"lifetimeValue": 1385
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-7f2a6c91",
+		"createdAt": "2026-10-05T07:15:00Z",
+		"updatedAt": "2026-10-05T07:46:00Z",
+		"messages": [
+			{
+				"id": "msg-025-1",
+				"author": "customer",
+				"authorName": "Raúl Gil",
+				"body": "Laura, I need help urgently. I ordered 6 Domain Event Tees and 2 Hexagonal Overshirts for our team, we're speaking at a conference TOMORROW morning in Madrid and we planned to wear them on stage. The tracking says \"delivered\" yesterday at 19:40 but nothing arrived. The building concierge has nothing either.",
+				"sentAt": "2026-10-05T07:15:00Z"
+			},
+			{
+				"id": "msg-025-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Raúl, I'm on it. I've opened an urgent claim with the carrier. In parallel I'm checking if we can prepare a replacement and send it with same-day courier to your office. Can you confirm the exact sizes still match the original order?",
+				"sentAt": "2026-10-05T07:40:00Z"
+			},
+			{
+				"id": "msg-025-3",
+				"author": "customer",
+				"authorName": "Raúl Gil",
+				"body": "Yes same sizes. Office is Paseo de la Castellana 95. We need them before 20:00 today, after that it's useless. Please confirm as soon as you know.",
+				"sentAt": "2026-10-05T07:46:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-026",
+		"subject": "Will the Observability Jacket have a winter version?",
+		"status": "snoozed",
+		"channel": "email",
+		"customer": {
+			"id": "customer-2f6a3b8d",
+			"name": "Marta Ibáñez",
+			"email": "marta.ibanez@example.com",
+			"location": "Pamplona, Spain",
+			"segment": "vip",
+			"lifetimeValue": 1102
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"product",
+			"feedback"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-28T10:30:00Z",
+		"updatedAt": "2026-09-28T12:20:00Z",
+		"messages": [
+			{
+				"id": "msg-026-1",
+				"author": "customer",
+				"authorName": "Marta Ibáñez",
+				"body": "Hi! The Observability Jacket is my favourite thing I own, but in Pamplona it's not enough from November onwards. Any plans for a padded or lined version? I'd pre-order it in a heartbeat.",
+				"sentAt": "2026-09-28T10:30:00Z"
+			},
+			{
+				"id": "msg-026-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Marta! Thank you so much. I can't share dates yet, but our product team is working on the autumn/winter line. I'll get back to you as soon as I can share something.",
+				"sentAt": "2026-09-28T12:05:00Z"
+			},
+			{
+				"id": "msg-026-3",
+				"author": "customer",
+				"authorName": "Marta Ibáñez",
+				"body": "Great, ping me when you know!",
+				"sentAt": "2026-09-28T12:20:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-027",
+		"subject": "Wrong colour received",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-9b0d4e57",
+			"name": "Andrés Vega",
+			"email": "andres.vega@example.com",
+			"location": "Santander, Spain",
+			"segment": "returning",
+			"lifetimeValue": 174
+		},
+		"assignee": null,
+		"tags": [
+			"exchange"
+		],
+		"orderId": "order-d48b1f26",
+		"createdAt": "2026-10-05T10:20:00Z",
+		"updatedAt": "2026-10-05T10:20:00Z",
+		"messages": [
+			{
+				"id": "msg-027-1",
+				"author": "customer",
+				"authorName": "Andrés Vega",
+				"body": "I ordered the Refactor Utility Vest in olive and got it in black. Size is right (L) but I specifically wanted olive. This is the second time something like this happens with my orders. How do I get the right one?",
+				"sentAt": "2026-10-05T10:20:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-028",
+		"subject": "Aggregate Hoodie too small, can I swap for L?",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-3f9a1c72",
+			"name": "Álvaro Peña Ruiz",
+			"email": "alvaro.pena@example.com",
+			"location": "Zaragoza, Spain",
+			"segment": "new",
+			"lifetimeValue": 95
+		},
+		"assignee": null,
+		"tags": [
+			"exchange"
+		],
+		"orderId": "order-7c21e9ab",
+		"createdAt": "2026-10-02T08:14:00Z",
+		"updatedAt": "2026-10-02T08:14:00Z",
+		"messages": [
+			{
+				"id": "msg-028-1",
+				"author": "customer",
+				"authorName": "Álvaro Peña Ruiz",
+				"body": "Hi there,\n\nI received my Aggregate Hoodie yesterday (size M) and it's a bit tight around the shoulders. I usually wear M everywhere but I guess this one runs small. Could I exchange it for an L? I haven't washed it and the tags are still on.\n\nThanks,\nÁlvaro",
+				"sentAt": "2026-10-02T08:14:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-029",
+		"subject": "CHARGED TWICE for the same order",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-b80e4d15",
+			"name": "Nerea Etxeberria",
+			"email": "nerea.etxe@example.com",
+			"location": "Bilbao, Spain",
+			"segment": "returning",
+			"lifetimeValue": 312
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"billing",
+			"refund"
+		],
+		"orderId": "order-e4a90b3d",
+		"createdAt": "2026-10-04T19:02:00Z",
+		"updatedAt": "2026-10-04T19:12:00Z",
+		"messages": [
+			{
+				"id": "msg-029-1",
+				"author": "customer",
+				"authorName": "Nerea Etxeberria",
+				"body": "hello?? I just checked my bank app and you've charged me 218€ TWICE for order e4a90b3d. That's 436€ gone from my account and rent is due on Monday. I only placed one order!!",
+				"sentAt": "2026-10-04T19:02:00Z"
+			},
+			{
+				"id": "msg-029-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Nerea, I'm really sorry about this. I can see one completed payment on our side for that order. Could you tell me whether the second charge shows as 'pending' or 'completed' in your banking app?",
+				"sentAt": "2026-10-04T19:09:00Z"
+			},
+			{
+				"id": "msg-029-3",
+				"author": "customer",
+				"authorName": "Nerea Etxeberria",
+				"body": "Both say completed. Same amount, same time, 18:41. I need this money back today, not in 5-10 business days. Please escalate this, I'm genuinely panicking",
+				"sentAt": "2026-10-04T19:12:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-030",
+		"subject": "Washing the Event Storm Knit",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-5d2c7f08",
+			"name": "Ingrid Larsen",
+			"email": "ingrid.larsen@example.com",
+			"location": "Copenhagen, Denmark",
+			"segment": "returning",
+			"lifetimeValue": 168
+		},
+		"assignee": null,
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-29T15:40:00Z",
+		"updatedAt": "2026-09-29T15:40:00Z",
+		"messages": [
+			{
+				"id": "msg-030-1",
+				"author": "customer",
+				"authorName": "Ingrid Larsen",
+				"body": "Hello! Quick question about the Event Storm Knit I bought a couple of weeks ago. The label says hand wash but I'm terrible at that. Is a wool cycle at 30 degrees ok, or will it shrink? Also, can it go in the dryer on low? Love the colour by the way.",
+				"sentAt": "2026-09-29T15:40:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-031",
+		"subject": "Got the wrong tee",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-a1e63b9f",
+			"name": "Tomás Herrera",
+			"email": "tomas.herrera@example.com",
+			"location": "Sevilla, Spain",
+			"segment": "returning",
+			"lifetimeValue": 147
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"shipping",
+			"exchange"
+		],
+		"orderId": "order-2b7f5d10",
+		"createdAt": "2026-10-03T10:21:00Z",
+		"updatedAt": "2026-10-03T11:02:00Z",
+		"messages": [
+			{
+				"id": "msg-031-1",
+				"author": "customer",
+				"authorName": "Tomás Herrera",
+				"body": "Hey, I ordered a Pure Function Tee size L and what arrived is a Null Pointer Tee size S. Funny name given the situation but not what I paid for 😅",
+				"sentAt": "2026-10-03T10:21:00Z"
+			},
+			{
+				"id": "msg-031-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Tomás! Oops, sorry about that mix-up. Could you send me a photo of the tee and the label on the bag it came in? I'll get the right one sent out straight away.",
+				"sentAt": "2026-10-03T10:35:00Z"
+			},
+			{
+				"id": "msg-031-3",
+				"author": "customer",
+				"authorName": "Tomás Herrera",
+				"body": "Sent both photos just now. Also I wanted to wear it this weekend so if you can ship it express that'd be great",
+				"sentAt": "2026-10-03T11:02:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-032",
+		"subject": "Discount code DEVWEEK not working",
+		"status": "pending",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-6c4f92e1",
+			"name": "Chiara Bellini",
+			"email": "chiara.bellini@example.com",
+			"location": "Milan, Italy",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"discount"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-01T12:05:00Z",
+		"updatedAt": "2026-10-01T12:11:00Z",
+		"messages": [
+			{
+				"id": "msg-032-1",
+				"author": "customer",
+				"authorName": "Chiara Bellini",
+				"body": "Hi, the code from your newsletter says it's invalid when I try it at checkout. I have the Ubiquitous Chinos and a Value Object Shirt in my basket.",
+				"sentAt": "2026-10-01T12:05:00Z"
+			},
+			{
+				"id": "msg-032-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Hi Chiara, thanks for reaching out! Could you paste the exact code you're entering? Some newsletter codes are case-sensitive, and a couple of them only apply to orders over 100€.",
+				"sentAt": "2026-10-01T12:11:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-033",
+		"subject": "Observability Jacket XS back in stock?",
+		"status": "snoozed",
+		"channel": "email",
+		"customer": {
+			"id": "customer-0e7d3a54",
+			"name": "Lucía Fernández Gil",
+			"email": "lucia.fgil@example.com",
+			"location": "Valladolid, Spain",
+			"segment": "returning",
+			"lifetimeValue": 203
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-28T17:30:00Z",
+		"updatedAt": "2026-09-29T09:15:00Z",
+		"messages": [
+			{
+				"id": "msg-033-1",
+				"author": "customer",
+				"authorName": "Lucía Fernández Gil",
+				"body": "Hola! Do you know when the Observability Jacket will be back in XS? It's been sold out for a while and I'd really like one before it gets properly cold.",
+				"sentAt": "2026-09-28T17:30:00Z"
+			},
+			{
+				"id": "msg-033-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Lucía, thanks for your patience! We're expecting a new batch around mid-October. I've added you to the notification list so you'll get an email the moment XS is available.",
+				"sentAt": "2026-09-29T09:15:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-034",
+		"subject": "Refund still not received after 3 weeks",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-d93b0c6a",
+			"name": "Javier Montoya",
+			"email": "javier.montoya@example.com",
+			"location": "Madrid, Spain",
+			"segment": "vip",
+			"lifetimeValue": 1840
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"refund",
+			"billing"
+		],
+		"orderId": "order-9a3e17c4",
+		"createdAt": "2026-09-30T08:47:00Z",
+		"updatedAt": "2026-10-05T07:58:00Z",
+		"messages": [
+			{
+				"id": "msg-034-1",
+				"author": "customer",
+				"authorName": "Javier Montoya",
+				"body": "Hello,\n\nI returned a pair of Merge Conflict Jeans (85€) on 9 September. Your tracking shows they were delivered to your warehouse on the 12th. It's now been over three weeks and I still haven't seen the refund.\n\nI've been buying from you for years and I've never had an issue, so I'm surprised. Can you please check what's going on?\n\nJavier",
+				"sentAt": "2026-09-30T08:47:00Z"
+			},
+			{
+				"id": "msg-034-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Javier, thank you for your patience and for being such a loyal customer. I've checked and the return was received but not processed due to an internal error. I've raised it with our finance team as a priority.",
+				"sentAt": "2026-09-30T11:20:00Z"
+			},
+			{
+				"id": "msg-034-3",
+				"author": "customer",
+				"authorName": "Javier Montoya",
+				"body": "Thanks Diego, but that was five days ago and still nothing. I'd appreciate a concrete date, please.",
+				"sentAt": "2026-10-05T07:58:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-035",
+		"subject": "Change delivery address",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-48f1e2b7",
+			"name": "Pau Soler",
+			"email": "pau.soler@example.com",
+			"location": "Barcelona, Spain",
+			"segment": "new",
+			"lifetimeValue": 129
+		},
+		"assignee": null,
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-c5d8a2f6",
+		"createdAt": "2026-10-05T09:31:00Z",
+		"updatedAt": "2026-10-05T09:31:00Z",
+		"messages": [
+			{
+				"id": "msg-035-1",
+				"author": "customer",
+				"authorName": "Pau Soler",
+				"body": "Hi! I just placed an order (Observability Jacket) and realised it's going to my old flat. Can you change it to Carrer de Mallorca 214, 3º 2ª, 08036 Barcelona? It says 'processing' still so hopefully not too late",
+				"sentAt": "2026-10-05T09:31:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-036",
+		"subject": "Someone got into my account and placed orders",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-f2a07d9c",
+			"name": "Elena Costa",
+			"email": "elena.costa@example.com",
+			"location": "Porto, Portugal",
+			"segment": "returning",
+			"lifetimeValue": 420
+		},
+		"assignee": null,
+		"tags": [
+			"account",
+			"privacy",
+			"billing"
+		],
+		"orderId": "order-71bc4e08",
+		"createdAt": "2026-10-05T06:12:00Z",
+		"updatedAt": "2026-10-05T06:48:00Z",
+		"messages": [
+			{
+				"id": "msg-036-1",
+				"author": "customer",
+				"authorName": "Elena Costa",
+				"body": "URGENT\n\nI got an email this morning saying my password was changed. I didn't do that. Then two order confirmations arrived for things I never bought (an Observability Jacket and two Refactor Utility Vests) shipping to an address in Lyon I've never heard of. My saved card was used.\n\nI can't log in anymore. Please block the account and stop these orders before they ship. I'm also worried about what else they can see - my address, phone, card details.",
+				"sentAt": "2026-10-05T06:12:00Z"
+			},
+			{
+				"id": "msg-036-2",
+				"author": "customer",
+				"authorName": "Elena Costa",
+				"body": "Another order just came through. Please someone answer. I've called my bank to freeze the card.",
+				"sentAt": "2026-10-05T06:48:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-037",
+		"subject": "Just wanted to say thanks",
+		"status": "closed",
+		"channel": "email",
+		"customer": {
+			"id": "customer-7b5e8c13",
+			"name": "Hannah Becker",
+			"email": "hannah.becker@example.com",
+			"location": "Berlin, Germany",
+			"segment": "vip",
+			"lifetimeValue": 1125
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"feedback"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-28T14:02:00Z",
+		"updatedAt": "2026-09-28T16:30:00Z",
+		"messages": [
+			{
+				"id": "msg-037-1",
+				"author": "customer",
+				"authorName": "Hannah Becker",
+				"body": "Hi team, my Facade Overshirt arrived today and it's honestly the best piece of clothing I own now. The whole office asked where I got it. Keep doing what you're doing!",
+				"sentAt": "2026-09-28T14:02:00Z"
+			},
+			{
+				"id": "msg-037-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Hannah, this made our day! Thank you so much for taking the time to write. Enjoy the overshirt, and say hi to the office from us.",
+				"sentAt": "2026-09-28T16:30:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-038",
+		"subject": "Parcel arrived ripped, jacket damaged",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-2c9d6f40",
+			"name": "Marcos Iglesias",
+			"email": "marcos.iglesias@example.com",
+			"location": "A Coruña, Spain",
+			"segment": "returning",
+			"lifetimeValue": 274
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"shipping",
+			"refund"
+		],
+		"orderId": "order-4d0f8e6b",
+		"createdAt": "2026-10-04T13:10:00Z",
+		"updatedAt": "2026-10-04T13:41:00Z",
+		"messages": [
+			{
+				"id": "msg-038-1",
+				"author": "customer",
+				"authorName": "Marcos Iglesias",
+				"body": "Box came completely soaked and torn on one side. The Observability Jacket inside has a tear near the left pocket and a big stain. 129€ jacket, really not happy",
+				"sentAt": "2026-10-04T13:10:00Z"
+			},
+			{
+				"id": "msg-038-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Marcos, I'm so sorry, that's not how it should arrive. Could you send photos of the box and the damage on the jacket? Then we can offer a replacement or a full refund, whichever you prefer.",
+				"sentAt": "2026-10-04T13:25:00Z"
+			},
+			{
+				"id": "msg-038-3",
+				"author": "customer",
+				"authorName": "Marcos Iglesias",
+				"body": "Photos sent. I want a replacement in the same size (M), but I don't want to pay for shipping the damaged one back",
+				"sentAt": "2026-10-04T13:41:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-039",
+		"subject": "Tracking hasn't moved in 5 days",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-91a4b7e2",
+			"name": "Sophie Martin",
+			"email": "sophie.martin@example.com",
+			"location": "Lyon, France",
+			"segment": "new",
+			"lifetimeValue": 164
+		},
+		"assignee": null,
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-b3e6c91a",
+		"createdAt": "2026-10-03T18:22:00Z",
+		"updatedAt": "2026-10-03T18:22:00Z",
+		"messages": [
+			{
+				"id": "msg-039-1",
+				"author": "customer",
+				"authorName": "Sophie Martin",
+				"body": "Hello,\n\nMy order with the Bounded Context Trousers and the Idempotent Shirt has shown 'In transit - Madrid hub' since last Tuesday. Is it stuck? No rush exactly, but it'd be good to know if it's lost.\n\nMerci,\nSophie",
+				"sentAt": "2026-10-03T18:22:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-040",
+		"subject": "Idea: wishlist + notify me",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-e6d0f5a8",
+			"name": "Óscar Navarro",
+			"email": "oscar.navarro@example.com",
+			"location": "Valencia, Spain",
+			"segment": "returning",
+			"lifetimeValue": 223
+		},
+		"assignee": null,
+		"tags": [
+			"feedback"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-01T21:47:00Z",
+		"updatedAt": "2026-10-01T21:47:00Z",
+		"messages": [
+			{
+				"id": "msg-040-1",
+				"author": "customer",
+				"authorName": "Óscar Navarro",
+				"body": "Hey, small suggestion: it'd be really nice to have a wishlist on the site. I keep leaving stuff in the cart for weeks because I want to remember it. Bonus points if it can email me when something goes on sale. Anyway, love the store",
+				"sentAt": "2026-10-01T21:47:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-041",
+		"subject": "Add a tee to my order before it ships?",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-1f8c3e6d",
+			"name": "Irene Blanco",
+			"email": "irene.blanco@example.com",
+			"location": "Málaga, Spain",
+			"segment": "returning",
+			"lifetimeValue": 189
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-6e2a4f97",
+		"createdAt": "2026-10-02T10:05:00Z",
+		"updatedAt": "2026-10-02T10:26:00Z",
+		"messages": [
+			{
+				"id": "msg-041-1",
+				"author": "customer",
+				"authorName": "Irene Blanco",
+				"body": "Hi! Ordered a Circuit Breaker Knit an hour ago. Any chance I can add a Domain Event Tee (M) to the same parcel so I don't pay shipping twice?",
+				"sentAt": "2026-10-02T10:05:00Z"
+			},
+			{
+				"id": "msg-041-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Hi Irene! We can't edit paid orders directly, but if you place a second order with the tee in the next hour I'll merge them and refund the extra shipping.",
+				"sentAt": "2026-10-02T10:18:00Z"
+			},
+			{
+				"id": "msg-041-3",
+				"author": "customer",
+				"authorName": "Irene Blanco",
+				"body": "Perfect, done! It's the order ending in ...4c1d",
+				"sentAt": "2026-10-02T10:26:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-042",
+		"subject": "Payment failed but money taken",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-c37a9e1b",
+			"name": "Daniel Kowalski",
+			"email": "daniel.kowalski@example.com",
+			"location": "Warsaw, Poland",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": null,
+		"tags": [
+			"billing"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-03T16:44:00Z",
+		"updatedAt": "2026-10-03T17:20:00Z",
+		"messages": [
+			{
+				"id": "msg-042-1",
+				"author": "customer",
+				"authorName": "Daniel Kowalski",
+				"body": "I tried to buy the Refactor Utility Vest and Merge Conflict Jeans. Checkout said 'Payment failed, try again'. I tried again, failed again. Now my bank shows 184€ held twice and I have no order confirmation. What happened?",
+				"sentAt": "2026-10-03T16:44:00Z"
+			},
+			{
+				"id": "msg-042-2",
+				"author": "customer",
+				"authorName": "Daniel Kowalski",
+				"body": "Hello? Is anyone there?",
+				"sentAt": "2026-10-03T17:20:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-043",
+		"subject": "Severe skin reaction to Circuit Breaker Knit",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-8d6b2a5f",
+			"name": "Carmen Ortega",
+			"email": "carmen.ortega@example.com",
+			"location": "Granada, Spain",
+			"segment": "returning",
+			"lifetimeValue": 254
+		},
+		"assignee": null,
+		"tags": [
+			"product",
+			"refund"
+		],
+		"orderId": "order-0f5c3b82",
+		"createdAt": "2026-10-05T08:03:00Z",
+		"updatedAt": "2026-10-05T08:03:00Z",
+		"messages": [
+			{
+				"id": "msg-043-1",
+				"author": "customer",
+				"authorName": "Carmen Ortega",
+				"body": "Hello,\n\nI wore the Circuit Breaker Knit for the first time on Saturday and within a couple of hours my neck and arms were covered in a red, burning rash. It got worse overnight and I ended up in A&E on Sunday with swelling around my throat. The doctor said it looks like a contact allergy, possibly to a dye or a chemical finish.\n\nI need to know exactly what this garment is made of and what it's treated with, because my doctor wants to know. The website only says 'wool blend'. I also think other customers should be warned.\n\nI'm keeping the jumper sealed in a bag in case it needs to be tested.\n\nCarmen Ortega",
+				"sentAt": "2026-10-05T08:03:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-044",
+		"subject": "Value Object Shirt sizing",
+		"status": "pending",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-4a2e9d7c",
+			"name": "Lukas Hofmann",
+			"email": "lukas.hofmann@example.com",
+			"location": "Vienna, Austria",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-30T13:12:00Z",
+		"updatedAt": "2026-09-30T13:16:00Z",
+		"messages": [
+			{
+				"id": "msg-044-1",
+				"author": "customer",
+				"authorName": "Lukas Hofmann",
+				"body": "Hi, does the Value Object Shirt fit slim or regular? Between M and L",
+				"sentAt": "2026-09-30T13:12:00Z"
+			},
+			{
+				"id": "msg-044-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Lukas! It's a regular fit with a slightly longer back. Could you tell me your chest measurement and height? Then I can recommend the best size.",
+				"sentAt": "2026-09-30T13:16:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-045",
+		"subject": "Exchange chinos - return label never arrived",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-0b9f5e3a",
+			"name": "Raquel Domínguez",
+			"email": "raquel.dominguez@example.com",
+			"location": "Murcia, Spain",
+			"segment": "returning",
+			"lifetimeValue": 342
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"exchange",
+			"shipping"
+		],
+		"orderId": "order-a8d14e2c",
+		"createdAt": "2026-10-01T09:50:00Z",
+		"updatedAt": "2026-10-02T08:07:00Z",
+		"messages": [
+			{
+				"id": "msg-045-1",
+				"author": "customer",
+				"authorName": "Raquel Domínguez",
+				"body": "Hi,\n\nI requested an exchange for my Ubiquitous Chinos (32 to 34... sorry, M to L) through the returns page last Thursday. It said I'd get a return label by email within 24 hours but nothing has arrived, not even in spam.\n\nCould you resend it?\n\nThank you,\nRaquel",
+				"sentAt": "2026-10-01T09:50:00Z"
+			},
+			{
+				"id": "msg-045-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Raquel, sorry about that! I've generated a new label and sent it to raquel.dominguez@example.com. Let me know if it doesn't show up.",
+				"sentAt": "2026-10-01T14:32:00Z"
+			},
+			{
+				"id": "msg-045-3",
+				"author": "customer",
+				"authorName": "Raquel Domínguez",
+				"body": "Still nothing, I'm afraid. Could you attach it here instead?",
+				"sentAt": "2026-10-02T08:07:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-046",
+		"subject": "Sent XL instead of S",
+		"status": "pending",
+		"channel": "email",
+		"customer": {
+			"id": "customer-6e3c8b1d",
+			"name": "Beatriz Lozano",
+			"email": "beatriz.lozano@example.com",
+			"location": "Alicante, Spain",
+			"segment": "returning",
+			"lifetimeValue": 178
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"exchange",
+			"shipping"
+		],
+		"orderId": "order-5b9e0d7f",
+		"createdAt": "2026-10-02T19:15:00Z",
+		"updatedAt": "2026-10-03T08:40:00Z",
+		"messages": [
+			{
+				"id": "msg-046-1",
+				"author": "customer",
+				"authorName": "Beatriz Lozano",
+				"body": "The Hexagonal Overshirt I received is an XL. I ordered an S, it says so on the packing slip too. I'm 1.58m, I could fit in it twice. Please send the right size.",
+				"sentAt": "2026-10-02T19:15:00Z"
+			},
+			{
+				"id": "msg-046-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Hi Beatriz, apologies for the mistake! An S is reserved for you. I just need you to confirm your delivery address is still the same as on the order, and I'll ship it today with a prepaid return bag for the XL.",
+				"sentAt": "2026-10-03T08:40:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-047",
+		"subject": "Invoice with company VAT number",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-9c1a7f4e",
+			"name": "Ricardo Sáez",
+			"email": "ricardo.saez@example.com",
+			"location": "Madrid, Spain",
+			"segment": "returning",
+			"lifetimeValue": 456
+		},
+		"assignee": null,
+		"tags": [
+			"billing"
+		],
+		"orderId": "order-d2f7b46a",
+		"createdAt": "2026-10-01T07:55:00Z",
+		"updatedAt": "2026-10-01T07:55:00Z",
+		"messages": [
+			{
+				"id": "msg-047-1",
+				"author": "customer",
+				"authorName": "Ricardo Sáez",
+				"body": "Good morning,\n\nI bought five Domain Event Tees and five Pure Function Tees for our dev team. Could you issue the invoice to our company instead of my name? Codeforge Labs S.L., CIF B12345678, Calle de Alcalá 120, 28009 Madrid. Our accountant needs it before month-end close.\n\nBest regards,\nRicardo Sáez",
+				"sentAt": "2026-10-01T07:55:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-048",
+		"subject": "Domain Event Tee in black?",
+		"status": "closed",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-3d8e2b6f",
+			"name": "Mateo Rossi",
+			"email": "mateo.rossi@example.com",
+			"location": "Turin, Italy",
+			"segment": "new",
+			"lifetimeValue": 39
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-29T11:02:00Z",
+		"updatedAt": "2026-09-29T11:07:00Z",
+		"messages": [
+			{
+				"id": "msg-048-1",
+				"author": "customer",
+				"authorName": "Mateo Rossi",
+				"body": "will the domain event tee come back in black L?",
+				"sentAt": "2026-09-29T11:02:00Z"
+			},
+			{
+				"id": "msg-048-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Mateo! Yes, black L is back on Friday. I've signed you up for a restock alert.",
+				"sentAt": "2026-09-29T11:06:00Z"
+			},
+			{
+				"id": "msg-048-3",
+				"author": "customer",
+				"authorName": "Mateo Rossi",
+				"body": "great, thanks",
+				"sentAt": "2026-09-29T11:07:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-049",
+		"subject": "Order lost, need it for my talk TOMORROW",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-a5f0c2d9",
+			"name": "Sergio Castillo",
+			"email": "sergio.castillo@example.com",
+			"location": "Madrid, Spain",
+			"segment": "vip",
+			"lifetimeValue": 2310
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"shipping",
+			"refund"
+		],
+		"orderId": "order-8f3b2a5e",
+		"createdAt": "2026-10-04T17:30:00Z",
+		"updatedAt": "2026-10-04T22:02:00Z",
+		"messages": [
+			{
+				"id": "msg-049-1",
+				"author": "customer",
+				"authorName": "Sergio Castillo",
+				"body": "Hi, I'm giving a keynote tomorrow morning at a conference in Lisbon and I ordered the Observability Jacket and Bounded Context Trousers specifically for it, paid for express. Tracking says 'exception - address not found' since Thursday. The address is correct, I've lived here 6 years.",
+				"sentAt": "2026-10-04T17:30:00Z"
+			},
+			{
+				"id": "msg-049-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Sergio, I'm so sorry. I'm contacting the courier right now and will update you within the hour.",
+				"sentAt": "2026-10-04T17:42:00Z"
+			},
+			{
+				"id": "msg-049-3",
+				"author": "customer",
+				"authorName": "Sergio Castillo",
+				"body": "It's been 3 hours. My flight is at 7am. If this doesn't arrive tonight I want a full refund and I'll dispute the charge with my bank. I've spent over 2000€ with you, this is really disappointing.",
+				"sentAt": "2026-10-04T20:51:00Z"
+			},
+			{
+				"id": "msg-049-4",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Completely understood, Sergio. The courier has located the parcel at their Getafe depot. We're arranging a same-night delivery and I'll confirm the time window shortly.",
+				"sentAt": "2026-10-04T21:05:00Z"
+			},
+			{
+				"id": "msg-049-5",
+				"author": "customer",
+				"authorName": "Sergio Castillo",
+				"body": "It's 10pm and nobody has come. I'm done. Tell me what you're doing NOW or I'm filing the chargeback in the morning.",
+				"sentAt": "2026-10-04T22:02:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-050",
+		"subject": "Student discount code expired?",
+		"status": "snoozed",
+		"channel": "email",
+		"customer": {
+			"id": "customer-7e4d1b8a",
+			"name": "Aitana Morales",
+			"email": "aitana.morales@example.com",
+			"location": "Salamanca, Spain",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"discount"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-30T19:22:00Z",
+		"updatedAt": "2026-10-01T10:04:00Z",
+		"messages": [
+			{
+				"id": "msg-050-1",
+				"author": "customer",
+				"authorName": "Aitana Morales",
+				"body": "Hi, I got the STUDENT15 code when I verified my university email but at checkout it says it expired. I only got it 10 days ago. Can you help?",
+				"sentAt": "2026-09-30T19:22:00Z"
+			},
+			{
+				"id": "msg-050-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Hi Aitana! It looks like there was a bug with the expiry date on that batch of codes. Our dev team is fixing it this week. I'll get back to you with a working code as soon as it's sorted.",
+				"sentAt": "2026-10-01T10:04:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-051",
+		"subject": "Cancelled order, where is my refund?",
+		"status": "pending",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-2b6f9c3e",
+			"name": "Martina Vázquez",
+			"email": "martina.vazquez@example.com",
+			"location": "Oviedo, Spain",
+			"segment": "returning",
+			"lifetimeValue": 287
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"refund",
+			"billing"
+		],
+		"orderId": "order-3c7a5e1f",
+		"createdAt": "2026-10-04T10:12:00Z",
+		"updatedAt": "2026-10-04T10:30:00Z",
+		"messages": [
+			{
+				"id": "msg-051-1",
+				"author": "customer",
+				"authorName": "Martina Vázquez",
+				"body": "I cancelled my order for the Refactor Utility Vest on 19 September, an hour after placing it. Your email said refund in 3-5 days. It's been over two weeks and nothing. 99€ isn't nothing for me.",
+				"sentAt": "2026-10-04T10:12:00Z"
+			},
+			{
+				"id": "msg-051-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Martina, I'm sorry for the wait. The refund was issued on our side on 20 September. Could you share the last 4 digits of the card you used, so I can ask the payment provider for the reference number?",
+				"sentAt": "2026-10-04T10:30:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-052",
+		"subject": "Marked as delivered but nothing here",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-5a3d0e7b",
+			"name": "Pierre Dubois",
+			"email": "pierre.dubois@example.com",
+			"location": "Toulouse, France",
+			"segment": "returning",
+			"lifetimeValue": 198
+		},
+		"assignee": null,
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-1e9d6c4b",
+		"createdAt": "2026-10-04T09:18:00Z",
+		"updatedAt": "2026-10-04T09:18:00Z",
+		"messages": [
+			{
+				"id": "msg-052-1",
+				"author": "customer",
+				"authorName": "Pierre Dubois",
+				"body": "Hello,\n\nTracking says my parcel (Facade Overshirt + Null Pointer Tee) was delivered yesterday at 14:32 and 'left with neighbour'. I've asked all my neighbours and nobody has it. I live in a building with a concierge who was there all day and saw no courier.\n\nI'd like either a replacement or a refund. 124€ is a lot to just lose.\n\nPierre",
+				"sentAt": "2026-10-04T09:18:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-053",
+		"subject": "Facade Overshirt fit + a small wish",
+		"status": "closed",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-c8b2e4f1",
+			"name": "Noa Ben-David",
+			"email": "noa.bendavid@example.com",
+			"location": "Barcelona, Spain",
+			"segment": "vip",
+			"lifetimeValue": 980
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"feedback",
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-02T17:40:00Z",
+		"updatedAt": "2026-10-02T17:53:00Z",
+		"messages": [
+			{
+				"id": "msg-053-1",
+				"author": "customer",
+				"authorName": "Noa Ben-David",
+				"body": "Hi! Got my 4th Facade Overshirt (yes, I have a problem 😂). Fit is perfect as always. Only wish: a slightly longer sleeve option for tall people? I'm 1.92m and they end just above the wrist.",
+				"sentAt": "2026-10-02T17:40:00Z"
+			},
+			{
+				"id": "msg-053-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Haha, we love that problem! Thanks Noa, I've passed the 'tall' fit suggestion to our product team. It's actually come up a few times, so fingers crossed.",
+				"sentAt": "2026-10-02T17:52:00Z"
+			},
+			{
+				"id": "msg-053-3",
+				"author": "customer",
+				"authorName": "Noa Ben-David",
+				"body": "Amazing, thanks!",
+				"sentAt": "2026-10-02T17:53:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-054",
+		"subject": "Please delete my personal data",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-f6e1a9d3",
+			"name": "Gonzalo Prieto",
+			"email": "gonzalo.prieto@example.com",
+			"location": "Santander, Spain",
+			"segment": "returning",
+			"lifetimeValue": 104
+		},
+		"assignee": null,
+		"tags": [
+			"privacy",
+			"account"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-03T12:30:00Z",
+		"updatedAt": "2026-10-03T12:30:00Z",
+		"messages": [
+			{
+				"id": "msg-054-1",
+				"author": "customer",
+				"authorName": "Gonzalo Prieto",
+				"body": "Hello,\n\nUnder GDPR I'd like you to delete my account and all personal data you hold about me, including order history and marketing preferences. I'm also still receiving newsletters even though I unsubscribed twice last month.\n\nPlease confirm once this is done.\n\nGonzalo Prieto",
+				"sentAt": "2026-10-03T12:30:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-055",
+		"subject": "Hoodie too big, can I swap for M?",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-3f9a1c7f",
+			"name": "Pablo Herrero",
+			"email": "pablo.herrero@example.com",
+			"location": "Valladolid, Spain",
+			"segment": "returning",
+			"lifetimeValue": 214
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"exchange",
+			"product"
+		],
+		"orderId": "order-a41c9e02",
+		"createdAt": "2026-09-29T08:14:00Z",
+		"updatedAt": "2026-09-29T09:10:00Z",
+		"messages": [
+			{
+				"id": "msg-055-1",
+				"author": "customer",
+				"authorName": "Pablo Herrero",
+				"body": "Hi! I got my Aggregate Hoodie yesterday and it's lovely but the L is massive on me, sleeves past my fingers. Could I exchange it for an M? Haven't worn it outside, tags still on.",
+				"sentAt": "2026-09-29T08:14:00Z"
+			},
+			{
+				"id": "msg-055-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Pablo! Of course, exchanges are free within 30 days. I've just emailed you a prepaid return label. Once the courier scans the L we'll ship the M straight away.",
+				"sentAt": "2026-09-29T09:02:00Z"
+			},
+			{
+				"id": "msg-055-3",
+				"author": "customer",
+				"authorName": "Pablo Herrero",
+				"body": "Great, thanks. Do I need the original bag or is any bag fine?",
+				"sentAt": "2026-09-29T09:10:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-056",
+		"subject": "Washing the Event Storm Knit",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-b82d04f1",
+			"name": "Ingrid Nilsson",
+			"email": "ingrid.nilsson@example.com",
+			"location": "Gothenburg, Sweden",
+			"segment": "new",
+			"lifetimeValue": 69
+		},
+		"assignee": null,
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-30T19:45:00Z",
+		"updatedAt": "2026-09-30T19:45:00Z",
+		"messages": [
+			{
+				"id": "msg-056-1",
+				"author": "customer",
+				"authorName": "Ingrid Nilsson",
+				"body": "Hello,\n\nI just bought the Event Storm Knit and I'm a bit nervous about washing it. The label says 30 degrees but my mum says wool knits should only be hand-washed. Is a wool cycle in the machine OK, or will it felt? Also can it go on a radiator to dry?\n\nThank you,\nIngrid",
+				"sentAt": "2026-09-30T19:45:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-057",
+		"subject": "CHARGED TWICE for the same order",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-e17c55a9",
+			"name": "Raquel Domínguez",
+			"email": "raquel.dominguez@example.com",
+			"location": "Sevilla, Spain",
+			"segment": "returning",
+			"lifetimeValue": 312
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"billing",
+			"refund"
+		],
+		"orderId": "order-7be20d3f",
+		"createdAt": "2026-10-04T22:03:00Z",
+		"updatedAt": "2026-10-05T07:58:00Z",
+		"messages": [
+			{
+				"id": "msg-057-1",
+				"author": "customer",
+				"authorName": "Raquel Domínguez",
+				"body": "I placed one order tonight (Observability Jacket + Bounded Context Trousers, 208€) and my bank app shows TWO charges of 208€. That's 416€ gone from my account and rent goes out on Tuesday. I only clicked pay once, the page froze and then showed the confirmation. Please reverse the duplicate immediately.",
+				"sentAt": "2026-10-04T22:03:00Z"
+			},
+			{
+				"id": "msg-057-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Raquel, I'm really sorry about this. I can see only one order on our side, so the second charge looks like a duplicate authorisation from the payment gateway. I've escalated it to our payments team as urgent. Could you send me a screenshot of both charges so we can attach it to the case?",
+				"sentAt": "2026-10-05T07:41:00Z"
+			},
+			{
+				"id": "msg-057-3",
+				"author": "customer",
+				"authorName": "Raquel Domínguez",
+				"body": "Screenshot attached. Both are marked as completed, not pending. If this isn't sorted by tomorrow I'm calling my bank to dispute it, I can't afford to wait a week for this.",
+				"sentAt": "2026-10-05T07:58:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-058",
+		"subject": "Received Null Pointer Tee instead of Pure Function Tee",
+		"status": "pending",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-0c6ba2d8",
+			"name": "Matteo Ricci",
+			"email": "matteo.ricci@example.com",
+			"location": "Milan, Italy",
+			"segment": "returning",
+			"lifetimeValue": 188
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"shipping",
+			"exchange"
+		],
+		"orderId": "order-c903f1a6",
+		"createdAt": "2026-10-01T11:20:00Z",
+		"updatedAt": "2026-10-01T12:05:00Z",
+		"messages": [
+			{
+				"id": "msg-058-1",
+				"author": "customer",
+				"authorName": "Matteo Ricci",
+				"body": "hey, i ordered pure function tee size S and got a null pointer tee in M. funny shirt but not what i paid for lol",
+				"sentAt": "2026-10-01T11:20:00Z"
+			},
+			{
+				"id": "msg-058-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Matteo, so sorry for the mix-up! We'll send the Pure Function Tee in S right away. Could you send a quick photo of the label on the shirt you received so I can flag the picking error to the warehouse?",
+				"sentAt": "2026-10-01T12:05:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-059",
+		"subject": "DEVWEEK15 code says invalid",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-5ad7e390",
+			"name": "Lucía Ferrer",
+			"email": "lucia.ferrer@example.com",
+			"location": "Valencia, Spain",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": null,
+		"tags": [
+			"discount"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-03T16:32:00Z",
+		"updatedAt": "2026-10-03T16:32:00Z",
+		"messages": [
+			{
+				"id": "msg-059-1",
+				"author": "customer",
+				"authorName": "Lucía Ferrer",
+				"body": "Hi, I got an email with code DEVWEEK15 for 15% off but at checkout it says \"code not valid\". I've got the Facade Overshirt and the Idempotent Shirt in the basket. Is it only for some products? Would like to order today if possible.",
+				"sentAt": "2026-10-03T16:32:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-060",
+		"subject": "Observability Jacket XS restock?",
+		"status": "snoozed",
+		"channel": "email",
+		"customer": {
+			"id": "customer-9e41b6c2",
+			"name": "Sophie Laurent",
+			"email": "sophie.laurent@example.com",
+			"location": "Lyon, France",
+			"segment": "returning",
+			"lifetimeValue": 158
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-28T10:05:00Z",
+		"updatedAt": "2026-09-28T14:40:00Z",
+		"messages": [
+			{
+				"id": "msg-060-1",
+				"author": "customer",
+				"authorName": "Sophie Laurent",
+				"body": "Bonjour! The Observability Jacket has been sold out in XS for a few weeks. Any chance it's coming back before winter? I'd happily pre-order.",
+				"sentAt": "2026-09-28T10:05:00Z"
+			},
+			{
+				"id": "msg-060-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Sophie! We're expecting a new batch in mid-October, XS included. I'll keep this conversation open and write to you as soon as it's live in the shop.",
+				"sentAt": "2026-09-28T14:22:00Z"
+			},
+			{
+				"id": "msg-060-3",
+				"author": "customer",
+				"authorName": "Sophie Laurent",
+				"body": "Merci beaucoup!",
+				"sentAt": "2026-09-28T14:40:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-061",
+		"subject": "Still no refund after 3 weeks",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-24f8d01b",
+			"name": "Andrés Navarro",
+			"email": "andres.navarro@example.com",
+			"location": "Zaragoza, Spain",
+			"segment": "returning",
+			"lifetimeValue": 276
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"refund"
+		],
+		"orderId": "order-5e0b77c4",
+		"createdAt": "2026-09-30T08:50:00Z",
+		"updatedAt": "2026-10-03T09:30:00Z",
+		"messages": [
+			{
+				"id": "msg-061-1",
+				"author": "customer",
+				"authorName": "Andrés Navarro",
+				"body": "Hello. I returned the Merge Conflict Jeans (85€) on 9 September. Your tracking shows they were delivered to your warehouse on the 12th. Your policy says refunds within 10 days. It is now the 30th and I have nothing. I've already written once via chat and was told 'a few more days'.",
+				"sentAt": "2026-09-30T08:50:00Z"
+			},
+			{
+				"id": "msg-061-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Hi Andrés, apologies, this has clearly taken too long. I've checked and the return was received but never processed in our system. I've pushed it through now; you should see 85€ back on your card within 3-5 working days.",
+				"sentAt": "2026-09-30T10:15:00Z"
+			},
+			{
+				"id": "msg-061-3",
+				"author": "customer",
+				"authorName": "Andrés Navarro",
+				"body": "Three days later, still nothing on my card and no refund confirmation email either. Can you send me some proof the refund was actually issued?",
+				"sentAt": "2026-10-03T09:30:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-062",
+		"subject": "Change delivery address please",
+		"status": "pending",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-f6c3a918",
+			"name": "Hannah Becker",
+			"email": "hannah.becker@example.com",
+			"location": "Munich, Germany",
+			"segment": "new",
+			"lifetimeValue": 99
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-1d8e4b5a",
+		"createdAt": "2026-10-04T13:12:00Z",
+		"updatedAt": "2026-10-04T13:20:00Z",
+		"messages": [
+			{
+				"id": "msg-062-1",
+				"author": "customer",
+				"authorName": "Hannah Becker",
+				"body": "Hi, I just ordered a Refactor Utility Vest and realised it's going to my old flat. Can you change it before it ships?",
+				"sentAt": "2026-10-04T13:12:00Z"
+			},
+			{
+				"id": "msg-062-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Hannah! It hasn't shipped yet, so we can change it. Please send me the full new address including postcode and, if possible, a phone number for the courier.",
+				"sentAt": "2026-10-04T13:20:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-063",
+		"subject": "Someone got into my account",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-8a2e6f47",
+			"name": "Javier Ortega",
+			"email": "javier.ortega@example.com",
+			"location": "Madrid, Spain",
+			"segment": "vip",
+			"lifetimeValue": 1342
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"account",
+			"privacy",
+			"billing"
+		],
+		"orderId": "order-e4a90c17",
+		"createdAt": "2026-10-05T06:48:00Z",
+		"updatedAt": "2026-10-05T07:02:00Z",
+		"messages": [
+			{
+				"id": "msg-063-1",
+				"author": "customer",
+				"authorName": "Javier Ortega",
+				"body": "I just got an order confirmation for 4 Observability Jackets shipping to an address in Lisbon that I have NEVER been to. I did not place this order. My password was apparently changed last night too, I got the email at 3am. My saved card was used. Please cancel that order NOW and lock my account. I've been a customer for 3 years and this is scary, my address and phone number are in that account.",
+				"sentAt": "2026-10-05T06:48:00Z"
+			},
+			{
+				"id": "msg-063-2",
+				"author": "customer",
+				"authorName": "Javier Ortega",
+				"body": "Also I can't log in anymore so I can't even check what else they did.",
+				"sentAt": "2026-10-05T07:02:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-064",
+		"subject": "Just wanted to say thanks",
+		"status": "closed",
+		"channel": "email",
+		"customer": {
+			"id": "customer-71d9c3e0",
+			"name": "Elena Castillo",
+			"email": "elena.castillo@example.com",
+			"location": "Bilbao, Spain",
+			"segment": "vip",
+			"lifetimeValue": 865
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"feedback"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-28T18:30:00Z",
+		"updatedAt": "2026-09-29T08:45:00Z",
+		"messages": [
+			{
+				"id": "msg-064-1",
+				"author": "customer",
+				"authorName": "Elena Castillo",
+				"body": "No problem to report, I just wanted to say the Hexagonal Overshirt I got last month is the best piece of clothing I own. My whole team at work is jealous. Keep the puns coming!",
+				"sentAt": "2026-09-28T18:30:00Z"
+			},
+			{
+				"id": "msg-064-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Elena, this made our morning, thank you! Tell your team we're working on a few new designs. A little thank-you discount is on its way to your inbox.",
+				"sentAt": "2026-09-29T08:10:00Z"
+			},
+			{
+				"id": "msg-064-3",
+				"author": "customer",
+				"authorName": "Elena Castillo",
+				"body": "Ha, you didn't have to! Thank you :)",
+				"sentAt": "2026-09-29T08:45:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-065",
+		"subject": "Parcel arrived crushed and wet",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-c5b03e8d",
+			"name": "Tomás Gil",
+			"email": "tomas.gil@example.com",
+			"location": "A Coruña, Spain",
+			"segment": "returning",
+			"lifetimeValue": 243
+		},
+		"assignee": null,
+		"tags": [
+			"shipping",
+			"product"
+		],
+		"orderId": "order-38fa6c21",
+		"createdAt": "2026-10-02T17:55:00Z",
+		"updatedAt": "2026-10-02T17:56:00Z",
+		"messages": [
+			{
+				"id": "msg-065-1",
+				"author": "customer",
+				"authorName": "Tomás Gil",
+				"body": "Box arrived completely crushed and soaked through. The Ubiquitous Chinos inside have a big brown water stain and the Value Object Shirt smells like a wet dog. Photos below. Not happy, this was 124€.",
+				"sentAt": "2026-10-02T17:55:00Z"
+			},
+			{
+				"id": "msg-065-2",
+				"author": "customer",
+				"authorName": "Tomás Gil",
+				"body": "[3 photos]",
+				"sentAt": "2026-10-02T17:56:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-066",
+		"subject": "Tracking hasn't moved in 5 days",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-6e7f2a13",
+			"name": "Nuno Pereira",
+			"email": "nuno.pereira@example.com",
+			"location": "Porto, Portugal",
+			"segment": "new",
+			"lifetimeValue": 75
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-90c1d5e8",
+		"createdAt": "2026-10-01T09:00:00Z",
+		"updatedAt": "2026-10-04T10:12:00Z",
+		"messages": [
+			{
+				"id": "msg-066-1",
+				"author": "customer",
+				"authorName": "Nuno Pereira",
+				"body": "Hi, my tracking for the Circuit Breaker Knit has said 'in transit - Madrid hub' since Friday. Is it lost?",
+				"sentAt": "2026-10-01T09:00:00Z"
+			},
+			{
+				"id": "msg-066-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Nuno, it's not lost as far as we can tell; cross-border parcels sometimes skip scans at the Portuguese hub. I've opened an enquiry with the carrier and will update you within 48 hours.",
+				"sentAt": "2026-10-01T11:34:00Z"
+			},
+			{
+				"id": "msg-066-3",
+				"author": "customer",
+				"authorName": "Nuno Pereira",
+				"body": "Any news? Still the same status.",
+				"sentAt": "2026-10-04T10:12:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-067",
+		"subject": "Payment keeps failing",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-d40e9b65",
+			"name": "Marina Soler",
+			"email": "marina.soler@example.com",
+			"location": "Palma, Spain",
+			"segment": "returning",
+			"lifetimeValue": 134
+		},
+		"assignee": null,
+		"tags": [
+			"billing"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-05T09:47:00Z",
+		"updatedAt": "2026-10-05T09:47:00Z",
+		"messages": [
+			{
+				"id": "msg-067-1",
+				"author": "customer",
+				"authorName": "Marina Soler",
+				"body": "I've tried to pay 4 times for the Aggregate Hoodie and the Domain Event Tee and it fails every time with 'payment declined'. My card works everywhere else, I literally just bought coffee with it. Tried Apple Pay too, same thing. Is something broken on your side? The hoodie is the last one in my size so I'm worried it'll go.",
+				"sentAt": "2026-10-05T09:47:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-068",
+		"subject": "Jeans size exchange",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-2b5c8e7a",
+			"name": "Oliver Hughes",
+			"email": "oliver.hughes@example.com",
+			"location": "Dublin, Ireland",
+			"segment": "returning",
+			"lifetimeValue": 302
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"exchange"
+		],
+		"orderId": "order-6af3b902",
+		"createdAt": "2026-10-03T12:25:00Z",
+		"updatedAt": "2026-10-03T12:25:00Z",
+		"messages": [
+			{
+				"id": "msg-068-1",
+				"author": "customer",
+				"authorName": "Oliver Hughes",
+				"body": "Hiya, the Merge Conflict Jeans in L are a bit tight on the waist. Could I swap them for XL? Bit of a shame because the length is perfect. Does the XL come longer too?",
+				"sentAt": "2026-10-03T12:25:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-069",
+		"subject": "Size chart in cm?",
+		"status": "closed",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-a9d61f04",
+			"name": "Claire Dubois",
+			"email": "claire.dubois@example.com",
+			"location": "Brussels, Belgium",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-30T15:02:00Z",
+		"updatedAt": "2026-09-30T15:07:00Z",
+		"messages": [
+			{
+				"id": "msg-069-1",
+				"author": "customer",
+				"authorName": "Claire Dubois",
+				"body": "is the size chart for the tees in cm or inches? it doesn't say",
+				"sentAt": "2026-09-30T15:02:00Z"
+			},
+			{
+				"id": "msg-069-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Claire! It's in centimetres, measured flat across the chest. We'll add the unit to the page, thanks for pointing that out.",
+				"sentAt": "2026-09-30T15:06:00Z"
+			},
+			{
+				"id": "msg-069-3",
+				"author": "customer",
+				"authorName": "Claire Dubois",
+				"body": "perfect ty",
+				"sentAt": "2026-09-30T15:07:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-070",
+		"subject": "Order for my talk TOMORROW never arrived",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-47e8c0b3",
+			"name": "Carlos Méndez",
+			"email": "carlos.mendez@example.com",
+			"location": "Barcelona, Spain",
+			"segment": "vip",
+			"lifetimeValue": 1120
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-b17d2e4f",
+		"createdAt": "2026-10-05T08:15:00Z",
+		"updatedAt": "2026-10-05T10:20:00Z",
+		"messages": [
+			{
+				"id": "msg-070-1",
+				"author": "customer",
+				"authorName": "Carlos Méndez",
+				"body": "Hi, I paid for express delivery for the Facade Overshirt and Bounded Context Trousers specifically because I'm giving a keynote tomorrow morning at a conference and wanted to wear them on stage. Delivery was due Friday. Tracking now says 'delivery exception - address not found', which is nonsense, I've had 15 orders delivered to this exact address.",
+				"sentAt": "2026-10-05T08:15:00Z"
+			},
+			{
+				"id": "msg-070-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Carlos, I'm so sorry. I'm on the phone with the courier now to find where the parcel is. In parallel, can you confirm whether you could pick up from a courier point in Barcelona today if needed?",
+				"sentAt": "2026-10-05T08:40:00Z"
+			},
+			{
+				"id": "msg-070-3",
+				"author": "customer",
+				"authorName": "Carlos Méndez",
+				"body": "Yes I can go anywhere in the city today, but I fly out at 7pm. If it can't be found please just send a new one by same-day courier, I'll pay whatever.",
+				"sentAt": "2026-10-05T08:44:00Z"
+			},
+			{
+				"id": "msg-070-4",
+				"author": "customer",
+				"authorName": "Carlos Méndez",
+				"body": "Any update? Running out of time here.",
+				"sentAt": "2026-10-05T10:20:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-071",
+		"subject": "Welcome discount didn't apply",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-13fa7d6c",
+			"name": "Greta Schmidt",
+			"email": "greta.schmidt@example.com",
+			"location": "Vienna, Austria",
+			"segment": "new",
+			"lifetimeValue": 89
+		},
+		"assignee": null,
+		"tags": [
+			"discount",
+			"billing"
+		],
+		"orderId": "order-4c2e8a1b",
+		"createdAt": "2026-10-02T20:10:00Z",
+		"updatedAt": "2026-10-02T20:10:00Z",
+		"messages": [
+			{
+				"id": "msg-071-1",
+				"author": "customer",
+				"authorName": "Greta Schmidt",
+				"body": "Hello,\n\nI signed up to the newsletter and got a 10% welcome code (HELLO10). I entered it when buying the Hexagonal Overshirt and it looked like it was accepted, but my confirmation email says 89€, not 80.10€. Could you refund the difference please?\n\nKind regards,\nGreta",
+				"sentAt": "2026-10-02T20:10:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-072",
+		"subject": "Wrong size in the box",
+		"status": "pending",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-58b2d9f6",
+			"name": "Álvaro Prieto",
+			"email": "alvaro.prieto@example.com",
+			"location": "Málaga, Spain",
+			"segment": "returning",
+			"lifetimeValue": 167
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"exchange",
+			"shipping"
+		],
+		"orderId": "order-0e7f3c95",
+		"createdAt": "2026-10-03T10:40:00Z",
+		"updatedAt": "2026-10-03T11:18:00Z",
+		"messages": [
+			{
+				"id": "msg-072-1",
+				"author": "customer",
+				"authorName": "Álvaro Prieto",
+				"body": "Ordered the Idempotent Shirt in M, the label says M on the bag but the shirt inside is XS. I needed it for a wedding next Saturday.",
+				"sentAt": "2026-10-03T10:40:00Z"
+			},
+			{
+				"id": "msg-072-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Ugh, sorry Álvaro! I'll ship an M today by express so it arrives well before Saturday. Could you confirm the delivery address is still the one on the order?",
+				"sentAt": "2026-10-03T10:52:00Z"
+			},
+			{
+				"id": "msg-072-3",
+				"author": "customer",
+				"authorName": "Álvaro Prieto",
+				"body": "Yes same address",
+				"sentAt": "2026-10-03T11:05:00Z"
+			},
+			{
+				"id": "msg-072-4",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Done, replacement shipped by express. I've also sent a return label for the XS, no rush with that one. Let me know once it's arrived.",
+				"sentAt": "2026-10-03T11:18:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-073",
+		"subject": "Suggestion: wishlist + size reminder",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-e3c0a5b7",
+			"name": "Lars Jensen",
+			"email": "lars.jensen@example.com",
+			"location": "Copenhagen, Denmark",
+			"segment": "returning",
+			"lifetimeValue": 228
+		},
+		"assignee": null,
+		"tags": [
+			"feedback"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-29T21:15:00Z",
+		"updatedAt": "2026-09-29T21:15:00Z",
+		"messages": [
+			{
+				"id": "msg-073-1",
+				"author": "customer",
+				"authorName": "Lars Jensen",
+				"body": "Hi team,\n\nTwo small ideas from a happy customer (and fellow dev):\n1. A wishlist would be nice. I keep screenshotting products I want to buy later.\n2. It would be great if the site remembered my size per product type. I'm M in tees but L in knits and I always forget.\n\nNo reply needed, just thought I'd share. Love the Domain Event Tee.\n\nLars",
+				"sentAt": "2026-09-29T21:15:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-074",
+		"subject": "Need to change shipping address",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-7c4d1e2a",
+			"name": "Irene Morales",
+			"email": "irene.morales@example.com",
+			"location": "Granada, Spain",
+			"segment": "new",
+			"lifetimeValue": 134
+		},
+		"assignee": null,
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-f2b6097d",
+		"createdAt": "2026-10-05T10:05:00Z",
+		"updatedAt": "2026-10-05T10:05:00Z",
+		"messages": [
+			{
+				"id": "msg-074-1",
+				"author": "customer",
+				"authorName": "Irene Morales",
+				"body": "Hola! Sorry, I typed the wrong street number on my order. It says 12 but it should be 21, Calle Recogidas. The order has the Ubiquitous Chinos and a Pure Function Tee. Can you fix it before it leaves?",
+				"sentAt": "2026-10-05T10:05:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-075",
+		"subject": "Where is my refund??",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-91a5f3d0",
+			"name": "Beatriz Romero",
+			"email": "beatriz.romero@example.com",
+			"location": "Murcia, Spain",
+			"segment": "returning",
+			"lifetimeValue": 391
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"refund"
+		],
+		"orderId": "order-8d3c41e6",
+		"createdAt": "2026-09-28T09:30:00Z",
+		"updatedAt": "2026-10-04T18:22:00Z",
+		"messages": [
+			{
+				"id": "msg-075-1",
+				"author": "customer",
+				"authorName": "Beatriz Romero",
+				"body": "I sent back the Refactor Utility Vest two weeks ago. Return was accepted according to your email on the 18th. No refund yet.",
+				"sentAt": "2026-09-28T09:30:00Z"
+			},
+			{
+				"id": "msg-075-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Beatriz, thanks for your patience. Refunds normally take 5-10 working days to show on the card after acceptance. Could you check again early next week?",
+				"sentAt": "2026-09-28T11:00:00Z"
+			},
+			{
+				"id": "msg-075-3",
+				"author": "customer",
+				"authorName": "Beatriz Romero",
+				"body": "It's been another week. Still nothing. 99€ is not a small amount. I've been a loyal customer and frankly this is the first time I feel ignored. Please give me a real answer, not 'wait a few more days'.",
+				"sentAt": "2026-10-04T18:22:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-076",
+		"subject": "Tracking says delivered but nothing here",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-4f0b8c6e",
+			"name": "Kasia Nowak",
+			"email": "kasia.nowak@example.com",
+			"location": "Kraków, Poland",
+			"segment": "returning",
+			"lifetimeValue": 207
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-2a9d5f70",
+		"createdAt": "2026-10-04T14:50:00Z",
+		"updatedAt": "2026-10-04T15:10:00Z",
+		"messages": [
+			{
+				"id": "msg-076-1",
+				"author": "customer",
+				"authorName": "Kasia Nowak",
+				"body": "The tracking for my Event Storm Knit says delivered today at 11:02 but there's nothing at my door or with the neighbours. Could the courier have left it somewhere else?",
+				"sentAt": "2026-10-04T14:50:00Z"
+			},
+			{
+				"id": "msg-076-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Kasia! Sometimes couriers mark parcels as delivered a few hours early or leave them at a nearby pickup point. Could you wait until end of day tomorrow and let me know? If it hasn't turned up I'll open a claim straight away.",
+				"sentAt": "2026-10-04T15:10:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-077",
+		"subject": "Rash after wearing the Circuit Breaker Knit",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-0d8e2b9c",
+			"name": "Sara Lindqvist",
+			"email": "sara.lindqvist@example.com",
+			"location": "Stockholm, Sweden",
+			"segment": "returning",
+			"lifetimeValue": 289
+		},
+		"assignee": null,
+		"tags": [
+			"product",
+			"refund"
+		],
+		"orderId": "order-c7f1a3e8",
+		"createdAt": "2026-10-04T20:40:00Z",
+		"updatedAt": "2026-10-04T20:40:00Z",
+		"messages": [
+			{
+				"id": "msg-077-1",
+				"author": "customer",
+				"authorName": "Sara Lindqvist",
+				"body": "I wore the Circuit Breaker Knit for about two hours today and developed a red, itchy, swollen rash across my neck and arms. I ended up at an urgent care clinic and was told it's a contact allergic reaction, likely to a dye or finishing chemical. The product page says 100% organic cotton and \"no harsh chemicals\".\n\nI need to know exactly what dyes and treatments were used on this garment, for my doctor. I also expect a full refund, and if I don't get a proper answer I'll be reporting this to the consumer protection authority and disputing the charge with my bank.",
+				"sentAt": "2026-10-04T20:40:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-078",
+		"subject": "Gift wrapping + Hoodie restock",
+		"status": "snoozed",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-6b3a9e15",
+			"name": "Fiona MacLeod",
+			"email": "fiona.macleod@example.com",
+			"location": "Edinburgh, United Kingdom",
+			"segment": "vip",
+			"lifetimeValue": 954
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-01T13:30:00Z",
+		"updatedAt": "2026-10-01T13:47:00Z",
+		"messages": [
+			{
+				"id": "msg-078-1",
+				"author": "customer",
+				"authorName": "Fiona MacLeod",
+				"body": "Hi lovely people! Do you do gift wrapping? And is the Aggregate Hoodie coming back in XL in the grey colour? Want it for my brother's birthday in November.",
+				"sentAt": "2026-10-01T13:30:00Z"
+			},
+			{
+				"id": "msg-078-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Fiona! Yes, gift wrapping is 3€ and you can add a note at checkout. The grey XL is due back around 20 October. I'll ping you here as soon as it's in stock.",
+				"sentAt": "2026-10-01T13:45:00Z"
+			},
+			{
+				"id": "msg-078-3",
+				"author": "customer",
+				"authorName": "Fiona MacLeod",
+				"body": "Amazing, thank you!",
+				"sentAt": "2026-10-01T13:47:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-079",
+		"subject": "Seam came apart on first wear",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-85e7d4a2",
+			"name": "Daniel Fuentes",
+			"email": "daniel.fuentes@example.com",
+			"location": "Alicante, Spain",
+			"segment": "new",
+			"lifetimeValue": 129
+		},
+		"assignee": null,
+		"tags": [
+			"product",
+			"refund"
+		],
+		"orderId": "order-ab05e6d3",
+		"createdAt": "2026-10-03T19:15:00Z",
+		"updatedAt": "2026-10-03T19:16:00Z",
+		"messages": [
+			{
+				"id": "msg-079-1",
+				"author": "customer",
+				"authorName": "Daniel Fuentes",
+				"body": "Wore the Observability Jacket for the first time today and the shoulder seam just split open while I was putting my bag on. 129€ jacket. Honestly expected better. I want a replacement or my money back",
+				"sentAt": "2026-10-03T19:15:00Z"
+			},
+			{
+				"id": "msg-079-2",
+				"author": "customer",
+				"authorName": "Daniel Fuentes",
+				"body": "can send pics",
+				"sentAt": "2026-10-03T19:16:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-080",
+		"subject": "Value Object Shirt exchange to S",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-3c9f0a7d",
+			"name": "Martina Rossi",
+			"email": "martina.rossi@example.com",
+			"location": "Rome, Italy",
+			"segment": "returning",
+			"lifetimeValue": 177
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"exchange"
+		],
+		"orderId": "order-d6e8b214",
+		"createdAt": "2026-10-02T08:05:00Z",
+		"updatedAt": "2026-10-04T16:40:00Z",
+		"messages": [
+			{
+				"id": "msg-080-1",
+				"author": "customer",
+				"authorName": "Martina Rossi",
+				"body": "Good morning, I would like to exchange the Value Object Shirt (M) for a size S. Is that possible? I am not sure about the procedure.",
+				"sentAt": "2026-10-02T08:05:00Z"
+			},
+			{
+				"id": "msg-080-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Good morning Martina! Absolutely. I've sent you a return label by email. Just drop the shirt at any post office and we'll send the S once it's scanned.",
+				"sentAt": "2026-10-02T09:30:00Z"
+			},
+			{
+				"id": "msg-080-3",
+				"author": "customer",
+				"authorName": "Martina Rossi",
+				"body": "Thank you. I did not receive the email, maybe it went to spam? I checked and nothing. Could you send it again please?",
+				"sentAt": "2026-10-04T16:40:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-081",
+		"subject": "Do the tees shrink?",
+		"status": "closed",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-ce4b7f18",
+			"name": "Hugo Martins",
+			"email": "hugo.martins@example.com",
+			"location": "Lisbon, Portugal",
+			"segment": "returning",
+			"lifetimeValue": 113
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-29T12:12:00Z",
+		"updatedAt": "2026-09-29T12:21:00Z",
+		"messages": [
+			{
+				"id": "msg-081-1",
+				"author": "customer",
+				"authorName": "Hugo Martins",
+				"body": "Quick one: does the Pure Function Tee shrink in the wash? Between S and M",
+				"sentAt": "2026-09-29T12:12:00Z"
+			},
+			{
+				"id": "msg-081-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Hugo! It's pre-shrunk, so maybe 1-2% at most if you wash at 30°. If you're between sizes and like a relaxed fit, go M.",
+				"sentAt": "2026-09-29T12:18:00Z"
+			},
+			{
+				"id": "msg-081-3",
+				"author": "customer",
+				"authorName": "Hugo Martins",
+				"body": "M it is, thanks",
+				"sentAt": "2026-09-29T12:20:00Z"
+			},
+			{
+				"id": "msg-081-4",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Enjoy!",
+				"sentAt": "2026-09-29T12:21:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-082",
+		"subject": "Swap Aggregate Hoodie from M to L",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-a41c9e07",
+			"name": "Pablo Iglesias Ruiz",
+			"email": "pablo.iglesias@example.com",
+			"location": "Zaragoza, Spain",
+			"segment": "returning",
+			"lifetimeValue": 214
+		},
+		"assignee": null,
+		"tags": [
+			"exchange"
+		],
+		"orderId": "order-3f9a1c72",
+		"createdAt": "2026-10-02T08:47:00Z",
+		"updatedAt": "2026-10-02T08:47:00Z",
+		"messages": [
+			{
+				"id": "msg-082-1",
+				"author": "customer",
+				"authorName": "Pablo Iglesias Ruiz",
+				"body": "Hi there,\n\nI received my Aggregate Hoodie yesterday and I love the fabric, but the M is a bit tight around the shoulders. Could I exchange it for an L? I haven't washed it and the tags are still on.\n\nThanks,\nPablo",
+				"sentAt": "2026-10-02T08:47:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-083",
+		"subject": "CHARGED TWICE for the same order",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-5d0e8b13",
+			"name": "Lucía Fernández Gil",
+			"email": "lucia.fgil@example.com",
+			"location": "Madrid, Spain",
+			"segment": "returning",
+			"lifetimeValue": 318
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"billing",
+			"refund"
+		],
+		"orderId": "order-b72e04d5",
+		"createdAt": "2026-10-04T19:02:00Z",
+		"updatedAt": "2026-10-04T19:43:00Z",
+		"messages": [
+			{
+				"id": "msg-083-1",
+				"author": "customer",
+				"authorName": "Lucía Fernández Gil",
+				"body": "I just checked my bank app and you've charged me 224€ TWICE for the same order. That's 448€ gone from my account and rent is due on Monday. I need this fixed today, not in 5-10 business days.",
+				"sentAt": "2026-10-04T19:02:00Z"
+			},
+			{
+				"id": "msg-083-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Lucía, I'm really sorry about this. I can see order order-b72e04d5 for 224€ in our system. Could you tell me the last 4 digits of the card and confirm whether both charges show as completed or one is still pending?",
+				"sentAt": "2026-10-04T19:08:00Z"
+			},
+			{
+				"id": "msg-083-3",
+				"author": "customer",
+				"authorName": "Lucía Fernández Gil",
+				"body": "Card ending 4471. BOTH are completed, not pending. I have screenshots. If this isn't reversed by tomorrow I'm calling my bank to dispute both charges.",
+				"sentAt": "2026-10-04T19:11:00Z"
+			},
+			{
+				"id": "msg-083-4",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Thank you. I've escalated this to our payments team as urgent and asked them to void the duplicate. I'll update you here as soon as I hear back.",
+				"sentAt": "2026-10-04T19:16:00Z"
+			},
+			{
+				"id": "msg-083-5",
+				"author": "customer",
+				"authorName": "Lucía Fernández Gil",
+				"body": "It's been half an hour. Any news? Still showing two charges.",
+				"sentAt": "2026-10-04T19:43:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-084",
+		"subject": "Can the Event Storm Knit go in the dryer?",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-e8b2f6a0",
+			"name": "Inés Navarro",
+			"email": "ines.navarro@example.com",
+			"location": "Valencia, Spain",
+			"segment": "new",
+			"lifetimeValue": 69
+		},
+		"assignee": null,
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-29T17:20:00Z",
+		"updatedAt": "2026-09-29T17:20:00Z",
+		"messages": [
+			{
+				"id": "msg-084-1",
+				"author": "customer",
+				"authorName": "Inés Navarro",
+				"body": "hey! quick q, can I tumble dry the event storm knit or will it shrink? the label is kinda faded already lol",
+				"sentAt": "2026-09-29T17:20:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-085",
+		"subject": "Received Null Pointer Tee instead of Pure Function Tee",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-27fa3b9c",
+			"name": "Marc Puig Soler",
+			"email": "marc.puig@example.com",
+			"location": "Barcelona, Spain",
+			"segment": "returning",
+			"lifetimeValue": 156
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"shipping",
+			"product"
+		],
+		"orderId": "order-0c5d9e81",
+		"createdAt": "2026-10-01T10:05:00Z",
+		"updatedAt": "2026-10-01T12:25:00Z",
+		"messages": [
+			{
+				"id": "msg-085-1",
+				"author": "customer",
+				"authorName": "Marc Puig Soler",
+				"body": "Hello,\n\nI ordered a Pure Function Tee in size L (order order-0c5d9e81) and the parcel I got today contains a Null Pointer Tee in size S. Neither the design nor the size is what I ordered. It was meant to be a birthday gift for my brother this weekend.\n\nCan you send the right one quickly? I'm happy to return the wrong one.\n\nMarc",
+				"sentAt": "2026-10-01T10:05:00Z"
+			},
+			{
+				"id": "msg-085-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Marc,\n\nApologies for the mix-up, that's on us. Could you send a quick photo of the item and the packing slip so I can flag it with the warehouse? As soon as I have it I'll ship the Pure Function Tee in L by express at no cost and email you a prepaid return label.\n\nBest,\nMarta",
+				"sentAt": "2026-10-01T11:40:00Z"
+			},
+			{
+				"id": "msg-085-3",
+				"author": "customer",
+				"authorName": "Marc Puig Soler",
+				"body": "Photos attached. Please make sure it arrives before Saturday if possible.",
+				"sentAt": "2026-10-01T12:25:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-086",
+		"subject": "Discount code DDD15 says invalid",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-91c4d2e6",
+			"name": "Elena Ortega",
+			"email": "elena.ortega@example.com",
+			"location": "Sevilla, Spain",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": null,
+		"tags": [
+			"discount"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-03T12:31:00Z",
+		"updatedAt": "2026-10-03T12:31:00Z",
+		"messages": [
+			{
+				"id": "msg-086-1",
+				"author": "customer",
+				"authorName": "Elena Ortega",
+				"body": "Hi, I got the code DDD15 in your newsletter but at checkout it says 'code not valid'. I'm trying to buy the Value Object Shirt and the Ubiquitous Chinos. Is it expired already? The email said valid until the 10th.",
+				"sentAt": "2026-10-03T12:31:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-087",
+		"subject": "Circuit Breaker Knit back in XS?",
+		"status": "snoozed",
+		"channel": "email",
+		"customer": {
+			"id": "customer-c03e7a58",
+			"name": "Sofie Jansen",
+			"email": "sofie.jansen@example.com",
+			"location": "Rotterdam, Netherlands",
+			"segment": "returning",
+			"lifetimeValue": 189
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-28T14:10:00Z",
+		"updatedAt": "2026-09-28T18:30:00Z",
+		"messages": [
+			{
+				"id": "msg-087-1",
+				"author": "customer",
+				"authorName": "Sofie Jansen",
+				"body": "Hello! Do you know if the Circuit Breaker Knit will come back in XS? It's been sold out for a few weeks and I'd love one in the grey colour before winter.",
+				"sentAt": "2026-09-28T14:10:00Z"
+			},
+			{
+				"id": "msg-087-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Hi Sofie, thanks for asking! We're expecting a restock of the Circuit Breaker Knit in the next two weeks, including XS. I'll check back with you as soon as it lands in the warehouse.",
+				"sentAt": "2026-09-28T17:50:00Z"
+			},
+			{
+				"id": "msg-087-3",
+				"author": "customer",
+				"authorName": "Sofie Jansen",
+				"body": "Lovely, thank you!",
+				"sentAt": "2026-09-28T18:30:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-088",
+		"subject": "Refund still not received after 3 weeks",
+		"status": "pending",
+		"channel": "email",
+		"customer": {
+			"id": "customer-4b8d1f2a",
+			"name": "Javier Moreno Castillo",
+			"email": "j.moreno.castillo@example.com",
+			"location": "Málaga, Spain",
+			"segment": "returning",
+			"lifetimeValue": 263
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"refund",
+			"billing"
+		],
+		"orderId": "order-6e1f8a3b",
+		"createdAt": "2026-09-30T09:15:00Z",
+		"updatedAt": "2026-10-01T09:35:00Z",
+		"messages": [
+			{
+				"id": "msg-088-1",
+				"author": "customer",
+				"authorName": "Javier Moreno Castillo",
+				"body": "Hello,\n\nI returned the Observability Jacket (129€) on 8 September. Your tracking shows it was delivered to your warehouse on the 11th. Your policy says refunds take up to 14 days. It's now the 30th and I still have nothing.\n\nI've emailed twice already with no answer. Please tell me what is going on.\n\nJavier Moreno",
+				"sentAt": "2026-09-30T09:15:00Z"
+			},
+			{
+				"id": "msg-088-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Javier,\n\nI'm sorry for the delay and for the lack of response, that's not acceptable. I can see the return was received but the refund was never triggered. I've raised it with finance. Could you confirm whether you paid by card or PayPal so I can make sure it goes to the right place?\n\nDiego",
+				"sentAt": "2026-09-30T12:15:00Z"
+			},
+			{
+				"id": "msg-088-3",
+				"author": "customer",
+				"authorName": "Javier Moreno Castillo",
+				"body": "Card. Same Visa I always use. I'd appreciate it if this was done this week.",
+				"sentAt": "2026-09-30T12:50:00Z"
+			},
+			{
+				"id": "msg-088-4",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Thanks Javier. Finance has confirmed the refund of 129€ is being processed today. I'll send you the confirmation reference as soon as I have it.",
+				"sentAt": "2026-10-01T09:35:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-089",
+		"subject": "Change delivery address before it ships",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-f6a20d94",
+			"name": "Andrea Romero",
+			"email": "andrea.romero@example.com",
+			"location": "Bilbao, Spain",
+			"segment": "new",
+			"lifetimeValue": 79
+		},
+		"assignee": null,
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-a9d43c16",
+		"createdAt": "2026-10-05T07:48:00Z",
+		"updatedAt": "2026-10-05T07:51:00Z",
+		"messages": [
+			{
+				"id": "msg-089-1",
+				"author": "customer",
+				"authorName": "Andrea Romero",
+				"body": "Hello, I placed an order last night (order-a9d43c16, Bounded Context Trousers). I just realised it's going to my old flat. Can you change it to Calle Licenciado Poza 22, 3ºB, 48011 Bilbao? It hasn't shipped yet I think.",
+				"sentAt": "2026-10-05T07:48:00Z"
+			},
+			{
+				"id": "msg-089-2",
+				"author": "customer",
+				"authorName": "Andrea Romero",
+				"body": "Sorry, forgot to say the order number is in the confirmation email, it's the one I wrote above",
+				"sentAt": "2026-10-05T07:51:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-090",
+		"subject": "Someone logged into my account and placed an order",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-0a7e5c31",
+			"name": "Tomás Herrera",
+			"email": "tomas.herrera@example.com",
+			"location": "Granada, Spain",
+			"segment": "vip",
+			"lifetimeValue": 1342
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"account",
+			"privacy",
+			"billing"
+		],
+		"orderId": "order-e40b7d29",
+		"createdAt": "2026-10-04T23:18:00Z",
+		"updatedAt": "2026-10-04T23:48:00Z",
+		"messages": [
+			{
+				"id": "msg-090-1",
+				"author": "customer",
+				"authorName": "Tomás Herrera",
+				"body": "I just got an order confirmation for 3 Refactor Utility Vests and 2 Observability Jackets (555€) shipping to an address in Lyon. I did NOT place this order. My password was changed too, I had to reset it via the email link.\n\nSomeone has access to my account and my saved card. Please cancel this order immediately and block my card on your side. I've been buying from you for years and this is really worrying.",
+				"sentAt": "2026-10-04T23:18:00Z"
+			},
+			{
+				"id": "msg-090-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Hi Tomás, thank you for flagging this so quickly. I've put a hold on order order-e40b7d29 so it won't leave the warehouse, and I've removed the saved payment method from your account. Could you confirm you've now been able to log in and that the email on the account is still yours?",
+				"sentAt": "2026-10-04T23:40:00Z"
+			},
+			{
+				"id": "msg-090-3",
+				"author": "customer",
+				"authorName": "Tomás Herrera",
+				"body": "Yes I'm in now. The email is mine but the phone number on the profile isn't, they changed it. What else did they see? My address, my previous orders? I want to know exactly what data was exposed.",
+				"sentAt": "2026-10-04T23:48:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-091",
+		"subject": "Just wanted to say thanks",
+		"status": "closed",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-d5f19b46",
+			"name": "Irene Castro",
+			"email": "irene.castro@example.com",
+			"location": "Oviedo, Spain",
+			"segment": "vip",
+			"lifetimeValue": 876
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"feedback"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-29T11:02:00Z",
+		"updatedAt": "2026-09-29T11:08:00Z",
+		"messages": [
+			{
+				"id": "msg-091-1",
+				"author": "customer",
+				"authorName": "Irene Castro",
+				"body": "Not a problem, just wanted to say the Facade Overshirt is my favourite thing I own now. Wore it to a conference talk last week and three people asked where it was from 😄 keep it up!",
+				"sentAt": "2026-09-29T11:02:00Z"
+			},
+			{
+				"id": "msg-091-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Irene, this made our day! Thank you so much for telling us, and congrats on the talk. We'll pass it on to the design team.",
+				"sentAt": "2026-09-29T11:06:00Z"
+			},
+			{
+				"id": "msg-091-3",
+				"author": "customer",
+				"authorName": "Irene Castro",
+				"body": "🙌",
+				"sentAt": "2026-09-29T11:08:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-092",
+		"subject": "Parcel arrived ripped open, jeans stained",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-7c3a92e5",
+			"name": "Giulia Bianchi",
+			"email": "giulia.bianchi@example.com",
+			"location": "Milan, Italy",
+			"segment": "returning",
+			"lifetimeValue": 241
+		},
+		"assignee": null,
+		"tags": [
+			"shipping",
+			"refund"
+		],
+		"orderId": "order-58c2e0fa",
+		"createdAt": "2026-10-03T16:40:00Z",
+		"updatedAt": "2026-10-03T16:40:00Z",
+		"messages": [
+			{
+				"id": "msg-092-1",
+				"author": "customer",
+				"authorName": "Giulia Bianchi",
+				"body": "Good afternoon,\n\nMy order (order-58c2e0fa) arrived today and the box was torn on one side and wet. The Merge Conflict Jeans inside have a large dark stain on the left leg that does not come off. I took photos of the box and the jeans before opening further.\n\nI would like either a replacement or a full refund. Please let me know how to proceed.\n\nKind regards,\nGiulia Bianchi",
+				"sentAt": "2026-10-03T16:40:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-093",
+		"subject": "Tracking stuck on 'label created' for 5 days",
+		"status": "pending",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-36e8c0d1",
+			"name": "Álvaro Delgado",
+			"email": "alvaro.delgado@example.com",
+			"location": "Valladolid, Spain",
+			"segment": "new",
+			"lifetimeValue": 98
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-2d7f6b90",
+		"createdAt": "2026-10-01T18:12:00Z",
+		"updatedAt": "2026-10-01T18:24:00Z",
+		"messages": [
+			{
+				"id": "msg-093-1",
+				"author": "customer",
+				"authorName": "Álvaro Delgado",
+				"body": "hi, my tracking has said 'label created' since friday. is my order actually on its way?",
+				"sentAt": "2026-10-01T18:12:00Z"
+			},
+			{
+				"id": "msg-093-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Álvaro! Let me check with the carrier. Could you confirm the order number?",
+				"sentAt": "2026-10-01T18:17:00Z"
+			},
+			{
+				"id": "msg-093-3",
+				"author": "customer",
+				"authorName": "Álvaro Delgado",
+				"body": "order-2d7f6b90",
+				"sentAt": "2026-10-01T18:19:00Z"
+			},
+			{
+				"id": "msg-093-4",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Thanks. It looks like the parcel left our warehouse but wasn't scanned at pickup. I've opened an investigation with the carrier and will get back to you within 24-48h.",
+				"sentAt": "2026-10-01T18:24:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-094",
+		"subject": "Payment keeps failing at checkout",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-b9014fe7",
+			"name": "Nerea Etxeberria",
+			"email": "nerea.etxe@example.com",
+			"location": "San Sebastián, Spain",
+			"segment": "returning",
+			"lifetimeValue": 134
+		},
+		"assignee": null,
+		"tags": [
+			"billing"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-05T09:26:00Z",
+		"updatedAt": "2026-10-05T09:30:00Z",
+		"messages": [
+			{
+				"id": "msg-094-1",
+				"author": "customer",
+				"authorName": "Nerea Etxeberria",
+				"body": "I've tried 4 times to pay for a Hexagonal Overshirt and an Idempotent Shirt and every time it says 'payment declined'. My bank says there's no problem on their side and no attempt even shows up. I really want the overshirt before the M sells out, it says only 2 left.",
+				"sentAt": "2026-10-05T09:26:00Z"
+			},
+			{
+				"id": "msg-094-2",
+				"author": "customer",
+				"authorName": "Nerea Etxeberria",
+				"body": "Tried with Apple Pay too, same error. Is your payment system down?",
+				"sentAt": "2026-10-05T09:30:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-095",
+		"subject": "Exchange Ubiquitous Chinos for a smaller waist",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-62d7a1bc",
+			"name": "Henrik Larsen",
+			"email": "henrik.larsen@example.com",
+			"location": "Copenhagen, Denmark",
+			"segment": "new",
+			"lifetimeValue": 65
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"exchange"
+		],
+		"orderId": "order-7a0e9c44",
+		"createdAt": "2026-09-30T13:55:00Z",
+		"updatedAt": "2026-10-01T11:45:00Z",
+		"messages": [
+			{
+				"id": "msg-095-1",
+				"author": "customer",
+				"authorName": "Henrik Larsen",
+				"body": "Hi,\n\nThe Ubiquitous Chinos in L are too loose at the waist. Is it possible to exchange for M? Also, do I have to pay the return shipping from Denmark?\n\nHenrik",
+				"sentAt": "2026-09-30T13:55:00Z"
+			},
+			{
+				"id": "msg-095-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Hi Henrik,\n\nOf course! Size exchanges are free within the EU, so we'll send you a prepaid label. Before I set it up, could you confirm the chinos are unworn and still have the tags?\n\nBest,\nLaura",
+				"sentAt": "2026-09-30T18:55:00Z"
+			},
+			{
+				"id": "msg-095-3",
+				"author": "customer",
+				"authorName": "Henrik Larsen",
+				"body": "Yes, only tried them on once. Tags are on.",
+				"sentAt": "2026-10-01T11:45:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-096",
+		"subject": "Question about the size chart",
+		"status": "closed",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-1fe4b83d",
+			"name": "Carmen Vázquez",
+			"email": "carmen.vazquez@example.com",
+			"location": "A Coruña, Spain",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-28T10:30:00Z",
+		"updatedAt": "2026-09-28T11:01:00Z",
+		"messages": [
+			{
+				"id": "msg-096-1",
+				"author": "customer",
+				"authorName": "Carmen Vázquez",
+				"body": "Hola! Is the size chart for the Domain Event Tee in body measurements or garment measurements? I'm between S and M",
+				"sentAt": "2026-09-28T10:30:00Z"
+			},
+			{
+				"id": "msg-096-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Carmen! The chart shows garment measurements, laid flat. The Domain Event Tee has a regular fit, so if you're between sizes and prefer it a bit relaxed, go for M.",
+				"sentAt": "2026-09-28T10:55:00Z"
+			},
+			{
+				"id": "msg-096-3",
+				"author": "customer",
+				"authorName": "Carmen Vázquez",
+				"body": "Perfect, M it is. Thanks!",
+				"sentAt": "2026-09-28T11:01:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-097",
+		"subject": "URGENT: order for tomorrow's wedding lost in transit",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-8e5b0c72",
+			"name": "Rubén Sáez Molina",
+			"email": "ruben.saez@example.com",
+			"location": "Alicante, Spain",
+			"segment": "returning",
+			"lifetimeValue": 302
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-c18a5e3f",
+		"createdAt": "2026-10-04T15:44:00Z",
+		"updatedAt": "2026-10-04T16:05:00Z",
+		"messages": [
+			{
+				"id": "msg-097-1",
+				"author": "customer",
+				"authorName": "Rubén Sáez Molina",
+				"body": "Hi, I'm desperate. I ordered the Hexagonal Overshirt and the Bounded Context Trousers with express shipping specifically for my sister's wedding TOMORROW. The tracking says 'delivery exception - address not found' but the address is correct, I've received 3 orders from you there before.",
+				"sentAt": "2026-10-04T15:44:00Z"
+			},
+			{
+				"id": "msg-097-2",
+				"author": "customer",
+				"authorName": "Rubén Sáez Molina",
+				"body": "Order is order-c18a5e3f. I paid 12€ for express. Please, I have nothing else to wear.",
+				"sentAt": "2026-10-04T15:46:00Z"
+			},
+			{
+				"id": "msg-097-3",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Rubén, I'm so sorry, I understand how stressful this is. I'm calling the carrier now to get the parcel back out for delivery today. Can you confirm a phone number they can reach you on and whether you'd be able to collect it from their Alicante depot if needed?",
+				"sentAt": "2026-10-04T16:02:00Z"
+			},
+			{
+				"id": "msg-097-4",
+				"author": "customer",
+				"authorName": "Rubén Sáez Molina",
+				"body": "+34 6XX XXX 418. Yes I can go to the depot, I'll drive anywhere. Just tell me where and when.",
+				"sentAt": "2026-10-04T16:05:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-098",
+		"subject": "Welcome code not applying to sale items?",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-ad3c7f10",
+			"name": "Laura Pons",
+			"email": "laura.pons@example.com",
+			"location": "Palma, Spain",
+			"segment": "new",
+			"lifetimeValue": 0
+		},
+		"assignee": null,
+		"tags": [
+			"discount"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-02T20:14:00Z",
+		"updatedAt": "2026-10-02T20:14:00Z",
+		"messages": [
+			{
+				"id": "msg-098-1",
+				"author": "customer",
+				"authorName": "Laura Pons",
+				"body": "Hello,\n\nI signed up and got the WELCOME10 code but when I add the Null Pointer Tee it doesn't take anything off. Is it because the tee is already on sale? The terms don't say anything about that. A bit confusing.\n\nThanks,\nLaura",
+				"sentAt": "2026-10-02T20:14:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-099",
+		"subject": "Missing item from my order",
+		"status": "pending",
+		"channel": "email",
+		"customer": {
+			"id": "customer-c7a61e3f",
+			"name": "Stefan Müller",
+			"email": "stefan.mueller@example.com",
+			"location": "Munich, Germany",
+			"segment": "vip",
+			"lifetimeValue": 1105
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-94f0b2d8",
+		"createdAt": "2026-10-02T07:58:00Z",
+		"updatedAt": "2026-10-02T10:38:00Z",
+		"messages": [
+			{
+				"id": "msg-099-1",
+				"author": "customer",
+				"authorName": "Stefan Müller",
+				"body": "Hello team,\n\nI ordered three items (order-94f0b2d8): Refactor Utility Vest, Circuit Breaker Knit and Pure Function Tee. Only the vest and the knit were in the box. The packing slip lists all three. Could you please check?\n\nBest regards,\nStefan",
+				"sentAt": "2026-10-02T07:58:00Z"
+			},
+			{
+				"id": "msg-099-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Stefan,\n\nThanks for letting us know and sorry for the trouble. I've checked with the warehouse and it looks like the Pure Function Tee was shipped separately due to stock location. Could you confirm whether you've received a second parcel in the last couple of days?\n\nMarta",
+				"sentAt": "2026-10-02T10:38:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-100",
+		"subject": "Feature idea: save sizes per product type",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-3b92d5a8",
+			"name": "Hugo Lambert",
+			"email": "hugo.lambert@example.com",
+			"location": "Bordeaux, France",
+			"segment": "returning",
+			"lifetimeValue": 247
+		},
+		"assignee": null,
+		"tags": [
+			"feedback"
+		],
+		"orderId": null,
+		"createdAt": "2026-10-03T21:37:00Z",
+		"updatedAt": "2026-10-03T21:37:00Z",
+		"messages": [
+			{
+				"id": "msg-100-1",
+				"author": "customer",
+				"authorName": "Hugo Lambert",
+				"body": "Small suggestion: it'd be nice if my account remembered I'm an M in tops and a 32 in trousers so it preselects them. Also a dark mode on the site wouldn't hurt, it's a store for devs after all 😉",
+				"sentAt": "2026-10-03T21:37:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-101",
+		"subject": "Wrong postcode on my order",
+		"status": "pending",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-59f3c2a0",
+			"name": "Marina Ribas",
+			"email": "marina.ribas@example.com",
+			"location": "Girona, Spain",
+			"segment": "returning",
+			"lifetimeValue": 172
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-0e8b7f15",
+		"createdAt": "2026-10-04T10:12:00Z",
+		"updatedAt": "2026-10-04T10:15:00Z",
+		"messages": [
+			{
+				"id": "msg-101-1",
+				"author": "customer",
+				"authorName": "Marina Ribas",
+				"body": "Hello, I put 17003 as postcode but it's 17004. Order order-0e8b7f15. Can you fix it?",
+				"sentAt": "2026-10-04T10:12:00Z"
+			},
+			{
+				"id": "msg-101-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Hi Marina! I've updated the postcode on the order to 17004. It hasn't been picked yet, so it should go out correctly. Could you confirm the street and number are still right? Carrer de la Rutlla 58, 2n 1a?",
+				"sentAt": "2026-10-04T10:15:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-102",
+		"subject": "Where is my refund?? Second time asking",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-e2c84a97",
+			"name": "Daniel Ruiz Prieto",
+			"email": "daniel.ruizp@example.com",
+			"location": "Murcia, Spain",
+			"segment": "returning",
+			"lifetimeValue": 203
+		},
+		"assignee": null,
+		"tags": [
+			"refund"
+		],
+		"orderId": "order-71c6a0e2",
+		"createdAt": "2026-10-04T08:30:00Z",
+		"updatedAt": "2026-10-04T08:30:00Z",
+		"messages": [
+			{
+				"id": "msg-102-1",
+				"author": "customer",
+				"authorName": "Daniel Ruiz Prieto",
+				"body": "Second time I'm writing. I returned the Merge Conflict Jeans almost a month ago and I haven't got my 85€ back. Nobody answers. Is anyone actually reading this?",
+				"sentAt": "2026-10-04T08:30:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-103",
+		"subject": "Rash after wearing the Event Storm Knit",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-04f7b6e1",
+			"name": "Claire Dubois",
+			"email": "claire.dubois@example.com",
+			"location": "Lyon, France",
+			"segment": "new",
+			"lifetimeValue": 69
+		},
+		"assignee": null,
+		"tags": [
+			"product",
+			"refund"
+		],
+		"orderId": "order-d6a3e91b",
+		"createdAt": "2026-10-05T06:51:00Z",
+		"updatedAt": "2026-10-05T06:51:00Z",
+		"messages": [
+			{
+				"id": "msg-103-1",
+				"author": "customer",
+				"authorName": "Claire Dubois",
+				"body": "Hello,\n\nI wore the Event Storm Knit for the first time yesterday and within a couple of hours I developed a red, itchy rash on my neck and arms. This morning it's swollen and I've had to take antihistamines. I've never reacted like this to clothing before.\n\nCan you please tell me exactly what the knit is made of and whether any dyes or finishing chemicals are used? My doctor wants to know. I also don't feel comfortable keeping it and would like a refund.\n\nThank you,\nClaire Dubois",
+				"sentAt": "2026-10-05T06:51:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-104",
+		"subject": "Tracking hasn't moved since Lisbon",
+		"status": "open",
+		"channel": "email",
+		"customer": {
+			"id": "customer-8a1d5e6f",
+			"name": "Beatriz Lopes",
+			"email": "beatriz.lopes@example.com",
+			"location": "Porto, Portugal",
+			"segment": "returning",
+			"lifetimeValue": 158
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"shipping"
+		],
+		"orderId": "order-4ab0d7c3",
+		"createdAt": "2026-10-01T09:40:00Z",
+		"updatedAt": "2026-10-05T08:10:00Z",
+		"messages": [
+			{
+				"id": "msg-104-1",
+				"author": "customer",
+				"authorName": "Beatriz Lopes",
+				"body": "Hi, my parcel has been 'in transit - Lisbon hub' for four days now. Is that normal? It's just a Domain Event Tee, no rush, but I want to make sure it's not lost.",
+				"sentAt": "2026-10-01T09:40:00Z"
+			},
+			{
+				"id": "msg-104-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi Beatriz, thanks for your patience. There's been a backlog at the Lisbon hub this week. The carrier expects it to move by Monday. If it hasn't updated by then, let us know and we'll reship.",
+				"sentAt": "2026-10-01T16:30:00Z"
+			},
+			{
+				"id": "msg-104-3",
+				"author": "customer",
+				"authorName": "Beatriz Lopes",
+				"body": "It's Monday morning and still nothing new on the tracking :(",
+				"sentAt": "2026-10-05T08:10:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-105",
+		"subject": "Will Merge Conflict Jeans come in a longer leg?",
+		"status": "snoozed",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-f13e8a5c",
+			"name": "Lars Eriksson",
+			"email": "lars.eriksson@example.com",
+			"location": "Stockholm, Sweden",
+			"segment": "vip",
+			"lifetimeValue": 932
+		},
+		"assignee": "Marta Vidal",
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-30T15:22:00Z",
+		"updatedAt": "2026-09-30T15:32:00Z",
+		"messages": [
+			{
+				"id": "msg-105-1",
+				"author": "customer",
+				"authorName": "Lars Eriksson",
+				"body": "Hey, I'm 1.95m and the Merge Conflict Jeans are a bit short on me. Any plans for a long/tall version? I'd buy two pairs straight away.",
+				"sentAt": "2026-09-30T15:22:00Z"
+			},
+			{
+				"id": "msg-105-2",
+				"author": "agent",
+				"authorName": "Marta Vidal",
+				"body": "Hi Lars! Good timing, the team is looking at a tall fit for next season. I'll let you know as soon as there's a date.",
+				"sentAt": "2026-09-30T15:30:00Z"
+			},
+			{
+				"id": "msg-105-3",
+				"author": "customer",
+				"authorName": "Lars Eriksson",
+				"body": "Brilliant, ping me 👍",
+				"sentAt": "2026-09-30T15:32:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-106",
+		"subject": "Observability Jacket arrived with broken zip",
+		"status": "open",
+		"channel": "chat",
+		"customer": {
+			"id": "customer-29b7e4d3",
+			"name": "Raquel Jiménez",
+			"email": "raquel.jimenez@example.com",
+			"location": "Córdoba, Spain",
+			"segment": "vip",
+			"lifetimeValue": 1018
+		},
+		"assignee": "Laura Martín",
+		"tags": [
+			"product",
+			"exchange"
+		],
+		"orderId": "order-b5e9f20a",
+		"createdAt": "2026-10-03T10:08:00Z",
+		"updatedAt": "2026-10-03T10:28:00Z",
+		"messages": [
+			{
+				"id": "msg-106-1",
+				"author": "customer",
+				"authorName": "Raquel Jiménez",
+				"body": "Hi, I just opened my Observability Jacket and the main zip is broken, the pull came off as soon as I tried it. Honestly a bit disappointed for a 129€ jacket, I've always been happy with your stuff.",
+				"sentAt": "2026-10-03T10:08:00Z"
+			},
+			{
+				"id": "msg-106-2",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Hi Raquel, I'm really sorry, that definitely shouldn't happen. Would you prefer a replacement in the same size or a refund? Either way we'll collect the faulty one for free.",
+				"sentAt": "2026-10-03T10:15:00Z"
+			},
+			{
+				"id": "msg-106-3",
+				"author": "customer",
+				"authorName": "Raquel Jiménez",
+				"body": "Replacement please, same size M. Can you send the new one before collecting the old one? I'm travelling on Thursday and wanted to take it.",
+				"sentAt": "2026-10-03T10:20:00Z"
+			},
+			{
+				"id": "msg-106-4",
+				"author": "agent",
+				"authorName": "Laura Martín",
+				"body": "Let me check with the warehouse whether we can ship it out today with express. I'll get back to you shortly.",
+				"sentAt": "2026-10-03T10:28:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-107",
+		"subject": "Swap Value Object Shirt colour",
+		"status": "open",
+		"channel": "whatsapp",
+		"customer": {
+			"id": "customer-7e04a2b8",
+			"name": "Óscar Medina",
+			"email": "oscar.medina@example.com",
+			"location": "Santander, Spain",
+			"segment": "returning",
+			"lifetimeValue": 177
+		},
+		"assignee": null,
+		"tags": [
+			"exchange"
+		],
+		"orderId": "order-6c2f8d47",
+		"createdAt": "2026-10-04T17:05:00Z",
+		"updatedAt": "2026-10-04T17:05:00Z",
+		"messages": [
+			{
+				"id": "msg-107-1",
+				"author": "customer",
+				"authorName": "Óscar Medina",
+				"body": "Hi! Got the Value Object Shirt in navy but in person it looks almost black. Could I swap it for the light blue one, same size (L)?",
+				"sentAt": "2026-10-04T17:05:00Z"
+			}
+		]
+	},
+	{
+		"id": "conv-108",
+		"subject": "Washing instructions for Hexagonal Overshirt",
+		"status": "closed",
+		"channel": "email",
+		"customer": {
+			"id": "customer-5c8e1b9d",
+			"name": "María José Cano",
+			"email": "mj.cano@example.com",
+			"location": "Salamanca, Spain",
+			"segment": "returning",
+			"lifetimeValue": 128
+		},
+		"assignee": "Diego Sanz",
+		"tags": [
+			"product"
+		],
+		"orderId": null,
+		"createdAt": "2026-09-28T19:45:00Z",
+		"updatedAt": "2026-09-29T12:45:00Z",
+		"messages": [
+			{
+				"id": "msg-108-1",
+				"author": "customer",
+				"authorName": "María José Cano",
+				"body": "Hello,\n\nI bought the Hexagonal Overshirt as a present and the person lost the label. Could you tell me how it should be washed? I don't want to ruin it.\n\nMany thanks,\nMaría José",
+				"sentAt": "2026-09-28T19:45:00Z"
+			},
+			{
+				"id": "msg-108-2",
+				"author": "agent",
+				"authorName": "Diego Sanz",
+				"body": "Hi María José,\n\nOf course! Machine wash cold (30ºC max) inside out, no tumble drying, and iron on medium heat if needed. Avoid bleach. That's all it needs.\n\nBest,\nDiego",
+				"sentAt": "2026-09-29T10:15:00Z"
+			},
+			{
+				"id": "msg-108-3",
+				"author": "customer",
+				"authorName": "María José Cano",
+				"body": "Thank you so much, very helpful.",
+				"sentAt": "2026-09-29T12:45:00Z"
+			}
+		]
+	}
+]

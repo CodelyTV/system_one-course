@@ -7,3 +7,4 @@
 - `database/` — `schema.sql` and `seed.sql`, applied by the `db:*` npm scripts.
 - `tests/` — mirrors `src/contexts` (`backend/`, `frontend/`, `shared/`). See [../testing/testing-strategy.md](../testing/testing-strategy.md).
 - `public/products/` — placeholder product images (see `public/products/CREDITS.md`).
+- `customer-support/` — standalone Intercom-like support inbox (Node.js 24, no framework) that reads its conversations from `customer-support/data/conversations.json`, plus the `customer-support` MCP server registered in `.mcp.json`. See `customer-support/README.md`.

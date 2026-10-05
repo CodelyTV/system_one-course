@@ -1,0 +1,22 @@
+{
+	"name": "@codely/customer-support",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"engines": {
+		"node": ">=24.0.0"
+	},
+	"scripts": {
+		"start": "node src/server.ts",
+		"mcp": "node src/mcp.ts",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "1.32.0",
+		"zod": "4.6.5"
+	},
+	"devDependencies": {
+		"@types/node": "25.9.4",
+		"typescript": "6.0.3"
+	}
+}
