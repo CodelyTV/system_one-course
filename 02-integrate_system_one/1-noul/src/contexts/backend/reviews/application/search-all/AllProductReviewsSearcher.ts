@@ -3,6 +3,7 @@ import type { UserRepository } from "@/contexts/backend/users/domain/UserReposit
 
 import type { ProductReview } from "../../domain/ProductReview";
 import type { ProductReviewRepository } from "../../domain/ProductReviewRepository";
+import type { ProductReviewStatusValue } from "../../domain/ProductReviewStatus";
 
 export type ProductReviewResponse = {
 	id: string;
@@ -10,7 +11,7 @@ export type ProductReviewResponse = {
 	rating: number;
 	comment: string | null;
 	createdAt: string;
-	isPendingValidation: boolean;
+	ownStatus: ProductReviewStatusValue | null;
 };
 
 export type ProductReviewsResponse = {
@@ -38,9 +39,7 @@ export class AllProductReviewsSearcher {
 		const published = reviews.filter((review) => review.isPublished());
 		const visible = reviews.filter(
 			(review) =>
-				review.isPublished() ||
-				(review.isPendingValidation() &&
-					review.userId === currentUserId.value),
+				review.isPublished() || review.userId === currentUserId.value,
 		);
 
 		return {
@@ -52,7 +51,10 @@ export class AllProductReviewsSearcher {
 				rating: review.rating.value,
 				comment: review.comment.value,
 				createdAt: review.createdAt,
-				isPendingValidation: review.isPendingValidation(),
+				ownStatus:
+					review.userId === currentUserId.value
+						? review.status.value
+						: null,
 			})),
 		};
 	}
