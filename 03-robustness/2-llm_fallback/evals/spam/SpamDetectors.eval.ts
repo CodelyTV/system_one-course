@@ -4,6 +4,7 @@ import { describe, it } from "vitest";
 import { ProductReview } from "@/contexts/backend/reviews/domain/ProductReview";
 import type { ProductReviewSpamDetector } from "@/contexts/backend/reviews/domain/ProductReviewSpamDetector";
 import { EvaluationModelProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelProductReviewSpamDetector";
+import { EvaluationModelWithFallbackProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelWithFallbackProductReviewSpamDetector";
 import { LlmProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/LlmProductReviewSpamDetector";
 import { RuleBasedProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/RuleBasedProductReviewSpamDetector";
 
@@ -15,11 +16,13 @@ type Prediction = {
 	milliseconds: number;
 	dollars: number;
 	confidence: number | null;
+	calledLanguageModel: boolean;
 };
 
 type GatewayResponse = {
 	dollars: number;
 	spamProbability: number | null;
+	isLanguageModel: boolean;
 };
 
 const gatewayResponses: GatewayResponse[] = [];
@@ -33,21 +36,26 @@ const gateway = createGateway({
 		gatewayResponses.push({
 			dollars: Number(body.providerMetadata?.gateway?.cost ?? 0),
 			spamProbability: body.answers?.isSpam?.probability ?? null,
+			isLanguageModel: String(input).endsWith("/language-model"),
 		});
 
 		return response;
 	},
 });
 
+const evaluationModel = gateway.evaluationModel("typesafe-ai/jev");
+const languageModel = gateway.languageModel("openai/gpt-5-nano");
+
 const detectors: Record<string, ProductReviewSpamDetector> = {
 	"Rule based": new RuleBasedProductReviewSpamDetector(),
 	"System One (typesafe-ai/jev)":
-		new EvaluationModelProductReviewSpamDetector(
-			gateway.evaluationModel("typesafe-ai/jev"),
+		new EvaluationModelProductReviewSpamDetector(evaluationModel),
+	"LLM (openai/gpt-5-nano)": new LlmProductReviewSpamDetector(languageModel),
+	"System One + LLM fallback":
+		new EvaluationModelWithFallbackProductReviewSpamDetector(
+			evaluationModel,
+			new LlmProductReviewSpamDetector(languageModel),
 		),
-	"LLM (openai/gpt-5-nano)": new LlmProductReviewSpamDetector(
-		gateway.languageModel("openai/gpt-5-nano"),
-	),
 };
 
 type Summary = {
@@ -55,6 +63,7 @@ type Summary = {
 	"p50 (ms)": number;
 	"p95 (ms)": number;
 	"cost / 1k reviews": string;
+	"LLM calls": string;
 };
 
 async function predict(
@@ -89,6 +98,7 @@ async function predict(
 				: isSpam
 					? spamProbability
 					: 1 - spamProbability,
+		calledLanguageModel: responses.some((r) => r.isLanguageModel),
 	};
 }
 
@@ -108,12 +118,16 @@ function summarize(predictions: Prediction[]): Summary {
 	).length;
 	const latencies = predictions.map((p) => p.milliseconds);
 	const dollars = predictions.reduce((total, p) => total + p.dollars, 0);
+	const languageModelCalls = predictions.filter(
+		(p) => p.calledLanguageModel,
+	).length;
 
 	return {
 		accuracy: ratio(hits, predictions.length),
 		"p50 (ms)": Math.round(percentile(latencies, 50)),
 		"p95 (ms)": Math.round(percentile(latencies, 95)),
 		"cost / 1k reviews": `$${((dollars / predictions.length) * 1000).toFixed(4)}`,
+		"LLM calls": ratio(languageModelCalls, predictions.length),
 	};
 }
 

@@ -24,7 +24,8 @@ import { AllProductReviewsSearcher } from "@/contexts/backend/reviews/applicatio
 import { ProductReviewValidator } from "@/contexts/backend/reviews/application/validate/ProductReviewValidator";
 import { ValidateProductReviewOnProductReviewCreated } from "@/contexts/backend/reviews/application/validate/ValidateProductReviewOnProductReviewCreated";
 import { EvaluationModelProductReviewLabelDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelProductReviewLabelDetector";
-import { EvaluationModelProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelProductReviewSpamDetector";
+import { EvaluationModelWithFallbackProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelWithFallbackProductReviewSpamDetector";
+import { LlmProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/LlmProductReviewSpamDetector";
 import { PostgresProductReviewRepository } from "@/contexts/backend/reviews/infrastructure/PostgresProductReviewRepository";
 import { CurrentUserGetter } from "@/contexts/backend/users/application/current/CurrentUserGetter";
 import type { CurrentUserProvider } from "@/contexts/backend/users/domain/CurrentUserProvider";
@@ -64,9 +65,15 @@ class RetailContainer {
 
 	private readonly clock = new SystemClock();
 
-	private readonly evaluationModel = createGateway({
+	private readonly gateway = createGateway({
 		apiKey: process.env.VERCEL_AI_GATEWAY_API_KEY,
-	}).evaluationModel("typesafe-ai/jev");
+	});
+
+	private readonly evaluationModel =
+		this.gateway.evaluationModel("typesafe-ai/jev");
+
+	private readonly languageModel =
+		this.gateway.languageModel("openai/gpt-5-nano");
 
 	private readonly domainEventSubscribers: DomainEventSubscriber<DomainEvent>[] =
 		[];
@@ -80,8 +87,9 @@ class RetailContainer {
 			new ValidateProductReviewOnProductReviewCreated(
 				new ProductReviewValidator(
 					this.productReviewRepository,
-					new EvaluationModelProductReviewSpamDetector(
+					new EvaluationModelWithFallbackProductReviewSpamDetector(
 						this.evaluationModel,
+						new LlmProductReviewSpamDetector(this.languageModel),
 					),
 					this.eventBus,
 				),
