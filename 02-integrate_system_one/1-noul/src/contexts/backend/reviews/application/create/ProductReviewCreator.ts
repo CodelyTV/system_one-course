@@ -4,7 +4,7 @@ import type { EventBus } from "@/contexts/shared/domain/event/EventBus";
 import { ProductReview } from "../../domain/ProductReview";
 import type { ProductReviewRepository } from "../../domain/ProductReviewRepository";
 
-export class ProductReviewPublisher {
+export class ProductReviewCreator {
 	constructor(
 		private readonly repository: ProductReviewRepository,
 		private readonly clock: Clock,

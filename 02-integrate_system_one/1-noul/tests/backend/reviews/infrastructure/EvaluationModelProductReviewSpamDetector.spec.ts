@@ -1,17 +1,17 @@
 import { createGateway } from "ai";
 import { describe, expect, it } from "vitest";
 
-import { JevProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/JevProductReviewSpamDetector";
+import { EvaluationModelProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelProductReviewSpamDetector";
 
 import { ProductReviewMother } from "../domain/ProductReviewMother";
 
-const detector = new JevProductReviewSpamDetector(
+const detector = new EvaluationModelProductReviewSpamDetector(
 	createGateway({
 		apiKey: process.env.VERCEL_AI_GATEWAY_API_KEY,
 	}).evaluationModel("typesafe-ai/jev"),
 );
 
-describe("JevProductReviewSpamDetector should", () => {
+describe("EvaluationModelProductReviewSpamDetector should", () => {
 	it("flag an advertisement as spam", async () => {
 		const review = ProductReviewMother.create({
 			rating: 5,

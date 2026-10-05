@@ -1,6 +1,6 @@
 import { DomainEvent } from "@/contexts/shared/domain/event/DomainEvent";
 
-export type ProductReviewPublishedDomainEventPrimitives = {
+export type ProductReviewCreatedDomainEventPrimitives = {
 	id: string;
 	productId: string;
 	userId: string;
@@ -8,8 +8,8 @@ export type ProductReviewPublishedDomainEventPrimitives = {
 	comment: string | null;
 };
 
-export class ProductReviewPublishedDomainEvent extends DomainEvent {
-	static readonly eventName = "codely.retail.product_review.published";
+export class ProductReviewCreatedDomainEvent extends DomainEvent {
+	static readonly eventName = "codely.retail.product_review.created";
 
 	constructor(
 		readonly id: string,
@@ -21,14 +21,14 @@ export class ProductReviewPublishedDomainEvent extends DomainEvent {
 		occurredOn?: string,
 	) {
 		super(
-			ProductReviewPublishedDomainEvent.eventName,
+			ProductReviewCreatedDomainEvent.eventName,
 			id,
 			eventId,
 			occurredOn,
 		);
 	}
 
-	toPrimitives(): ProductReviewPublishedDomainEventPrimitives {
+	toPrimitives(): ProductReviewCreatedDomainEventPrimitives {
 		return {
 			id: this.id,
 			productId: this.productId,

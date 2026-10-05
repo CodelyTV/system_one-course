@@ -1,19 +1,19 @@
 import { describe, it } from "vitest";
 
 import { ProductReviewValidator } from "@/contexts/backend/reviews/application/validate/ProductReviewValidator";
-import { ValidateProductReviewOnProductReviewPublished } from "@/contexts/backend/reviews/application/validate/ValidateProductReviewOnProductReviewPublished";
+import { ValidateProductReviewOnProductReviewCreated } from "@/contexts/backend/reviews/application/validate/ValidateProductReviewOnProductReviewCreated";
 import type { ProductReviewPrimitives } from "@/contexts/backend/reviews/domain/ProductReview";
-import { ProductReviewPublishedDomainEvent } from "@/contexts/backend/reviews/domain/ProductReviewPublishedDomainEvent";
+import { ProductReviewCreatedDomainEvent } from "@/contexts/backend/reviews/domain/ProductReviewCreatedDomainEvent";
 import type { ProductReviewRepository } from "@/contexts/backend/reviews/domain/ProductReviewRepository";
 import type { ProductReviewSpamDetector } from "@/contexts/backend/reviews/domain/ProductReviewSpamDetector";
 
 import { Mock } from "../../../../shared/Mock";
 import { ProductReviewMother } from "../../domain/ProductReviewMother";
 
-function publishedEventFor(
+function createdEventFor(
 	primitives: ProductReviewPrimitives,
-): ProductReviewPublishedDomainEvent {
-	return new ProductReviewPublishedDomainEvent(
+): ProductReviewCreatedDomainEvent {
+	return new ProductReviewCreatedDomainEvent(
 		primitives.id,
 		primitives.productId,
 		primitives.userId,
@@ -22,10 +22,10 @@ function publishedEventFor(
 	);
 }
 
-describe("ValidateProductReviewOnProductReviewPublished should", () => {
+describe("ValidateProductReviewOnProductReviewCreated should", () => {
 	const repository = Mock.create<ProductReviewRepository>();
 	const spamDetector = Mock.create<ProductReviewSpamDetector>();
-	const subscriber = new ValidateProductReviewOnProductReviewPublished(
+	const subscriber = new ValidateProductReviewOnProductReviewCreated(
 		new ProductReviewValidator(repository, spamDetector),
 	);
 
@@ -36,7 +36,7 @@ describe("ValidateProductReviewOnProductReviewPublished should", () => {
 		repository.searchShouldReturn(ProductReviewMother.create(pending));
 		spamDetector.isSpamShouldReturn(false);
 
-		await subscriber.on(publishedEventFor(pending));
+		await subscriber.on(createdEventFor(pending));
 
 		repository.expectSaveToHaveBeenCalledWith(
 			ProductReviewMother.create({ ...pending, status: "published" }),
@@ -50,7 +50,7 @@ describe("ValidateProductReviewOnProductReviewPublished should", () => {
 		repository.searchShouldReturn(ProductReviewMother.create(pending));
 		spamDetector.isSpamShouldReturn(true);
 
-		await subscriber.on(publishedEventFor(pending));
+		await subscriber.on(createdEventFor(pending));
 
 		repository.expectSaveToHaveBeenCalledWith(
 			ProductReviewMother.create({ ...pending, status: "spam" }),
@@ -63,7 +63,7 @@ describe("ValidateProductReviewOnProductReviewPublished should", () => {
 		});
 		repository.searchShouldReturn(ProductReviewMother.create(published));
 
-		await subscriber.on(publishedEventFor(published));
+		await subscriber.on(createdEventFor(published));
 
 		spamDetector.expectIsSpamNotToHaveBeenCalled();
 		repository.expectSaveNotToHaveBeenCalled();

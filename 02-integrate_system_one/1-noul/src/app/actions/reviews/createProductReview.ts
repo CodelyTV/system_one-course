@@ -34,7 +34,7 @@ export async function createProductReview(
 		const userId =
 			await retailContainer.currentUserProvider.currentUserId();
 
-		await retailContainer.productReviewPublisher.create(
+		await retailContainer.productReviewCreator.create(
 			id,
 			productId,
 			userId.value,

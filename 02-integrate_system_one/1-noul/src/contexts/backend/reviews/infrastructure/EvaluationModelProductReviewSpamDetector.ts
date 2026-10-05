@@ -8,7 +8,7 @@ import { ProductReviewSpamDetector } from "../domain/ProductReviewSpamDetector";
 
 const spamProbabilityThreshold = 0.5;
 
-export class JevProductReviewSpamDetector extends ProductReviewSpamDetector {
+export class EvaluationModelProductReviewSpamDetector extends ProductReviewSpamDetector {
 	constructor(private readonly model: EvaluationModel) {
 		super();
 	}

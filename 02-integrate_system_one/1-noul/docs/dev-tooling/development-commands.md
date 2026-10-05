@@ -23,6 +23,6 @@ There is no linter configured.
 
 `.env.local`: `DATABASE_URL` (default `postgres://retail:retail@localhost:55432/retail`), `POSTGRES_PORT` and `VERCEL_AI_GATEWAY_API_KEY`.
 
-`VERCEL_AI_GATEWAY_API_KEY` is required: `JevProductReviewSpamDetector` calls TypeSafe's Jev (`typesafe-ai/jev`) through Vercel AI Gateway with the AI SDK (`experimental_evaluate`) to detect spam in product reviews. Its integration tests call the real API.
+`VERCEL_AI_GATEWAY_API_KEY` is required: `EvaluationModelProductReviewSpamDetector` calls TypeSafe's Jev (`typesafe-ai/jev`) through Vercel AI Gateway with the AI SDK (`experimental_evaluate`) to detect spam in product reviews. Its integration tests call the real API.
 
 Note for the workshop exercises: inside an exercise, `./cly start` wraps `db:up` + `db:reset` + `dev`, and `./cly test` wraps `test`.

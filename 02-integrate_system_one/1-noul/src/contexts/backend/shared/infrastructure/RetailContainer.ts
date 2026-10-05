@@ -17,11 +17,11 @@ import { InventoryLister } from "@/contexts/backend/products/application/invento
 import { LowStockLister } from "@/contexts/backend/products/application/low-stock/LowStockLister";
 import { ProductsSearcher } from "@/contexts/backend/products/application/search/ProductsSearcher";
 import { PostgresProductRepository } from "@/contexts/backend/products/infrastructure/PostgresProductRepository";
-import { ProductReviewPublisher } from "@/contexts/backend/reviews/application/create/ProductReviewPublisher";
+import { ProductReviewCreator } from "@/contexts/backend/reviews/application/create/ProductReviewCreator";
 import { AllProductReviewsSearcher } from "@/contexts/backend/reviews/application/search-all/AllProductReviewsSearcher";
 import { ProductReviewValidator } from "@/contexts/backend/reviews/application/validate/ProductReviewValidator";
-import { ValidateProductReviewOnProductReviewPublished } from "@/contexts/backend/reviews/application/validate/ValidateProductReviewOnProductReviewPublished";
-import { JevProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/JevProductReviewSpamDetector";
+import { ValidateProductReviewOnProductReviewCreated } from "@/contexts/backend/reviews/application/validate/ValidateProductReviewOnProductReviewCreated";
+import { EvaluationModelProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelProductReviewSpamDetector";
 import { PostgresProductReviewRepository } from "@/contexts/backend/reviews/infrastructure/PostgresProductReviewRepository";
 import { CurrentUserGetter } from "@/contexts/backend/users/application/current/CurrentUserGetter";
 import type { CurrentUserProvider } from "@/contexts/backend/users/domain/CurrentUserProvider";
@@ -60,10 +60,10 @@ class RetailContainer {
 	private readonly clock = new SystemClock();
 
 	private readonly eventBus = new InMemoryEventBus([
-		new ValidateProductReviewOnProductReviewPublished(
+		new ValidateProductReviewOnProductReviewCreated(
 			new ProductReviewValidator(
 				this.productReviewRepository,
-				new JevProductReviewSpamDetector(
+				new EvaluationModelProductReviewSpamDetector(
 					createGateway({
 						apiKey: process.env.VERCEL_AI_GATEWAY_API_KEY,
 					}).evaluationModel("typesafe-ai/jev"),
@@ -154,8 +154,8 @@ class RetailContainer {
 		);
 	}
 
-	get productReviewPublisher(): ProductReviewPublisher {
-		return new ProductReviewPublisher(
+	get productReviewCreator(): ProductReviewCreator {
+		return new ProductReviewCreator(
 			this.productReviewRepository,
 			this.clock,
 			this.eventBus,
