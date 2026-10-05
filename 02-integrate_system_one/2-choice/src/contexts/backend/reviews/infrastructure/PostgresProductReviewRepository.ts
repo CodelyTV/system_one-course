@@ -60,21 +60,6 @@ export class PostgresProductReviewRepository
 		return rows.map((row) => this.toProductReview(row));
 	}
 
-	async searchByProductAndUser(
-		productId: string,
-		userId: string,
-	): Promise<ProductReview | null> {
-		const row = (
-			await this.sql<ProductReviewRow[]>`
-				select id, product_id, user_id, rating, comment, status, created_at
-				from product_reviews
-				where product_id = ${productId} and user_id = ${userId}
-			`
-		).at(0);
-
-		return row ? this.toProductReview(row) : null;
-	}
-
 	private toProductReview(row: ProductReviewRow): ProductReview {
 		return ProductReview.fromPrimitives({
 			id: row.id,

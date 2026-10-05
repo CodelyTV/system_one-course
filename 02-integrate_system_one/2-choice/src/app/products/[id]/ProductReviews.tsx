@@ -1,5 +1,9 @@
 import type { ProductReviewsResponse } from "@/contexts/backend/reviews/application/search-all/AllProductReviewsSearcher";
-import { Badge } from "@/contexts/frontend/design-system/atoms/Badge";
+import type { ProductReviewStatusValue } from "@/contexts/backend/reviews/domain/ProductReviewStatus";
+import {
+	Badge,
+	type BadgeColor,
+} from "@/contexts/frontend/design-system/atoms/Badge";
 
 import { ProductReviewForm } from "./ProductReviewForm";
 
@@ -12,6 +16,21 @@ const dateFormatter = new Intl.DateTimeFormat("en-GB", {
 });
 
 const maxRating = 5;
+
+const ownStatusBadges: Record<
+	ProductReviewStatusValue,
+	{ label: string; color: BadgeColor }
+> = {
+	"pending-validation": { label: "Pending validation", color: "alt-3" },
+	published: { label: "Published", color: "alt-1" },
+	spam: { label: "Marked as spam", color: "alt-4" },
+};
+
+function OwnStatusBadge({ status }: { status: ProductReviewStatusValue }) {
+	const { label, color } = ownStatusBadges[status];
+
+	return <Badge color={color}>{label}</Badge>;
+}
 
 function Stars({ rating }: { rating: number }) {
 	const rounded = Math.round(rating);
@@ -67,10 +86,10 @@ export function ProductReviews({ productId, reviews }: ProductReviewsProps) {
 							<article key={review.id} className={styles.review}>
 								<div className={styles.reviewHeader}>
 									<Stars rating={review.rating} />
-									{review.isPendingValidation ? (
-										<Badge color="alt-4">
-											Pending validation
-										</Badge>
+									{review.ownStatus ? (
+										<OwnStatusBadge
+											status={review.ownStatus}
+										/>
 									) : null}
 								</div>
 								{review.comment ? (

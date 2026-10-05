@@ -8,7 +8,7 @@ import { ProductReviewSpamDetector } from "../domain/ProductReviewSpamDetector";
 
 const spamProbabilityThreshold = 0.5;
 
-export class JevProductReviewSpamDetector extends ProductReviewSpamDetector {
+export class EvaluationModelProductReviewSpamDetector extends ProductReviewSpamDetector {
 	constructor(private readonly model: EvaluationModel) {
 		super();
 	}
@@ -26,11 +26,12 @@ export class JevProductReviewSpamDetector extends ProductReviewSpamDetector {
 			questions: {
 				isSpam: {
 					type: "boolean",
-					instructions:
-						"Is this product review spam?",
+					instructions: "Is this product review spam?",
 				},
 			},
 		});
+
+		console.log("💬 SPAM RESULT:", answers);
 
 		return answers.isSpam.probability >= spamProbabilityThreshold;
 	}

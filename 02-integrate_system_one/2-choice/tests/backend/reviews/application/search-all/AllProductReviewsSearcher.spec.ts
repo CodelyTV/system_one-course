@@ -31,7 +31,7 @@ describe("AllProductReviewsSearcher should", () => {
 		]);
 	});
 
-	it("show published reviews and my own review pending validation", async () => {
+	it("show published reviews and all my own reviews", async () => {
 		const published = ProductReviewMother.create({
 			id: "review-published",
 			userId: "user-other",
@@ -49,8 +49,13 @@ describe("AllProductReviewsSearcher should", () => {
 			userId: "user-other",
 			status: "pending-validation",
 		});
-		const spam = ProductReviewMother.create({
-			id: "review-spam",
+		const othersSpam = ProductReviewMother.create({
+			id: "review-others-spam",
+			userId: "user-other",
+			status: "spam",
+		});
+		const mySpam = ProductReviewMother.create({
+			id: "review-my-spam",
 			userId: "user-me",
 			status: "spam",
 		});
@@ -58,7 +63,8 @@ describe("AllProductReviewsSearcher should", () => {
 			published,
 			myPending,
 			othersPending,
-			spam,
+			othersSpam,
+			mySpam,
 		]);
 
 		const result = await searcher.search("p1");
@@ -66,9 +72,43 @@ describe("AllProductReviewsSearcher should", () => {
 		expect(result.reviews.map((review) => review.id)).toEqual([
 			"review-published",
 			"review-mine",
+			"review-my-spam",
 		]);
 		expect(result.reviews[0].authorName).toBe("Other Customer");
-		expect(result.reviews[1].isPendingValidation).toBe(true);
+	});
+
+	it("expose the status only of my own reviews", async () => {
+		repository.searchByProductShouldReturn([
+			ProductReviewMother.create({
+				id: "review-others-published",
+				userId: "user-other",
+				status: "published",
+			}),
+			ProductReviewMother.create({
+				id: "review-my-published",
+				userId: "user-me",
+				status: "published",
+			}),
+			ProductReviewMother.create({
+				id: "review-my-pending",
+				userId: "user-me",
+				status: "pending-validation",
+			}),
+			ProductReviewMother.create({
+				id: "review-my-spam",
+				userId: "user-me",
+				status: "spam",
+			}),
+		]);
+
+		const result = await searcher.search("p1");
+
+		expect(result.reviews.map((review) => review.ownStatus)).toEqual([
+			null,
+			"published",
+			"pending-validation",
+			"spam",
+		]);
 	});
 
 	it("compute the average rating from published reviews only", async () => {

@@ -66,7 +66,7 @@ describeWithEnvironmentArranger(
 			).toBe(true);
 		});
 
-		it("search the reviews of a product and of a customer", async () => {
+		it("search the reviews of a product", async () => {
 			await seedUsersAndProduct();
 			await repository.save(
 				ProductReview.create(
@@ -90,16 +90,39 @@ describeWithEnvironmentArranger(
 			);
 
 			const productReviews = await repository.searchByProduct("p1");
-			const customerReview = await repository.searchByProductAndUser(
-				"p1",
-				"user-other",
-			);
 
 			expect(productReviews).toHaveLength(2);
-			expect(customerReview?.id.value).toBe("review-bbbb2222");
-			expect(
-				await repository.searchByProductAndUser("p1", "user-missing"),
-			).toBeNull();
+		});
+
+		it("save many reviews of the same customer for the same product", async () => {
+			await seedUsersAndProduct();
+			await repository.save(
+				ProductReview.create(
+					"review-cccc3333",
+					"p1",
+					"user-other",
+					5,
+					"Love it",
+					new Date().toISOString(),
+				),
+			);
+			await repository.save(
+				ProductReview.create(
+					"review-dddd4444",
+					"p1",
+					"user-other",
+					3,
+					"Shrank after washing",
+					new Date().toISOString(),
+				),
+			);
+
+			const productReviews = await repository.searchByProduct("p1");
+
+			expect(productReviews.map((review) => review.id.value)).toEqual([
+				"review-dddd4444",
+				"review-cccc3333",
+			]);
 		});
 	},
 );

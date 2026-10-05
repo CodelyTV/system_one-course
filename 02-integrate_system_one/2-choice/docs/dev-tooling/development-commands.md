@@ -9,6 +9,8 @@ npm run db:reset     # wait for DB, load schema + seed
 npm run dev          # http://localhost:3000
 ```
 
+With an existing database, `make start` starts PostgreSQL, waits for it and runs the dev server in the foreground. Ctrl+C stops the dev server and PostgreSQL, and keeps the data. `make stop` does the same from another terminal.
+
 ## Scripts
 
 - `npm run dev` — dev server on http://localhost:3000.
@@ -23,6 +25,6 @@ There is no linter configured.
 
 `.env.local`: `DATABASE_URL` (default `postgres://retail:retail@localhost:55432/retail`), `POSTGRES_PORT` and `VERCEL_AI_GATEWAY_API_KEY`.
 
-`VERCEL_AI_GATEWAY_API_KEY` is required: `JevProductReviewSpamDetector` calls TypeSafe's Jev (`typesafe-ai/jev`) through Vercel AI Gateway with the AI SDK (`experimental_evaluate`) to detect spam in product reviews. Its integration tests call the real API.
+`VERCEL_AI_GATEWAY_API_KEY` is required: `EvaluationModelProductReviewSpamDetector` calls TypeSafe's Jev (`typesafe-ai/jev`) through Vercel AI Gateway with the AI SDK (`experimental_evaluate`) to detect spam in product reviews. Its integration tests call the real API.
 
 Note for the workshop exercises: inside an exercise, `./cly start` wraps `db:up` + `db:reset` + `dev`, and `./cly test` wraps `test`.

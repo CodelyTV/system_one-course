@@ -16,7 +16,7 @@ Use cases are wired manually in `src/contexts/backend/shared/infrastructure/Reta
 
 - Aggregates extend `shared/domain/AggregateRoot.ts`, `record()` domain events (`shared/domain/event/DomainEvent.ts`) and use cases publish them through `EventBus` after saving: `eventBus.publish(aggregate.pullDomainEvents())`.
 - Each event class exposes a static `eventName` (`codely.retail.<aggregate>.<verb>`), the `aggregateId` and its body through `toPrimitives()`.
-- Subscribers live in the application layer, are named `<Action>On<Event>` (e.g. `ValidateProductReviewOnProductReviewPublished`), implement `DomainEventSubscriber`, and delegate to a use case.
+- Subscribers live in the application layer, are named `<Action>On<Event>` (e.g. `ValidateProductReviewOnProductReviewCreated`), implement `DomainEventSubscriber`, and delegate to a use case.
 - `backend/shared/infrastructure/event-bus/InMemoryEventBus.ts` dispatches events synchronously to the subscribers registered in `RetailContainer`.
 
 ## Frontend

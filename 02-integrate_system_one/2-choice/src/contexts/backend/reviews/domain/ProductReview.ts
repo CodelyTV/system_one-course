@@ -2,8 +2,8 @@ import { AggregateRoot } from "@/contexts/shared/domain/AggregateRoot";
 
 import { ProductReviewNotPendingValidationError } from "./errors/ProductReviewNotPendingValidationError";
 import { ProductReviewComment } from "./ProductReviewComment";
+import { ProductReviewCreatedDomainEvent } from "./ProductReviewCreatedDomainEvent";
 import { ProductReviewId } from "./ProductReviewId";
-import { ProductReviewPublishedDomainEvent } from "./ProductReviewPublishedDomainEvent";
 import { ProductReviewRating } from "./ProductReviewRating";
 import {
 	ProductReviewStatus,
@@ -52,7 +52,7 @@ export class ProductReview extends AggregateRoot {
 		);
 
 		review.record(
-			new ProductReviewPublishedDomainEvent(
+			new ProductReviewCreatedDomainEvent(
 				review.id.value,
 				review.productId,
 				review.userId,

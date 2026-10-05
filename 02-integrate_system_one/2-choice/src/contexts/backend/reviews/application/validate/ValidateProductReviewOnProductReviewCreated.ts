@@ -1,18 +1,18 @@
 import type { DomainEventClass } from "@/contexts/shared/domain/event/DomainEvent";
 import type { DomainEventSubscriber } from "@/contexts/shared/domain/event/DomainEventSubscriber";
 
-import { ProductReviewPublishedDomainEvent } from "../../domain/ProductReviewPublishedDomainEvent";
+import { ProductReviewCreatedDomainEvent } from "../../domain/ProductReviewCreatedDomainEvent";
 
 import type { ProductReviewValidator } from "./ProductReviewValidator";
 
-export class ValidateProductReviewOnProductReviewPublished implements DomainEventSubscriber<ProductReviewPublishedDomainEvent> {
+export class ValidateProductReviewOnProductReviewCreated implements DomainEventSubscriber<ProductReviewCreatedDomainEvent> {
 	constructor(private readonly validator: ProductReviewValidator) {}
 
 	subscribedTo(): DomainEventClass[] {
-		return [ProductReviewPublishedDomainEvent];
+		return [ProductReviewCreatedDomainEvent];
 	}
 
-	async on(event: ProductReviewPublishedDomainEvent): Promise<void> {
+	async on(event: ProductReviewCreatedDomainEvent): Promise<void> {
 		await this.validator.validate(event.aggregateId);
 	}
 }
