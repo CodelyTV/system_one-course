@@ -115,6 +115,11 @@ html.is-jumping *, html.is-jumping *::before, html.is-jumping *::after { transit
 ::view-transition-old(question-boolean), ::view-transition-new(question-boolean),
 ::view-transition-old(question-choice), ::view-transition-new(question-choice),
 ::view-transition-old(question-score), ::view-transition-new(question-score) { width: 100%; height: 100%; object-fit: none; }
+::view-transition-old(boolean-request), ::view-transition-old(boolean-response),
+::view-transition-old(choice-request), ::view-transition-old(choice-response) { animation: editor-out-up var(--transition-duration) cubic-bezier(.65, 0, .35, 1) both; }
+::view-transition-new(boolean-request), ::view-transition-new(boolean-response),
+::view-transition-new(choice-request), ::view-transition-new(choice-response) { animation: editor-out-up var(--transition-duration) cubic-bezier(.65, 0, .35, 1) reverse both; }
+@keyframes editor-out-up { to { opacity: 0; transform: translateY(-388px); } }
 ::view-transition-old(book) { animation: book-out .3s ease-in both; }
 @keyframes book-out { to { opacity: 0; transform: translateY(48px); } }
 @keyframes word-out { to { opacity: 0; transform: translateY(40px); } }
@@ -420,7 +425,10 @@ code, .code { font-family: var(--mono); }
 .editor { position: absolute; left: 690px; right: var(--margin-x); top: 66px; border: 1px solid #3a3a3a; border-radius: 16px; background: #1f1f1f; box-shadow: 0 6px 12px rgba(0, 0, 0, .21); }
 .editor-request { transition: opacity .3s ease-out, transform .3s ease-out, filter .3s ease-out; }
 .editor-request.is-on { filter: blur(3px) brightness(.55); }
-.editor-response { left: 832.5px; right: auto; top: 127.5px; width: 840px; }
+.editor-stack { position: absolute; left: 690px; right: var(--margin-x); top: 66px; display: grid; }
+.editor-stack > .editor { position: relative; left: auto; right: auto; top: auto; grid-area: 1 / 1; }
+.editor-response { place-self: center; width: 840px; }
+.editor-response-wide { width: 1060px; }
 .editor-bar { position: relative; padding: 28px 0 20px; text-align: center; font-size: 30px; font-weight: 500; color: var(--text); }
 .editor-dots { position: absolute; left: 28px; top: 50%; display: flex; gap: 10px; transform: translateY(-50%); }
 .editor-dots i { width: 22px; height: 22px; border-radius: 50%; background: #ff5f57; }
@@ -638,13 +646,51 @@ html.is-preview .stage [data-step] { transition-duration: .25s; transition-delay
     <div class="question-type" data-magic="question-choice"><span class="emoji">🏷️</span>Choice</div>
     <div class="question-type" data-magic="question-score"><span class="emoji">📊</span>Score</div>
   </div>
-  <div class="editor editor-request" data-step="1" data-anim="fade-scale" data-state-at="6">
+  <div class="editor-stack">
+  <div class="editor editor-request" data-step="1" data-anim="fade-scale" data-state-at="7" data-magic="boolean-request">
     <div class="editor-bar"><span class="editor-dots"><i></i><i></i><i></i></span>ask-jev.sh</div>
-<pre class="editor-code" data-code><span class="ln" data-focus="2">curl https://api.typesafe.ai/v1/systemone <span class="flag">\</span></span><span class="ln" data-focus="2">  <span class="flag">-H</span> <span class="s">"Authorization: Bearer $TYPESAFE_API_KEY"</span> <span class="flag">\</span></span><span class="ln">  <span class="flag">--json</span> <span class="s">'</span>{</span><span class="ln" data-focus="3">    <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,</span><span class="ln" data-focus="4">    <span class="k">"state"</span>: { <span class="k">"thing"</span>: <span class="s">"fire"</span> },</span><span class="ln" data-focus="5">    <span class="k">"questions"</span>: {</span><span class="ln" data-focus="5">      <span class="k">"isHot"</span>: { <span class="k">"type"</span>: <span class="s">"noul"</span>, <span class="k">"instructions"</span>: <span class="s">"Is it hot?"</span> }</span><span class="ln" data-focus="5">    }</span><span class="ln">  }<span class="s">'</span></span></pre>
+<pre class="editor-code" data-code><span class="ln" data-focus="2">curl https://api.typesafe.ai/v1/systemone <span class="flag">\</span></span><span class="ln" data-focus="2">  <span class="flag">-H</span> <span class="s">"Authorization: Bearer $TYPESAFE_API_KEY"</span> <span class="flag">\</span></span><span class="ln">  <span class="flag">--json</span> <span class="s">'</span>{</span><span class="ln" data-focus="3">    <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,</span><span class="ln" data-focus="4">    <span class="k">"state"</span>: { <span class="k">"thing"</span>: <span class="s">"fire"</span> },</span><span class="ln" data-focus="5">    <span class="k">"questions"</span>: {</span><span class="ln" data-focus="6">      <span class="k">"isHot"</span>: { <span class="k">"type"</span>: <span class="s">"noul"</span>, <span class="k">"instructions"</span>: <span class="s">"Is it hot?"</span> }</span><span class="ln" data-focus="5">    }</span><span class="ln">  }<span class="s">'</span></span></pre>
   </div>
-  <div class="editor editor-response" data-step="6" data-anim="fade-scale">
+  <div class="editor editor-response" data-step="7" data-anim="fade-scale" data-magic="boolean-response">
     <div class="editor-bar"><span class="editor-dots"><i></i><i></i><i></i></span>response.json</div>
-<pre class="editor-code" data-code><span class="ln">{</span><span class="ln" data-focus="7">  <span class="k">"model"</span>: <span class="s">"jev-1.13.0"</span>,</span><span class="ln" data-focus="8">  <span class="k">"answers"</span>: {</span><span class="ln" data-focus="8">    <span class="k">"isHot"</span>: { <span class="k">"type"</span>: <span class="s">"noul"</span>, <span class="k">"noul"</span>: <span class="n">0.99</span> }</span><span class="ln" data-focus="8">  }</span><span class="ln">}</span></pre>
+<pre class="editor-code" data-code><span class="ln">{</span><span class="ln" data-focus="8">  <span class="k">"model"</span>: <span class="s">"jev-1.13.0"</span>,</span><span class="ln" data-focus="9">  <span class="k">"answers"</span>: {</span><span class="ln" data-focus="10">    <span class="k">"isHot"</span>: { <span class="k">"type"</span>: <span class="s">"noul"</span>, <span class="k">"noul"</span>: <span class="n">0.99</span> }</span><span class="ln" data-focus="9">  }</span><span class="ln">}</span></pre>
+  </div>
+  </div>
+</section>
+
+<section class="slide" data-name="choice">
+  <div class="question-nav" style="top: -322px">
+    <div class="question-type" data-magic="question-boolean"><span class="emoji">✅</span>Boolean</div>
+    <div class="question-type is-active" data-magic="question-choice"><span class="emoji">🏷️</span>Choice</div>
+    <div class="question-type" data-magic="question-score"><span class="emoji">📊</span>Score</div>
+  </div>
+  <div class="editor-stack">
+  <div class="editor editor-request" data-step="1" data-anim="fade-scale" data-state-at="7" data-magic="choice-request">
+    <div class="editor-bar"><span class="editor-dots"><i></i><i></i><i></i></span>ask-jev.sh</div>
+<pre class="editor-code" data-code><span class="ln" data-focus="2">curl https://api.typesafe.ai/v1/systemone <span class="flag">\</span></span><span class="ln" data-focus="2">  <span class="flag">-H</span> <span class="s">"Authorization: Bearer $TYPESAFE_API_KEY"</span> <span class="flag">\</span></span><span class="ln">  <span class="flag">--json</span> <span class="s">'</span>{</span><span class="ln">    <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,</span><span class="ln" data-focus="3">    <span class="k">"state"</span>: { <span class="k">"thing"</span>: <span class="s">"cat"</span> },</span><span class="ln" data-focus="4">    <span class="k">"questions"</span>: {</span><span class="ln" data-focus="5">      <span class="k">"kind"</span>: {</span><span class="ln" data-focus="5">        <span class="k">"type"</span>: <span class="s">"choice"</span>,</span><span class="ln" data-focus="5">        <span class="k">"instructions"</span>: <span class="s">"What is it?"</span>,</span><span class="ln" data-focus="6">        <span class="k">"criteria"</span>: { <span class="k">"plant"</span>: <span class="s">"Plant"</span>, <span class="k">"animal"</span>: <span class="s">"Animal"</span>, <span class="k">"tool"</span>: <span class="s">"Tool"</span> }</span><span class="ln" data-focus="5">      }</span><span class="ln" data-focus="4">    }</span><span class="ln">  }<span class="s">'</span></span></pre>
+  </div>
+  <div class="editor editor-response editor-response-wide" data-step="7" data-anim="fade-scale" data-magic="choice-response">
+    <div class="editor-bar"><span class="editor-dots"><i></i><i></i><i></i></span>response.json</div>
+<pre class="editor-code" data-code><span class="ln">{</span><span class="ln">  <span class="k">"model"</span>: <span class="s">"jev-1.13.0"</span>,</span><span class="ln" data-focus="8">  <span class="k">"answers"</span>: {</span><span class="ln" data-focus="9">    <span class="k">"kind"</span>: {</span><span class="ln" data-focus="9">      <span class="k">"type"</span>: <span class="s">"choice"</span>,</span><span class="ln" data-focus="10">      <span class="k">"choice"</span>: <span class="s">"animal"</span>,</span><span class="ln" data-focus="11">      <span class="k">"confidence"</span>: <span class="n">0.98</span>,</span><span class="ln" data-focus="12">      <span class="k">"probabilities"</span>: { <span class="k">"animal"</span>: <span class="n">0.99</span>, <span class="k">"plant"</span>: <span class="n">0.01</span>, <span class="k">"tool"</span>: <span class="n">0</span> }</span><span class="ln" data-focus="9">    }</span><span class="ln" data-focus="8">  }</span><span class="ln">}</span></pre>
+  </div>
+  </div>
+</section>
+
+<section class="slide" data-name="score">
+  <div class="question-nav" style="top: -710px">
+    <div class="question-type" data-magic="question-boolean"><span class="emoji">✅</span>Boolean</div>
+    <div class="question-type" data-magic="question-choice"><span class="emoji">🏷️</span>Choice</div>
+    <div class="question-type is-active" data-magic="question-score"><span class="emoji">📊</span>Score</div>
+  </div>
+  <div class="editor-stack">
+  <div class="editor editor-request" data-step="1" data-anim="fade-scale" data-state-at="7">
+    <div class="editor-bar"><span class="editor-dots"><i></i><i></i><i></i></span>ask-jev.sh</div>
+<pre class="editor-code" data-code><span class="ln" data-focus="2">curl https://api.typesafe.ai/v1/systemone <span class="flag">\</span></span><span class="ln" data-focus="2">  <span class="flag">-H</span> <span class="s">"Authorization: Bearer $TYPESAFE_API_KEY"</span> <span class="flag">\</span></span><span class="ln">  <span class="flag">--json</span> <span class="s">'</span>{</span><span class="ln">    <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,</span><span class="ln" data-focus="3">    <span class="k">"state"</span>: { <span class="k">"thing"</span>: <span class="s">"cat"</span> },</span><span class="ln" data-focus="4">    <span class="k">"questions"</span>: {</span><span class="ln" data-focus="5">      <span class="k">"size"</span>: {</span><span class="ln" data-focus="5">        <span class="k">"type"</span>: <span class="s">"score"</span>,</span><span class="ln" data-focus="5">        <span class="k">"instructions"</span>: <span class="s">"How big is it?"</span>,</span><span class="ln" data-focus="6">        <span class="k">"criteria"</span>: [<span class="s">"Tiny"</span>, <span class="s">"Small"</span>, <span class="s">"Medium"</span>, <span class="s">"Big"</span>]</span><span class="ln" data-focus="5">      }</span><span class="ln" data-focus="4">    }</span><span class="ln">  }<span class="s">'</span></span></pre>
+  </div>
+  <div class="editor editor-response editor-response-wide" data-step="7" data-anim="fade-scale">
+    <div class="editor-bar"><span class="editor-dots"><i></i><i></i><i></i></span>response.json</div>
+<pre class="editor-code" data-code><span class="ln">{</span><span class="ln">  <span class="k">"model"</span>: <span class="s">"jev-1.13.0"</span>,</span><span class="ln" data-focus="8">  <span class="k">"answers"</span>: {</span><span class="ln" data-focus="9">    <span class="k">"size"</span>: {</span><span class="ln" data-focus="9">      <span class="k">"type"</span>: <span class="s">"score"</span>,</span><span class="ln" data-focus="10">      <span class="k">"score"</span>: <span class="n">1.3</span>,</span><span class="ln" data-focus="11">      <span class="k">"confidence"</span>: <span class="n">0.6</span>,</span><span class="ln" data-focus="12">      <span class="k">"probabilities"</span>: { <span class="k">"0"</span>: <span class="n">0.05</span>, <span class="k">"1"</span>: <span class="n">0.6</span>, <span class="k">"2"</span>: <span class="n">0.35</span>, <span class="k">"3"</span>: <span class="n">0</span> },</span><span class="ln" data-focus="13">      <span class="k">"legend"</span>: { <span class="k">"0"</span>: <span class="s">"Tiny"</span>, <span class="k">"1"</span>: <span class="s">"Small"</span>, <span class="k">"2"</span>: <span class="s">"Medium"</span>, <span class="k">"3"</span>: <span class="s">"Big"</span> }</span><span class="ln" data-focus="9">    }</span><span class="ln" data-focus="8">  }</span><span class="ln">}</span></pre>
+  </div>
   </div>
 </section>
 
