@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>System One 01.1</title>
+<style>
+@font-face { font-family: "Moderat"; font-weight: 400; src: local("Moderat-Regular"), local("Moderat Regular"), local("Moderat"); }
+@font-face { font-family: "Moderat"; font-weight: 500; src: local("Moderat-Medium"), local("Moderat Medium"); }
+@font-face { font-family: "Moderat"; font-weight: 700; src: local("Moderat-Bold"), local("Moderat Bold"); }
+@font-face { font-family: "Moderat Mono"; font-weight: 400; src: local("Moderat-Mono-Regular"), local("Moderat Mono Regular"), local("Moderat Mono"); }
+
+:root {
+  --bg: #1b2232;
+  --bg-deep: #101621;
+  --surface: #262e42;
+  --line: #3a4152;
+  --text: #ffffff;
+  --text-soft: #c9cedb;
+  --text-muted: #8a92a6;
+  --ink: #1b2232;
+  --green: #6ef06c;
+  --panel-green: #224e3c;
+  --panel-purple: #4a2a7a;
+  --purple: #672beb;
+  --arrow: #f8ef7a;
+  --highlight: #fef878;
+  --orange: #f39a3d;
+  --blue: #2a5cf5;
+  --cell-green: #a9f99a;
+  --cell-red: #f88a87;
+  --cell-yellow: #faeca3;
+  --cell-cyan: #a7f1e8;
+  --code-key: #f8ef7a;
+  --code-string: #a9f99a;
+  --code-number: #f39a3d;
+  --code-keyword: #c3a6ff;
+  --code-punct: #c9cedb;
+  --transition-duration: .6s;
+  --margin-x: 105px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --ease-pop: cubic-bezier(.34, 1.56, .64, 1);
+  --font: "Moderat", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Moderat Mono", "Dank Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+
+body { font-family: var(--font); color: var(--text); -webkit-font-smoothing: antialiased; }
+
+.viewport { position: fixed; inset: 0; overflow: hidden; }
+
+.stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: center center;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.slide { position: absolute; inset: 0; display: none; background: var(--bg); }
+.slide.is-active { display: block; }
+
+.emoji { font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; font-weight: 400; line-height: 1; }
+.mono { font-family: var(--mono); }
+
+[data-step] {
+  opacity: 0;
+  transition: opacity .55s var(--ease), transform .7s var(--ease), clip-path .8s var(--ease), stroke-dashoffset .8s var(--ease);
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+[data-step].is-built { opacity: 1; transform: none; }
+[data-anim="up"] { transform: translateY(48px); }
+[data-anim="down"] { transform: translateY(-48px); }
+[data-anim="left"] { transform: translateX(-70px); }
+[data-anim="right"] { transform: translateX(70px); }
+[data-anim="pop"] { transform: scale(.55); transition-timing-function: var(--ease), var(--ease-pop), var(--ease), var(--ease); }
+[data-anim="wipe"] { clip-path: inset(0 100% 0 0); opacity: 1; }
+[data-anim="wipe"].is-built { clip-path: inset(0 0 0 0); }
+[data-anim="draw"] { stroke-dasharray: 1; stroke-dashoffset: 1; }
+[data-anim="draw"].is-built { stroke-dashoffset: 0; }
+[data-anim="fade-scale"], [data-anim="fade-move"] { transition-duration: .3s; transition-timing-function: ease-out; }
+[data-anim="fade-scale"] { transform: scale(.95); }
+[data-anim="fade-move"] { transform: translateX(-10%); }
+.is-dimmed { opacity: .22 !important; filter: saturate(.4); }
+.is-gone { opacity: 0 !important; }
+
+html.is-jumping *, html.is-jumping *::before, html.is-jumping *::after { transition: none !important; }
+
+::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation-duration: var(--transition-duration); }
+::view-transition-group(*) { animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
+
+/* Cover */
+.slide.cover { background: url("assets/cover-background.jpg") center / cover; }
+.cover::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 305px;
+  background: url("assets/cover-side-pattern.jpg") center / cover;
+}
+.cover-title {
+  position: absolute;
+  left: 120px;
+  top: 190px;
+  width: 1420px;
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  column-gap: 26px;
+}
+.cover-title .emoji { font-size: 96px; padding-top: 8px; }
+.cover-title h1 { font-weight: 700; font-size: 96px; line-height: 1.12; letter-spacing: -.5px; color: #f3f1ec; }
+.cover-title p { grid-column: 2; margin-top: 44px; font-size: 48px; color: var(--green); }
+
+/* Content */
+.title {
+  position: absolute;
+  left: var(--margin-x);
+  top: 92px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+.title .emoji { font-size: 58px; }
+.subtitle { position: absolute; left: 186px; top: 178px; font-size: 32px; color: var(--green); }
+
+.legend {
+  position: absolute;
+  right: 80px;
+  top: 96px;
+  display: flex;
+  gap: 34px;
+  text-align: center;
+  font-size: 30px;
+  line-height: 1.2;
+}
+.legend div { display: flex; flex-direction: column; align-items: center; gap: 10px; min-width: 110px; }
+.legend .emoji { font-size: 56px; }
+
+.wires { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.wire { fill: none; stroke: var(--arrow); stroke-width: 6; stroke-linecap: round; marker-end: url(#arrowhead); }
+.wire.dotted { stroke-dasharray: .02 .03; }
+.flow text { font-size: 40px; }
+
+.card {
+  position: absolute;
+  background: var(--bg-deep);
+  border: 2px solid var(--line);
+  border-radius: 28px;
+  padding: 30px 36px;
+}
+.card-label { display: flex; align-items: center; gap: 14px; font-size: 32px; color: var(--text-soft); margin-bottom: 18px; }
+.card-label .emoji { font-size: 40px; }
+
+.panel {
+  position: absolute;
+  border-radius: 40px;
+  background: var(--panel-green);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+}
+.panel.purple { background: var(--panel-purple); }
+
+code, .code { font-family: var(--mono); }
+.code {
+  font-size: 30px;
+  line-height: 1.5;
+  white-space: pre;
+  color: var(--code-punct);
+  tab-size: 2;
+}
+.word { display: inline-block; white-space: nowrap; }
+.code .ln { display: block; transition: opacity .4s var(--ease), background-color .4s var(--ease); border-radius: 8px; margin: 0 -14px; padding: 0 14px; }
+.code.has-focus .ln:not(.is-focus) { opacity: .28; }
+.code.has-focus .ln.is-focus { background: rgba(248, 239, 122, .08); }
+.k { color: var(--code-key); }
+.s { color: var(--code-string); }
+.n { color: var(--code-number); }
+.kw { color: var(--code-keyword); }
+.c { color: var(--text-muted); }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 22px;
+  border-radius: 999px;
+  font-size: 30px;
+  background: var(--surface);
+  color: var(--text);
+  white-space: nowrap;
+}
+.chip.green { background: var(--cell-green); color: var(--ink); }
+.chip.red { background: var(--cell-red); color: var(--ink); }
+.chip.yellow { background: var(--cell-yellow); color: var(--ink); }
+.chip.purple { background: var(--purple); }
+
+.footnote { position: absolute; left: 105px; bottom: 56px; font-size: 28px; color: var(--text-muted); }
+
+/* System 1 vs System 2 book */
+.book {
+  position: absolute;
+  left: var(--margin-x);
+  top: 210px;
+  width: 900px;
+  height: 692px;
+}
+.book-body {
+  position: absolute;
+  inset: 0;
+  perspective: 3200px;
+  transform: translateX(-25%);
+  transition: transform 1.1s cubic-bezier(.65, 0, .25, 1);
+}
+.book-body.is-on { transform: none; }
+.book-page {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  padding: 40px 44px;
+  color: #2d2924;
+  background: #f6f0e1;
+}
+.book-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: .35;
+  mix-blend-mode: multiply;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .42 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.book-page > * { mix-blend-mode: multiply; }
+.book-page-right {
+  left: 50%;
+  padding-left: 64px;
+  border-radius: 0 18px 18px 0;
+  background: linear-gradient(90deg, #d9cfb6 0, #efe7d3 34px, #f6f0e1 90px);
+  box-shadow: 4px 4px 0 #e8dfca, 8px 8px 0 #d8cdb3, 0 40px 80px rgba(0, 0, 0, .5);
+}
+.book-cover {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transform: translateZ(1px) rotateY(0deg);
+  transition: transform 1.1s cubic-bezier(.65, 0, .25, 1);
+}
+.book-body.is-on .book-cover { transform: translateZ(1px) rotateY(-180deg); }
+.book-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.book-front {
+  border-radius: 4px 14px 14px 4px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, .3) 0, rgba(0, 0, 0, .08) 18px, transparent 44px), url("assets/thinking-fast-and-slow-cover.webp") center / cover;
+  box-shadow: 4px 4px 0 #e8dfca, 8px 8px 0 #d8cdb3, 0 40px 80px rgba(0, 0, 0, .5);
+}
+.book-page-left {
+  left: 0;
+  width: 100%;
+  transform: rotateY(180deg);
+  padding-right: 64px;
+  border-radius: 18px 0 0 18px;
+  background: linear-gradient(270deg, #d9cfb6 0, #efe7d3 34px, #f6f0e1 90px);
+  box-shadow: 4px 4px 0 #e8dfca, 8px 8px 0 #d8cdb3, 0 40px 80px rgba(0, 0, 0, .5);
+}
+.page-running {
+  margin-bottom: 44px;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #8f8473;
+}
+.page-running { text-align: center; }
+.book-page-left .page-running { margin-right: -20px; }
+.book-page-right .page-running { margin-left: -20px; }
+.page-head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 28px;
+  font-weight: 700;
+  font-size: 50px;
+  white-space: nowrap;
+}
+.page-head .emoji { font-size: 56px; }
+.page-list { list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 38px; }
+.page-list li { display: flex; align-items: center; gap: 16px; }
+.page-list .emoji { font-size: 32px; width: 44px; text-align: center; filter: saturate(.75); }
+.page-example {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 40px;
+  padding: 22px 0 20px;
+  border-top: 1px solid #b9ad97;
+  border-bottom: 1px solid #b9ad97;
+  font-size: 46px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.page-example .answer {
+  display: inline-block;
+  padding: 0 8px;
+  font-weight: 700;
+  background: linear-gradient(176deg, transparent 52%, var(--highlight) 52%, var(--highlight) 90%, transparent 90%);
+}
+.page-example .result { display: inline-grid; align-items: center; justify-items: start; vertical-align: middle; }
+.page-example .result > * { grid-area: 1 / 1; }
+.page-example .thinking { display: inline-block; font-size: 42px; animation: thinking 1.2s ease-in-out infinite; transition: opacity .3s ease-out; }
+.page-example:has(.answer.is-built) .thinking { opacity: 0; }
+@keyframes thinking { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+
+/* Probability bars */
+.bar { position: relative; height: 44px; border-radius: 12px; background: var(--surface); overflow: hidden; }
+.bar > i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--value, 0) * 100%);
+  background: var(--bar-color, var(--cell-green));
+  border-radius: 12px;
+  transition: width .9s var(--ease), background-color .6s var(--ease);
+}
+[data-step]:not(.is-built) .bar > i { width: 0; }
+
+/* Tables */
+.table {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-auto-rows: 1fr;
+  background: var(--bg);
+}
+.table .row { display: grid; grid-template-columns: var(--cols); }
+.table .row > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 24px;
+  border-right: 2px solid var(--line);
+  border-bottom: 2px solid var(--line);
+  font-size: 42px;
+  line-height: 1.15;
+}
+.table .row > div:last-child { border-right: 0; }
+.table .head > div { font-weight: 700; font-size: 48px; }
+.table .row > .label { justify-content: flex-start; gap: 20px; text-align: left; font-size: 40px; }
+.table .row > .label .emoji { font-size: 40px; }
+.table .corner { justify-content: flex-start !important; gap: 26px; }
+.table .corner img { width: 110px; }
+.table .corner span { font-weight: 700; font-size: 46px; line-height: 1.05; text-align: left; }
+.table .cell { color: var(--ink); }
+.table .cell small { font-size: 28px; margin-left: 10px; }
+.table .cell.green { background: var(--cell-green); }
+.table .cell.red { background: var(--cell-red); }
+.table .cell.yellow { background: var(--cell-yellow); }
+.table .cell.cyan { background: var(--cell-cyan); }
+.table .cell code { font-size: 32px; }
+
+/* HUD */
+.hud {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 18px;
+  font: 500 14px var(--mono);
+  color: #c9cedb;
+  background: linear-gradient(transparent, rgba(0, 0, 0, .7));
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+}
+.hud.is-visible { opacity: 1; }
+.hud-progress { flex: 1; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, .15); overflow: hidden; }
+.hud-progress i { display: block; height: 100%; width: 0; background: var(--green); transition: width .3s; }
+
+
+/* Presenter */
+[hidden] { display: none !important; }
+html.is-preview .stage [data-step] { transition-duration: .25s; transition-delay: 0s; }
+
+.presenter {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 28px;
+  padding: 28px;
+  background: #0b0f17;
+  font-family: var(--font);
+}
+.presenter section { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.presenter header { display: flex; align-items: center; gap: 14px; font-size: 18px; color: var(--text-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.presenter-tag { padding: 4px 14px; border-radius: 999px; font-weight: 700; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; background: var(--green); color: var(--ink); }
+.presenter-tag.next { background: var(--arrow); }
+.presenter-next.is-new-slide .presenter-tag.next { background: var(--orange); }
+.presenter-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: #000; box-shadow: 0 0 0 2px var(--line); }
+.presenter-next.is-new-slide .presenter-frame { box-shadow: 0 0 0 3px var(--orange); }
+.presenter-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; }
+.presenter-end { position: absolute; inset: 0; display: grid; place-items: center; font-size: 40px; color: var(--text-soft); }
+.presenter-info { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 8px; }
+.presenter-info > * { display: flex; flex-direction: column; gap: 6px; padding: 16px 20px; border-radius: 14px; background: var(--bg); border: 0; color: var(--text); font: inherit; text-align: left; }
+.presenter-info small { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); }
+.presenter-info strong { font: 500 34px var(--mono); white-space: nowrap; }
+@media (max-width: 1100px) {
+  .presenter { grid-template-columns: 1fr; overflow-y: auto; }
+}
+.presenter-timer { cursor: pointer; }
+.presenter-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.presenter-controls button { font: 500 20px var(--font); padding: 16px; border-radius: 14px; border: 2px solid var(--line); background: var(--surface); color: var(--text); cursor: pointer; }
+.presenter-controls button:hover { border-color: var(--green); }
+.presenter-waiting { font-size: 16px; color: var(--cell-yellow); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <marker id="arrowhead" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f8ef7a"/>
+    </marker>
+  </defs>
+</svg>
+
+<div class="viewport">
+<main class="stage" id="stage">
+
+<!-- 1 · Cover -->
+<section class="slide cover" data-name="cover">
+  <div class="cover-title">
+    <span class="emoji" data-magic="title-emoji">🧠</span>
+    <h1 data-magic-text="title">What is a System One and how it works: Jev, Laya, Kev</h1>
+    <p>System One</p>
+  </div>
+</section>
+
+<!-- 2 · System 1 vs System 2 -->
+<section class="slide" data-name="system-1-vs-system-2">
+  <h2 class="title"><span class="emoji" data-magic="title-emoji">🧠</span><span data-magic-text="title">System One vs System Two</span></h2>
+  <div class="book" data-step="1" data-anim="up">
+    <div class="book-body" data-state-at="2">
+      <div class="book-page book-page-right">
+        <div class="page-running">Part I · Two Systems</div>
+        <div class="page-head" data-step="9" data-anim="fade-scale"><span class="emoji">🐢</span>System Two</div>
+        <ul class="page-list">
+          <li data-step="10" data-anim="fade-move"><span class="emoji">🐌</span>Slow</li>
+          <li data-step="11" data-anim="fade-move"><span class="emoji">🧐</span>Deliberate</li>
+          <li data-step="12" data-anim="fade-move"><span class="emoji">🏋️</span>Effortful</li>
+          <li data-step="13" data-anim="fade-move"><span class="emoji">🧮</span>Analytical</li>
+        </ul>
+        <div class="page-example" data-step="14" data-anim="up">17 × 24 = <span class="result"><span class="thinking emoji">🤔</span><span class="answer" data-step="15" data-anim="pop">408</span></span></div>
+      </div>
+      <div class="book-cover">
+        <div class="book-face book-front" role="img" aria-label="Thinking, Fast and Slow by Daniel Kahneman"></div>
+        <div class="book-face book-page book-page-left">
+          <div class="page-running">Thinking, Fast and Slow</div>
+          <div class="page-head" data-step="3" data-anim="fade-scale"><span class="emoji">⚡️</span>System One</div>
+          <ul class="page-list">
+            <li data-step="4" data-anim="fade-move"><span class="emoji">🏎️</span>Fast</li>
+            <li data-step="5" data-anim="fade-move"><span class="emoji">🤖</span>Automatic</li>
+            <li data-step="6" data-anim="fade-move"><span class="emoji">🪶</span>Effortless</li>
+            <li data-step="7" data-anim="fade-move"><span class="emoji">🎯</span>Intuitive</li>
+          </ul>
+          <div class="page-example" data-step="8" data-anim="up">2 + 2 = <span class="answer" data-step="8" data-anim="pop" style="--i:3">4</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</main>
+</div>
+
+<div class="hud" id="hud"><span id="hud-counter"></span><div class="hud-progress"><i id="hud-progress"></i></div><span>← → navegar · F pantalla completa · P presentador</span></div>
+
+<script>
+const stage = document.getElementById("stage");
+const slides = [...stage.querySelectorAll(".slide")];
+const hud = document.getElementById("hud");
+
+const state = { index: 0, step: 0 };
+
+const maxStep = (slide) =>
+  Math.max(
+    0,
+    ...[...slide.querySelectorAll("[data-step], [data-state-at]")].map((element) => Number(element.dataset.step ?? element.dataset.stateAt)),
+  );
+
+const fitStage = () => {
+  const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+  stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+};
+
+const applyMagicNames = () => {
+  slides.forEach((slide) =>
+    slide.querySelectorAll("[data-magic]").forEach((element) => {
+      element.style.viewTransitionName = element.dataset.magic;
+    }),
+  );
+};
+
+const renderCodeFocus = (slide, step) => {
+  slide.querySelectorAll("[data-code]").forEach((code) => {
+    const lines = [...code.querySelectorAll(".ln")];
+    const focused = lines.filter((line) => (line.dataset.focus ?? "").split(" ").includes(String(step)));
+    code.classList.toggle("has-focus", focused.length > 0);
+    lines.forEach((line) => line.classList.toggle("is-focus", focused.includes(line)));
+  });
+};
+
+const render = () => {
+  slides.forEach((slide, index) => slide.classList.toggle("is-active", index === state.index));
+  const slide = slides[state.index];
+  slide.querySelectorAll("[data-step]").forEach((element) => {
+    element.classList.toggle("is-built", state.step >= Number(element.dataset.step));
+  });
+  slide.querySelectorAll("[data-state-at]").forEach((element) => {
+    element.classList.toggle("is-on", state.step >= Number(element.dataset.stateAt));
+  });
+  renderCodeFocus(slide, state.step);
+  widgets[slide.dataset.widget]?.onStep(slide, state.step);
+  history.replaceState(null, "", `${location.search}#${state.index + 1}.${state.step}`);
+  publish();
+  document.getElementById("hud-counter").textContent = `${state.index + 1}/${slides.length} · ${state.step}/${maxStep(slide)}`;
+  document.getElementById("hud-progress").style.width = `${((state.index + 1) / slides.length) * 100}%`;
+};
+
+const splitMagicText = () => {
+  document.querySelectorAll("[data-magic-text]").forEach((element) => {
+    const words = element.textContent.trim().split(/\s+/);
+    element.innerHTML = words.map((word) => `<span class="word">${word}</span>`).join(" ");
+  });
+};
+
+const matchWords = (from, to) => {
+  const used = new Set();
+  return to.flatMap((target) => {
+    const source = from.find((candidate) => !used.has(candidate) && candidate.textContent === target.textContent);
+    if (!source) return [];
+    used.add(source);
+    return [[source, target]];
+  });
+};
+
+const clearWordNames = () => {
+  document.querySelectorAll(".word").forEach((word) => (word.style.viewTransitionName = ""));
+};
+
+const pairMagicText = (fromSlide, toSlide) => {
+  clearWordNames();
+  const pairs = [];
+  fromSlide.querySelectorAll("[data-magic-text]").forEach((source) => {
+    const key = source.dataset.magicText;
+    const target = toSlide.querySelector(`[data-magic-text="${key}"]`);
+    if (!target) return;
+    matchWords([...source.querySelectorAll(".word")], [...target.querySelectorAll(".word")]).forEach((pair) => pairs.push([...pair, key]));
+  });
+  pairs.forEach(([from, , key], index) => (from.style.viewTransitionName = `word-${key}-${index}`));
+  return () => pairs.forEach(([, to, key], index) => (to.style.viewTransitionName = `word-${key}-${index}`));
+};
+
+let activeTransition;
+
+const goTo = (index, step) => {
+  if (index < 0 || index >= slides.length) return;
+  const changesSlide = index !== state.index;
+  state.index = index;
+  state.step = step;
+  const previousSlide = slides.find((slide) => slide.classList.contains("is-active"));
+  activeTransition?.skipTransition();
+  if (!changesSlide || !document.startViewTransition) {
+    render();
+    return;
+  }
+  document.documentElement.classList.add("is-jumping");
+  const nameTargets = pairMagicText(previousSlide, slides[index]);
+  const transition = document.startViewTransition(() => {
+    clearWordNames();
+    nameTargets();
+    render();
+  });
+  activeTransition = transition;
+  transition.finished.finally(() => {
+    if (activeTransition !== transition) return;
+    activeTransition = undefined;
+    clearWordNames();
+    document.documentElement.classList.remove("is-jumping");
+  });
+};
+
+const next = () => {
+  const slide = slides[state.index];
+  if (state.step < maxStep(slide)) goTo(state.index, state.step + 1);
+  else goTo(state.index + 1, 0);
+};
+
+const previous = () => {
+  if (state.step > 0) goTo(state.index, state.step - 1);
+  else if (state.index > 0) goTo(state.index - 1, maxStep(slides[state.index - 1]));
+};
+
+const widgets = {};
+
+const widgetStepMarkers = () => {
+  slides.forEach((slide) => {
+    const widget = widgets[slide.dataset.widget];
+    if (!widget) return;
+    widget.init(slide);
+    const base = maxStep(slide);
+    for (let extra = 1; extra <= widget.steps; extra++) {
+      const marker = document.createElement("i");
+      marker.hidden = true;
+      marker.dataset.step = base + extra;
+      slide.append(marker);
+    }
+  });
+};
+
+const restoreFromHash = () => {
+  const [slide, step] = location.hash.replace("#", "").split(".").map(Number);
+  if (!slide) return;
+  state.index = Math.min(Math.max(slide - 1, 0), slides.length - 1);
+  state.step = Math.min(Math.max(step || 0, 0), maxStep(slides[state.index]));
+};
+
+let hudTimer;
+const showHud = () => {
+  hud.classList.add("is-visible");
+  clearTimeout(hudTimer);
+  hudTimer = setTimeout(() => hud.classList.remove("is-visible"), 1800);
+};
+
+const view = new URLSearchParams(location.search).get("view");
+const channel = new BroadcastChannel("system-one-01-1-slides");
+
+const nextPosition = () => {
+  if (state.step < maxStep(slides[state.index])) return { index: state.index, step: state.step + 1 };
+  if (state.index + 1 < slides.length) return { index: state.index + 1, step: 0 };
+  return null;
+};
+
+const publish = () => {
+  if (view) return;
+  channel.postMessage({
+    type: "state",
+    current: { index: state.index, step: state.step, maxStep: maxStep(slides[state.index]) },
+    next: nextPosition(),
+    total: slides.length,
+    title: slides[state.index].querySelector(".title, h1, .corner span")?.innerText.replace(/\s+/g, " ").trim() ?? "",
+  });
+};
+
+const commands = {
+  next,
+  previous,
+  first: () => goTo(0, 0),
+  last: () => goTo(slides.length - 1, maxStep(slides[slides.length - 1])),
+};
+
+const openPresenter = () => {
+  window.open(`${location.pathname}?view=presenter`, "system-one-presenter", "popup,width=1500,height=900");
+};
+
+const handleKeys = (event, run) => {
+  if (["ArrowRight", "ArrowDown", " ", "PageDown", "Enter"].includes(event.key)) {
+    event.preventDefault();
+    run("next");
+  } else if (["ArrowLeft", "ArrowUp", "PageUp", "Backspace"].includes(event.key)) {
+    event.preventDefault();
+    run("previous");
+  } else if (event.key === "Home") {
+    run("first");
+  } else if (event.key === "End") {
+    run("last");
+  } else if (event.key.toLowerCase() === "f") {
+    document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+  } else if (event.key.toLowerCase() === "p") {
+    run("presenter");
+  }
+};
+
+const startDeck = () => {
+  document.addEventListener("keydown", (event) =>
+    handleKeys(event, (command) => (command === "presenter" ? openPresenter() : commands[command]())),
+  );
+
+  document.addEventListener("click", (event) => {
+    if (event.target.closest("[data-interactive], button, input, a")) return;
+    next();
+  });
+
+  document.addEventListener("contextmenu", (event) => {
+    event.preventDefault();
+    previous();
+  });
+
+  document.addEventListener("mousemove", showHud);
+
+  channel.addEventListener("message", ({ data }) => {
+    if (data.type === "hello") publish();
+    if (data.type === "command") commands[data.command]?.();
+  });
+};
+
+const startPreview = () => {
+  hud.hidden = true;
+  document.documentElement.classList.add("is-preview");
+};
+
+const startPresenter = () => {
+  document.title = "Presentador · System One 01.1";
+  document.querySelector(".viewport").remove();
+  hud.remove();
+
+  const presenter = document.createElement("div");
+  presenter.className = "presenter";
+  presenter.innerHTML = `
+    <section class="presenter-current">
+      <header><span class="presenter-tag">Ahora</span><span data-current-label></span></header>
+      <div class="presenter-frame"><iframe data-current title="Slide actual"></iframe></div>
+    </section>
+    <section class="presenter-next">
+      <header><span class="presenter-tag next">Siguiente</span><span data-next-label></span></header>
+      <div class="presenter-frame"><iframe data-next title="Siguiente paso"></iframe><div class="presenter-end" data-end hidden>🏁 Fin</div></div>
+      <div class="presenter-info">
+        <div><small>Slide</small><strong data-slide></strong></div>
+        <div><small>Paso</small><strong data-step-count></strong></div>
+        <button class="presenter-timer" data-timer title="Clic para reiniciar"><small>Tiempo</small><strong data-elapsed>00:00</strong></button>
+        <div><small>Hora</small><strong data-clock></strong></div>
+      </div>
+      <div class="presenter-controls">
+        <button data-command="previous">← Anterior</button>
+        <button data-command="next">Siguiente →</button>
+      </div>
+      <p class="presenter-waiting" data-waiting>Esperando a la ventana de las slides…</p>
+    </section>`;
+  document.body.append(presenter);
+
+  const currentFrame = presenter.querySelector("[data-current]");
+  const nextFrame = presenter.querySelector("[data-next]");
+  const previewUrl = (position) => `${location.pathname}?view=preview#${position.index + 1}.${position.step}`;
+  const showIn = (frame, position) => {
+    const url = previewUrl(position);
+    if (!frame.src) frame.src = url;
+    else frame.contentWindow.location.hash = `#${position.index + 1}.${position.step}`;
+  };
+
+  const describe = (position, total, isNewSlide) =>
+    !position ? "" : isNewSlide ? `Nueva slide · ${position.index + 1}/${total}` : `Paso ${position.step} · misma slide`;
+
+  channel.addEventListener("message", ({ data }) => {
+    if (data.type !== "state") return;
+    presenter.querySelector("[data-waiting]").hidden = true;
+    const { current, next: upcoming, total, title } = data;
+    showIn(currentFrame, current);
+    presenter.querySelector("[data-current-label]").textContent = title;
+    presenter.querySelector("[data-slide]").textContent = `${current.index + 1} / ${total}`;
+    presenter.querySelector("[data-step-count]").textContent = `${current.step} / ${current.maxStep}`;
+    presenter.querySelector("[data-end]").hidden = Boolean(upcoming);
+    nextFrame.style.visibility = upcoming ? "visible" : "hidden";
+    if (upcoming) showIn(nextFrame, upcoming);
+    presenter.querySelector("[data-next-label]").textContent = describe(upcoming, total, upcoming && upcoming.index !== current.index);
+    presenter.querySelector(".presenter-next").classList.toggle("is-new-slide", Boolean(upcoming && upcoming.index !== current.index));
+  });
+
+  const send = (command) => channel.postMessage({ type: "command", command });
+  presenter.querySelectorAll("[data-command]").forEach((button) =>
+    button.addEventListener("click", () => {
+      button.blur();
+      send(button.dataset.command);
+    }),
+  );
+  document.addEventListener("keydown", (event) => handleKeys(event, (command) => command !== "presenter" && send(command)));
+
+  let startedAt = Date.now();
+  presenter.querySelector("[data-timer]").addEventListener("click", (event) => {
+    event.currentTarget.blur();
+    startedAt = Date.now();
+  });
+  const pad = (value) => String(value).padStart(2, "0");
+  const tick = () => {
+    const seconds = Math.floor((Date.now() - startedAt) / 1000);
+    presenter.querySelector("[data-elapsed]").textContent = `${pad(Math.floor(seconds / 60))}:${pad(seconds % 60)}`;
+    presenter.querySelector("[data-clock]").textContent = new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+  };
+  tick();
+  setInterval(tick, 1000);
+
+  channel.postMessage({ type: "hello" });
+};
+
+if (view === "presenter") {
+  startPresenter();
+} else {
+  window.addEventListener("resize", fitStage);
+  window.addEventListener("hashchange", () => {
+    if (location.hash === `#${state.index + 1}.${state.step}`) return;
+    restoreFromHash();
+    render();
+  });
+  view === "preview" ? startPreview() : startDeck();
+  widgetStepMarkers();
+  splitMagicText();
+  applyMagicNames();
+  fitStage();
+  restoreFromHash();
+  render();
+}
+</script>
+</body>
+</html>
