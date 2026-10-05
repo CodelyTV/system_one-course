@@ -6,7 +6,7 @@ import {
 import type { ProductReview } from "../domain/ProductReview";
 import { ProductReviewSpamDetector } from "../domain/ProductReviewSpamDetector";
 
-const spamProbabilityThreshold = { notSpam: 0.3, spam: 0.7 };
+const spamProbabilityThreshold = { notSpam: 0.2, spam: 0.8 };
 
 export class EvaluationModelWithFallbackProductReviewSpamDetector extends ProductReviewSpamDetector {
 	constructor(
