@@ -1,0 +1,64 @@
+.menu {
+	position: relative;
+}
+
+.trigger {
+	display: grid;
+	width: 44px;
+	height: 44px;
+	place-items: center;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.avatar {
+	display: grid;
+	width: 36px;
+	height: 36px;
+	place-items: center;
+	color: var(--codely-white);
+	font-size: 0.8rem;
+	font-weight: 700;
+	background: var(--codely-blue);
+	border-radius: 999px;
+}
+
+.panel {
+	position: absolute;
+	top: calc(100% + 8px);
+	right: 0;
+	z-index: 9;
+	width: 220px;
+	padding: 16px;
+	background: var(--codely-white);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+}
+
+.name {
+	font-weight: 700;
+}
+
+.email {
+	margin-top: 2px;
+	color: var(--codely-gray);
+	font-size: 0.8rem;
+}
+
+.links {
+	display: flex;
+	flex-direction: column;
+	margin-top: 16px;
+	padding-top: 12px;
+	border-top: 1px solid var(--border);
+	gap: 12px;
+}
+
+.link {
+	color: var(--codely-blue);
+
+	&:hover {
+		text-decoration: underline;
+	}
+}

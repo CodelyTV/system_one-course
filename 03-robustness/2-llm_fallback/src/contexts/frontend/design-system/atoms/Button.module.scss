@@ -1,0 +1,127 @@
+@use "../settings/border";
+@use "../settings/colors";
+@use "../settings/spacing";
+@use "../settings/typography";
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: colors.$text-primary;
+	font: inherit;
+	font-weight: 700;
+	text-decoration: none;
+	border: 1px solid transparent;
+	border-radius: border.$radius-xl;
+	transition: all 0.2s;
+
+	&--large {
+		padding: spacing.$xs spacing.$lg;
+		font: typography.$b400-bold;
+	}
+
+	&--small {
+		padding: spacing.$tiny spacing.$xs;
+		font: typography.$b300-bold;
+	}
+
+	&--x-small {
+		padding: spacing.$tiny spacing.$xxs;
+		font: typography.$b300-bold;
+	}
+
+	&--primary {
+		background: colors.$cta-primary;
+
+		&:hover:not(:disabled) {
+			background: colors.$cta-primary-hover;
+		}
+	}
+
+	&--secondary {
+		color: colors.$white;
+		background: colors.$cta-secondary;
+
+		&:hover {
+			background: colors.$cta-secondary-hover;
+		}
+	}
+
+	&--tertiary {
+		background: colors.$white;
+
+		&:hover {
+			background: colors.$white-hover;
+		}
+	}
+
+	&--quaternary {
+		color: colors.$text-primary;
+		background: colors.$white;
+		border: 2px solid colors.$cta-secondary;
+
+		&:hover {
+			background: colors.$bg;
+		}
+	}
+
+	&--inverted {
+		color: colors.$white;
+		background: transparent;
+		border-color: colors.$white;
+
+		&:hover {
+			color: colors.$white-hover;
+			border-color: colors.$white-hover;
+		}
+	}
+
+	&--danger {
+		color: colors.$state-error;
+		background: transparent;
+		border-color: colors.$state-error;
+
+		&:hover {
+			color: colors.$state-error;
+			background: colors.$state-error-background;
+			border-color: colors.$state-error;
+		}
+	}
+
+	&:disabled {
+		color: colors.$state-disabled;
+		background: colors.$state-disabled-bg;
+	}
+
+	&--loading {
+		position: relative;
+		color: colors.$state-disabled;
+		background: colors.$state-disabled-bg;
+		border-color: transparent;
+		cursor: not-allowed;
+
+		&:hover {
+			background: colors.$state-disabled-bg;
+		}
+	}
+
+	&__spinner {
+		display: inline-flex;
+		margin-right: spacing.$tiny;
+		animation: spin 1s linear infinite;
+
+		svg {
+			display: block;
+		}
+	}
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}

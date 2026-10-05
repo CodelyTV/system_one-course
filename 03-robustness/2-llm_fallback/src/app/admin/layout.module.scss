@@ -1,0 +1,47 @@
+.layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 24px;
+	padding: 40px 0 56px;
+}
+
+.sidebar {
+	align-self: start;
+	padding: 20px;
+	background: var(--codely-white);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+}
+
+.sidebarTitle {
+	margin: 8px 0 12px;
+	font-size: 1.25rem;
+	font-weight: 700;
+}
+
+.sidebarHint {
+	color: var(--codely-gray);
+	font-size: 0.85rem;
+	line-height: 1.5;
+}
+
+.divider {
+	margin: 20px 0;
+	border: none;
+	border-top: 1px solid var(--border);
+}
+
+.navLabel {
+	margin-bottom: 10px;
+}
+
+.content {
+	min-width: 0;
+}
+
+@media (min-width: 900px) {
+	.layout {
+		grid-template-columns: 220px minmax(0, 1fr);
+		align-items: start;
+	}
+}
