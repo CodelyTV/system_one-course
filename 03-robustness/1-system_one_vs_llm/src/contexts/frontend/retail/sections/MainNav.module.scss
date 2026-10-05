@@ -1,0 +1,33 @@
+.nav {
+	display: flex;
+	min-width: 0;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px 24px;
+}
+
+// Reserve the bold width so the active (bold) state doesn't shift the layout.
+.link {
+	display: inline-flex;
+	flex-direction: column;
+	color: var(--codely-blue);
+	font-size: 1rem;
+	font-weight: 400;
+	white-space: nowrap;
+
+	&::after {
+		height: 0;
+		overflow: hidden;
+		font-weight: 700;
+		visibility: hidden;
+		content: attr(data-label);
+	}
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.active {
+	font-weight: 700;
+}
