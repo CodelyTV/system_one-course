@@ -17,8 +17,9 @@
 - Single-file deck: `index.html` (1920×1080 stage scaled to the window)
 - Visual design copied from the Codely Keynote template (`System One.key`): Moderat font, `#1b2232` background, emoji-led titles, cover with camo background and side pattern from `assets/`
 - Builds: add `data-step="n"` (and optionally `data-anim="up|down|left|right|pop|wipe|draw"`) to reveal elements step by step
-- Persistent states: `data-state-at="n"` adds `is-on` from step `n` without hiding the element (used to open the book on slide 2)
+- Build out: `data-out="n"` hides a built element from step `n` with the reverse of its `data-anim` effect
+- Persistent states: `data-state-at="n"` adds `is-on` from step `n` without hiding the element (used to open the book on slide 2). Add `data-state-until="n"` to remove `is-on` again from step `n`
 - Magic Move between consecutive slides: give matching elements the same `data-magic="name"` (unique per slide). Titles keep the emoji as `data-magic="title-emoji"`
-- Magic Move by word (like Keynote): put `data-magic-text="name"` on text in consecutive slides. Shared words move to their new position, the rest fade. The cover title uses it to move into the slide 2 header
+- Magic Move by word (like Keynote): put `data-magic-text="name"` on text in consecutive slides. Shared words move to their new position, the rest fade. The cover title uses it to move into the slide 2 header. Add `data-magic-swap` to make the words that do not match leave upwards and enter from below (Fade and Move, 0.3s each) instead of a fade
 - Presenter view: press `P` to open a window with the current and next step
 - Preview locally with `python3 -m http.server 8611 --directory 01-introduction/1-what_is_system_one/slides`
