@@ -171,4 +171,4 @@ select 'review-' || substr(md5(user_id || product_id), 1, 8),
 	'published',
 	purchased_at + interval '3 days'
 from numbered
-on conflict (product_id, user_id) do nothing;
+on conflict (id) do nothing;

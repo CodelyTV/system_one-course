@@ -1,7 +1,8 @@
-import { describe, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { ProductReviewValidator } from "@/contexts/backend/reviews/application/validate/ProductReviewValidator";
 import { ValidateProductReviewOnProductReviewCreated } from "@/contexts/backend/reviews/application/validate/ValidateProductReviewOnProductReviewCreated";
+import { ProductReviewDoesNotExistError } from "@/contexts/backend/reviews/domain/errors/ProductReviewDoesNotExistError";
 import type { ProductReviewPrimitives } from "@/contexts/backend/reviews/domain/ProductReview";
 import { ProductReviewCreatedDomainEvent } from "@/contexts/backend/reviews/domain/ProductReviewCreatedDomainEvent";
 import type { ProductReviewRepository } from "@/contexts/backend/reviews/domain/ProductReviewRepository";
@@ -65,6 +66,19 @@ describe("ValidateProductReviewOnProductReviewCreated should", () => {
 
 		await subscriber.on(createdEventFor(published));
 
+		spamDetector.expectIsSpamNotToHaveBeenCalled();
+		repository.expectSaveNotToHaveBeenCalled();
+	});
+
+	it("fail when the review does not exist", async () => {
+		const missing = ProductReviewMother.createPrimitives({
+			status: "pending-validation",
+		});
+		repository.searchShouldReturn(null);
+
+		await expect(
+			subscriber.on(createdEventFor(missing)),
+		).rejects.toBeInstanceOf(ProductReviewDoesNotExistError);
 		spamDetector.expectIsSpamNotToHaveBeenCalled();
 		repository.expectSaveNotToHaveBeenCalled();
 	});

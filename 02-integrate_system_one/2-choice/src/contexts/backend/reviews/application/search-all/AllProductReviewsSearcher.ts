@@ -2,6 +2,7 @@ import type { CurrentUserProvider } from "@/contexts/backend/users/domain/Curren
 import type { UserRepository } from "@/contexts/backend/users/domain/UserRepository";
 
 import type { ProductReview } from "../../domain/ProductReview";
+import type { ProductReviewLabelValue } from "../../domain/ProductReviewLabel";
 import type { ProductReviewRepository } from "../../domain/ProductReviewRepository";
 import type { ProductReviewStatusValue } from "../../domain/ProductReviewStatus";
 
@@ -10,6 +11,7 @@ export type ProductReviewResponse = {
 	authorName: string;
 	rating: number;
 	comment: string | null;
+	label: ProductReviewLabelValue | null;
 	createdAt: string;
 	ownStatus: ProductReviewStatusValue | null;
 };
@@ -50,6 +52,7 @@ export class AllProductReviewsSearcher {
 				authorName: nameByUserId.get(review.userId) ?? review.userId,
 				rating: review.rating.value,
 				comment: review.comment.value,
+				label: review.label?.value ?? null,
 				createdAt: review.createdAt,
 				ownStatus:
 					review.userId === currentUserId.value

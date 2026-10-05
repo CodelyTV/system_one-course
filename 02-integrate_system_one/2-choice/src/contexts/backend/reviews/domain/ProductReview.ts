@@ -1,9 +1,15 @@
 import { AggregateRoot } from "@/contexts/shared/domain/AggregateRoot";
 
 import { ProductReviewNotPendingValidationError } from "./errors/ProductReviewNotPendingValidationError";
+import { ProductReviewNotPublishedError } from "./errors/ProductReviewNotPublishedError";
 import { ProductReviewComment } from "./ProductReviewComment";
 import { ProductReviewCreatedDomainEvent } from "./ProductReviewCreatedDomainEvent";
 import { ProductReviewId } from "./ProductReviewId";
+import {
+	ProductReviewLabel,
+	type ProductReviewLabelValue,
+} from "./ProductReviewLabel";
+import { ProductReviewPublishedDomainEvent } from "./ProductReviewPublishedDomainEvent";
 import { ProductReviewRating } from "./ProductReviewRating";
 import {
 	ProductReviewStatus,
@@ -17,6 +23,7 @@ export type ProductReviewPrimitives = {
 	rating: number;
 	comment: string | null;
 	status: ProductReviewStatusValue;
+	label: ProductReviewLabelValue | null;
 	createdAt: string;
 };
 
@@ -28,6 +35,7 @@ export class ProductReview extends AggregateRoot {
 		readonly rating: ProductReviewRating,
 		readonly comment: ProductReviewComment,
 		private reviewStatus: ProductReviewStatus,
+		private reviewLabel: ProductReviewLabel | null,
 		readonly createdAt: string,
 	) {
 		super();
@@ -48,6 +56,7 @@ export class ProductReview extends AggregateRoot {
 			new ProductReviewRating(rating),
 			new ProductReviewComment(comment),
 			ProductReviewStatus.pendingValidation(),
+			null,
 			createdAt,
 		);
 
@@ -72,12 +81,19 @@ export class ProductReview extends AggregateRoot {
 			new ProductReviewRating(primitives.rating),
 			new ProductReviewComment(primitives.comment),
 			ProductReviewStatus.fromPrimitives(primitives.status),
+			primitives.label
+				? ProductReviewLabel.fromPrimitives(primitives.label)
+				: null,
 			primitives.createdAt,
 		);
 	}
 
 	get status(): ProductReviewStatus {
 		return this.reviewStatus;
+	}
+
+	get label(): ProductReviewLabel | null {
+		return this.reviewLabel;
 	}
 
 	isPendingValidation(): boolean {
@@ -88,8 +104,20 @@ export class ProductReview extends AggregateRoot {
 		return this.reviewStatus.isPublished();
 	}
 
+	isLabeled(): boolean {
+		return this.reviewLabel !== null;
+	}
+
 	publish(): void {
 		this.changeReviewStatusTo(ProductReviewStatus.published());
+
+		this.record(new ProductReviewPublishedDomainEvent(this.id.value));
+	}
+
+	labelAs(label: ProductReviewLabel): void {
+		this.ensureIsPublished();
+
+		this.reviewLabel = label;
 	}
 
 	markAsSpam(): void {
@@ -104,6 +132,7 @@ export class ProductReview extends AggregateRoot {
 			rating: this.rating.value,
 			comment: this.comment.value,
 			status: this.reviewStatus.value,
+			label: this.reviewLabel?.value ?? null,
 			createdAt: this.createdAt,
 		};
 	}
@@ -117,6 +146,12 @@ export class ProductReview extends AggregateRoot {
 	private ensureIsPendingValidation(): void {
 		if (!this.isPendingValidation()) {
 			throw new ProductReviewNotPendingValidationError(this.id.value);
+		}
+	}
+
+	private ensureIsPublished(): void {
+		if (!this.isPublished()) {
+			throw new ProductReviewNotPublishedError(this.id.value);
 		}
 	}
 }

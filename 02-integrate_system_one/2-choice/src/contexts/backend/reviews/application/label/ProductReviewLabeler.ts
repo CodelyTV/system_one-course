@@ -1,29 +1,25 @@
 import { ProductReviewFinder } from "../../domain/ProductReviewFinder";
+import type { ProductReviewLabelDetector } from "../../domain/ProductReviewLabelDetector";
 import type { ProductReviewRepository } from "../../domain/ProductReviewRepository";
-import type { ProductReviewSpamDetector } from "../../domain/ProductReviewSpamDetector";
 
-export class ProductReviewValidator {
+export class ProductReviewLabeler {
 	private readonly finder: ProductReviewFinder;
 
 	constructor(
 		private readonly repository: ProductReviewRepository,
-		private readonly spamDetector: ProductReviewSpamDetector,
+		private readonly labelDetector: ProductReviewLabelDetector,
 	) {
 		this.finder = new ProductReviewFinder(repository);
 	}
 
-	async validate(id: string): Promise<void> {
+	async label(id: string): Promise<void> {
 		const review = await this.finder.find(id);
 
-		if (!review.isPendingValidation()) {
+		if (review.isLabeled()) {
 			return;
 		}
 
-		if (await this.spamDetector.isSpam(review)) {
-			review.markAsSpam();
-		} else {
-			review.publish();
-		}
+		review.labelAs(await this.labelDetector.detect(review));
 
 		await this.repository.save(review);
 	}

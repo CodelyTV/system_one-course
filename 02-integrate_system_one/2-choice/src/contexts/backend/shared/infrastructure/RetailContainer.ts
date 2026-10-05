@@ -18,15 +18,20 @@ import { LowStockLister } from "@/contexts/backend/products/application/low-stoc
 import { ProductsSearcher } from "@/contexts/backend/products/application/search/ProductsSearcher";
 import { PostgresProductRepository } from "@/contexts/backend/products/infrastructure/PostgresProductRepository";
 import { ProductReviewCreator } from "@/contexts/backend/reviews/application/create/ProductReviewCreator";
+import { LabelProductReviewOnProductReviewPublished } from "@/contexts/backend/reviews/application/label/LabelProductReviewOnProductReviewPublished";
+import { ProductReviewLabeler } from "@/contexts/backend/reviews/application/label/ProductReviewLabeler";
 import { AllProductReviewsSearcher } from "@/contexts/backend/reviews/application/search-all/AllProductReviewsSearcher";
 import { ProductReviewValidator } from "@/contexts/backend/reviews/application/validate/ProductReviewValidator";
 import { ValidateProductReviewOnProductReviewCreated } from "@/contexts/backend/reviews/application/validate/ValidateProductReviewOnProductReviewCreated";
+import { EvaluationModelProductReviewLabelDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelProductReviewLabelDetector";
 import { EvaluationModelProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelProductReviewSpamDetector";
 import { PostgresProductReviewRepository } from "@/contexts/backend/reviews/infrastructure/PostgresProductReviewRepository";
 import { CurrentUserGetter } from "@/contexts/backend/users/application/current/CurrentUserGetter";
 import type { CurrentUserProvider } from "@/contexts/backend/users/domain/CurrentUserProvider";
 import { FakeSessionCurrentUserProvider } from "@/contexts/backend/users/infrastructure/FakeSessionCurrentUserProvider";
 import { PostgresUserRepository } from "@/contexts/backend/users/infrastructure/PostgresUserRepository";
+import type { DomainEvent } from "@/contexts/shared/domain/event/DomainEvent";
+import type { DomainEventSubscriber } from "@/contexts/shared/domain/event/DomainEventSubscriber";
 
 import { InMemoryEventBus } from "./event-bus/InMemoryEventBus";
 import { PostgresConnection } from "./PostgresConnection";
@@ -59,18 +64,38 @@ class RetailContainer {
 
 	private readonly clock = new SystemClock();
 
-	private readonly eventBus = new InMemoryEventBus([
-		new ValidateProductReviewOnProductReviewCreated(
-			new ProductReviewValidator(
-				this.productReviewRepository,
-				new EvaluationModelProductReviewSpamDetector(
-					createGateway({
-						apiKey: process.env.VERCEL_AI_GATEWAY_API_KEY,
-					}).evaluationModel("typesafe-ai/jev"),
+	private readonly evaluationModel = createGateway({
+		apiKey: process.env.VERCEL_AI_GATEWAY_API_KEY,
+	}).evaluationModel("typesafe-ai/jev");
+
+	private readonly domainEventSubscribers: DomainEventSubscriber<DomainEvent>[] =
+		[];
+
+	private readonly eventBus = new InMemoryEventBus(
+		this.domainEventSubscribers,
+	);
+
+	constructor() {
+		this.domainEventSubscribers.push(
+			new ValidateProductReviewOnProductReviewCreated(
+				new ProductReviewValidator(
+					this.productReviewRepository,
+					new EvaluationModelProductReviewSpamDetector(
+						this.evaluationModel,
+					),
+					this.eventBus,
 				),
 			),
-		),
-	]);
+			new LabelProductReviewOnProductReviewPublished(
+				new ProductReviewLabeler(
+					this.productReviewRepository,
+					new EvaluationModelProductReviewLabelDetector(
+						this.evaluationModel,
+					),
+				),
+			),
+		);
+	}
 
 	get productsSearcher(): ProductsSearcher {
 		return new ProductsSearcher(this.productRepository);

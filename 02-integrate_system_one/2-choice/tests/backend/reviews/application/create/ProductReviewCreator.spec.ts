@@ -38,6 +38,7 @@ describe("ProductReviewCreator should", () => {
 				rating: 4,
 				comment: "Great fit",
 				status: "pending-validation",
+				label: null,
 				createdAt: now,
 			}),
 		);

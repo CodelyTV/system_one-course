@@ -153,7 +153,7 @@ numbered as (
 		abs(hashtext(user_id || product_id)) as rn
 	from purchases
 )
-insert into product_reviews (id, product_id, user_id, rating, comment, status, created_at)
+insert into product_reviews (id, product_id, user_id, rating, comment, status, label, created_at)
 select 'review-' || substr(md5(user_id || product_id), 1, 8),
 	product_id,
 	user_id,
@@ -169,6 +169,7 @@ select 'review-' || substr(md5(user_id || product_id), 1, 8),
 		'Got compliments the first day I wore it.'
 	])[1 + (rn % 8)],
 	'published',
+	(array['product', 'product', 'product', 'product', 'product', 'product', 'price', 'product'])[1 + (rn % 8)],
 	purchased_at + interval '3 days'
 from numbered
-on conflict (product_id, user_id) do nothing;
+on conflict (id) do nothing;

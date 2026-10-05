@@ -76,5 +76,6 @@ create table product_reviews (
 	rating integer not null check (rating between 1 and 5),
 	comment text,
 	status text not null check (status in ('pending-validation', 'published', 'spam')),
+	label text check (label in ('product', 'shipping', 'packaging', 'customer-service', 'price', 'other')),
 	created_at timestamptz not null default now()
 );

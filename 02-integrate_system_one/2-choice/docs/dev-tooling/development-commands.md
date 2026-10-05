@@ -9,7 +9,7 @@ npm run db:reset     # wait for DB, load schema + seed
 npm run dev          # http://localhost:3000
 ```
 
-With an existing database, `make start` starts PostgreSQL, waits for it and runs the dev server in the foreground. Ctrl+C stops the dev server and PostgreSQL, and keeps the data. `make stop` does the same from another terminal.
+With an existing database, `make start` starts PostgreSQL, waits for it and runs the dev server in the foreground. Ctrl+C stops the dev server and PostgreSQL, and keeps the data. It fails before starting anything if port 3000 is already in use.
 
 ## Scripts
 

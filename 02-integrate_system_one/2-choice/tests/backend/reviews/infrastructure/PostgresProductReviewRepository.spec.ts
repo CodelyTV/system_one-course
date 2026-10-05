@@ -1,6 +1,7 @@
 import { expect, it } from "vitest";
 
 import { ProductReview } from "@/contexts/backend/reviews/domain/ProductReview";
+import { ProductReviewLabel } from "@/contexts/backend/reviews/domain/ProductReviewLabel";
 import { PostgresProductReviewRepository } from "@/contexts/backend/reviews/infrastructure/PostgresProductReviewRepository";
 import { PostgresConnection } from "@/contexts/backend/shared/infrastructure/PostgresConnection";
 
@@ -64,6 +65,27 @@ describeWithEnvironmentArranger(
 			expect(
 				(await repository.search(review.id))?.status.isPublished(),
 			).toBe(true);
+		});
+
+		it("update the label of a published review", async () => {
+			await seedUsersAndProduct();
+			const review = ProductReview.create(
+				"review-abcd1234",
+				"p1",
+				"user-aibuilder",
+				2,
+				"The box arrived crushed",
+				new Date().toISOString(),
+			);
+			review.publish();
+			await repository.save(review);
+
+			review.labelAs(ProductReviewLabel.fromPrimitives("packaging"));
+			await repository.save(review);
+
+			expect((await repository.search(review.id))?.label?.value).toBe(
+				"packaging",
+			);
 		});
 
 		it("search the reviews of a product", async () => {

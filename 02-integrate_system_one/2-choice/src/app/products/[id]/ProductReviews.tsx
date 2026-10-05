@@ -1,4 +1,5 @@
 import type { ProductReviewsResponse } from "@/contexts/backend/reviews/application/search-all/AllProductReviewsSearcher";
+import type { ProductReviewLabelValue } from "@/contexts/backend/reviews/domain/ProductReviewLabel";
 import type { ProductReviewStatusValue } from "@/contexts/backend/reviews/domain/ProductReviewStatus";
 import {
 	Badge,
@@ -31,6 +32,15 @@ function OwnStatusBadge({ status }: { status: ProductReviewStatusValue }) {
 
 	return <Badge color={color}>{label}</Badge>;
 }
+
+const labelNames: Record<ProductReviewLabelValue, string> = {
+	product: "Product",
+	shipping: "Shipping",
+	packaging: "Packaging",
+	"customer-service": "Customer service",
+	price: "Price",
+	other: "Other",
+};
 
 function Stars({ rating }: { rating: number }) {
 	const rounded = Math.round(rating);
@@ -86,6 +96,11 @@ export function ProductReviews({ productId, reviews }: ProductReviewsProps) {
 							<article key={review.id} className={styles.review}>
 								<div className={styles.reviewHeader}>
 									<Stars rating={review.rating} />
+									{review.label ? (
+										<Badge color="neutral">
+											{labelNames[review.label]}
+										</Badge>
+									) : null}
 									{review.ownStatus ? (
 										<OwnStatusBadge
 											status={review.ownStatus}

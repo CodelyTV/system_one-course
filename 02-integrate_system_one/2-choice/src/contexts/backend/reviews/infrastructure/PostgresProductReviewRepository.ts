@@ -2,6 +2,7 @@ import { PostgresRepository } from "@/contexts/backend/shared/infrastructure/Pos
 
 import { ProductReview } from "../domain/ProductReview";
 import type { ProductReviewId } from "../domain/ProductReviewId";
+import type { ProductReviewLabelValue } from "../domain/ProductReviewLabel";
 import type { ProductReviewRepository } from "../domain/ProductReviewRepository";
 import type { ProductReviewStatusValue } from "../domain/ProductReviewStatus";
 
@@ -12,6 +13,7 @@ type ProductReviewRow = {
 	rating: number;
 	comment: string | null;
 	status: ProductReviewStatusValue;
+	label: ProductReviewLabelValue | null;
 	created_at: Date;
 };
 
@@ -23,7 +25,7 @@ export class PostgresProductReviewRepository
 		const primitives = review.toPrimitives();
 
 		await this.sql`
-			insert into product_reviews (id, product_id, user_id, rating, comment, status, created_at)
+			insert into product_reviews (id, product_id, user_id, rating, comment, status, label, created_at)
 			values (
 				${primitives.id},
 				${primitives.productId},
@@ -31,16 +33,17 @@ export class PostgresProductReviewRepository
 				${primitives.rating},
 				${primitives.comment},
 				${primitives.status},
+				${primitives.label},
 				${primitives.createdAt}
 			)
-			on conflict (id) do update set status = excluded.status
+			on conflict (id) do update set status = excluded.status, label = excluded.label
 		`;
 	}
 
 	async search(id: ProductReviewId): Promise<ProductReview | null> {
 		const row = (
 			await this.sql<ProductReviewRow[]>`
-				select id, product_id, user_id, rating, comment, status, created_at
+				select id, product_id, user_id, rating, comment, status, label, created_at
 				from product_reviews
 				where id = ${id.value}
 			`
@@ -51,7 +54,7 @@ export class PostgresProductReviewRepository
 
 	async searchByProduct(productId: string): Promise<ProductReview[]> {
 		const rows = await this.sql<ProductReviewRow[]>`
-			select id, product_id, user_id, rating, comment, status, created_at
+			select id, product_id, user_id, rating, comment, status, label, created_at
 			from product_reviews
 			where product_id = ${productId}
 			order by created_at desc
@@ -68,6 +71,7 @@ export class PostgresProductReviewRepository
 			rating: row.rating,
 			comment: row.comment,
 			status: row.status,
+			label: row.label,
 			createdAt: row.created_at.toISOString(),
 		});
 	}

@@ -26,6 +26,7 @@ export class ProductReviewMother {
 			rating: faker.number.int({ min: 1, max: 5 }),
 			comment: faker.lorem.sentence(),
 			status: "published",
+			label: null,
 			createdAt: faker.date.recent().toISOString(),
 			...overrides,
 		};
