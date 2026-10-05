@@ -26,11 +26,12 @@ export class EvaluationModelProductReviewSpamDetector extends ProductReviewSpamD
 			questions: {
 				isSpam: {
 					type: "boolean",
-					instructions:
-						"Is this product review spam?",
+					instructions: "Is this product review spam?",
 				},
 			},
 		});
+
+		console.log("💬 SPAM RESULT:", answers);
 
 		return answers.isSpam.probability >= spamProbabilityThreshold;
 	}
