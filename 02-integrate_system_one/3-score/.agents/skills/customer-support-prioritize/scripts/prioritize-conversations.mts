@@ -152,28 +152,15 @@ async function scoreAll(
 	conversations: Conversation[],
 ): Promise<ScoredConversation[]> {
 	const scored: ScoredConversation[] = [];
-	const pending = [...conversations];
+	const queue = conversations.values();
 
-	async function worker(): Promise<void> {
-		for (
-			let conversation = pending.shift();
-			conversation;
-			conversation = pending.shift()
-		) {
-			scored.push(await score(model, conversation));
-			if (process.stderr.isTTY) {
-				process.stderr.write(
-					`\rScored ${scored.length}/${conversations.length} conversations`,
-				);
+	await Promise.all(
+		Array.from({ length: concurrency }, async () => {
+			for (const conversation of queue) {
+				scored.push(await score(model, conversation));
 			}
-		}
-	}
-
-	await Promise.all(Array.from({ length: concurrency }, worker));
-
-	if (process.stderr.isTTY) {
-		process.stderr.write("\n");
-	}
+		}),
+	);
 
 	return scored.sort(byPriority);
 }
