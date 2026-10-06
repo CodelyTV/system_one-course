@@ -1816,10 +1816,7 @@ let playStartedAt = null;
 
 const setPlaying = (mode) => {
   playMode = mode;
-  if (mode && !playStartedAt) {
-    playStartedAt = Date.now();
-    publish();
-  }
+  playStartedAt = mode ? playStartedAt ?? Date.now() : null;
   document.documentElement.classList.toggle("is-playing", Boolean(mode));
   fitStage();
   render();
