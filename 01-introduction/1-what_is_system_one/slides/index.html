@@ -1878,6 +1878,30 @@ const setAnimatedNavigation = (animated) => {
   document.documentElement.classList.toggle("is-animating", animated);
 };
 
+const previousPosition = () => {
+  if (state.step > 0) return { index: state.index, step: state.step - 1 };
+  if (state.index > 0) return { index: state.index - 1, step: maxStep(slides[state.index - 1]) };
+  return null;
+};
+
+const skipTo = (position) => {
+  if (!position) return;
+  jumpTo(position.index, position.step);
+  document.getAnimations().forEach((animation) => {
+    if (animation instanceof CSSAnimation && animation.effect.getComputedTiming().endTime !== Infinity) animation.finish();
+  });
+};
+
+const skipKeys = { ArrowRight: () => skipTo(nextPosition()), ArrowLeft: () => skipTo(previousPosition()) };
+
+const handleSkipKeys = (event) => {
+  const skip = skipKeys[event.key];
+  if (!skip || !playMode || !event.shiftKey) return false;
+  event.preventDefault();
+  skip();
+  return true;
+};
+
 const jumpTo = (index, step) => {
   setAnimatedNavigation(false);
   activeTransition?.skipTransition();
@@ -1957,6 +1981,7 @@ const startDeck = () => {
   );
 
   document.addEventListener("keydown", (event) =>
+    handleSkipKeys(event) ||
     handleNavigatorKeys(event) ||
     handleKeys(event, (command) => {
       if (command === "presenter") return openPresenter();
