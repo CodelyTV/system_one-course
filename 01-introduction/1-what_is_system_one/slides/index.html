@@ -101,12 +101,12 @@ body { font-family: var(--font); color: var(--text); -webkit-font-smoothing: ant
 [data-anim="fade-move-down"].is-out { transform: translateY(-40px); }
 [data-anim="fade-move-up"].is-out { transform: translateY(40px); }
 [data-anim="anvil"] { position: relative; transition: none; }
-[data-anim="anvil"].is-built { animation: anvil-drop .35s both; }
+[data-anim="anvil"].is-built { animation: anvil-drop .5s both; }
 [data-anim="anvil"] canvas { position: absolute; z-index: -1; pointer-events: none; }
 @keyframes anvil-drop {
-  0% { opacity: 1; transform: translateY(-700px); animation-timing-function: cubic-bezier(.55, 0, 1, .45); }
-  55% { opacity: 1; transform: translateY(0) scale(1.04, .9); animation-timing-function: ease-out; }
-  75% { transform: translateY(-14px) scale(.99, 1.02); animation-timing-function: ease-in; }
+  0% { opacity: 1; transform: translateY(-260px); animation-timing-function: cubic-bezier(.45, 0, .9, .5); }
+  60% { opacity: 1; transform: translateY(0) scale(1.04, .9); animation-timing-function: ease-out; }
+  80% { transform: translateY(-14px) scale(.99, 1.02); animation-timing-function: ease-in; }
   100% { opacity: 1; transform: none; }
 }
 [data-anim="fade-scale"], [data-anim="fade-move"], [data-anim="fade-move-down"], [data-anim="fade-move-up"] { transition-duration: .3s; transition-timing-function: ease-out; }
@@ -123,18 +123,16 @@ html.is-jumping *, html.is-jumping *::before, html.is-jumping *::after { transit
 ::view-transition-group(*) { animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
 ::view-transition-old(.word-out) { animation: word-out .3s ease-in both; }
 ::view-transition-new(.word-in) { animation: word-in .3s ease-out .3s both; }
-::view-transition-old(question-boolean), ::view-transition-new(question-boolean),
-::view-transition-old(question-choice), ::view-transition-new(question-choice),
-::view-transition-old(question-score), ::view-transition-new(question-score) { width: 100%; height: 100%; object-fit: none; }
-::view-transition-old(boolean-request), ::view-transition-old(boolean-response),
-::view-transition-old(choice-request), ::view-transition-old(choice-response) { animation: editor-out-up var(--transition-duration) cubic-bezier(.65, 0, .35, 1) both; }
-::view-transition-new(boolean-request), ::view-transition-new(boolean-response),
-::view-transition-new(choice-request), ::view-transition-new(choice-response) { animation: editor-out-up var(--transition-duration) cubic-bezier(.65, 0, .35, 1) reverse both; }
+::view-transition-old(.question-boolean), ::view-transition-new(.question-boolean),
+::view-transition-old(.question-choice), ::view-transition-new(.question-choice),
+::view-transition-old(.question-score), ::view-transition-new(.question-score) { width: 100%; height: 100%; object-fit: none; }
+::view-transition-old(.boolean-request), ::view-transition-old(.boolean-response),
+::view-transition-old(.choice-request), ::view-transition-old(.choice-response) { animation: editor-out-up var(--transition-duration) cubic-bezier(.65, 0, .35, 1) both; }
+::view-transition-new(.boolean-request), ::view-transition-new(.boolean-response),
+::view-transition-new(.choice-request), ::view-transition-new(.choice-response) { animation: editor-out-up var(--transition-duration) cubic-bezier(.65, 0, .35, 1) reverse both; }
 @keyframes editor-out-up { to { opacity: 0; transform: translateY(-388px); } }
 html.is-swapping { view-transition-name: none; }
-::view-transition-old(book) { animation: book-out .3s ease-in both; }
-::view-transition-old(choice-editors), ::view-transition-old(score-editors) { animation: editors-out .3s ease-in both; }
-@keyframes editors-out { to { opacity: 0; transform: translateY(-108px); } }
+::view-transition-old(.book) { animation: book-out .3s ease-in both; }
 @keyframes book-out { to { opacity: 0; transform: translateY(48px); } }
 @keyframes word-out { to { opacity: 0; transform: translateY(40px); } }
 @keyframes word-in { from { opacity: 0; transform: translateY(-40px); } }
@@ -477,6 +475,8 @@ code, .code { font-family: var(--mono); }
   from { opacity: 0; transform: scale(2.6); }
   to { opacity: 1; transform: none; }
 }
+.slide.is-active[data-transition="callout"] > .callout { animation: callout-in var(--transition-duration) ease-in-out both; }
+@keyframes callout-in { from { background-color: rgba(16, 22, 33, 0); backdrop-filter: blur(0); -webkit-backdrop-filter: blur(0); } }
 .callout p { margin: 0; font-size: 96px; font-weight: 700; letter-spacing: -.01em; color: var(--text); text-align: center; }
 .race { position: absolute; left: var(--margin-x); right: var(--margin-x); top: 250px; display: grid; gap: 40px; }
 .lane {
@@ -573,7 +573,6 @@ code, .code { font-family: var(--mono); }
 
 /* Editor */
 html.has-chrome { --toolbar-height: 76px; --navigator-width: 252px; }
-html.has-chrome.is-navigator-hidden { --navigator-width: 0px; }
 html.has-chrome .viewport { top: var(--toolbar-height); left: var(--navigator-width); background: #141414; }
 html.has-chrome .viewport-inner { position: absolute; inset: 40px; }
 html.has-chrome .stage { box-shadow: 0 10px 40px rgba(0, 0, 0, .55); }
@@ -581,7 +580,6 @@ html.has-chrome .stage { box-shadow: 0 10px 40px rgba(0, 0, 0, .55); }
 .toolbar, .navigator { display: none; }
 html.has-chrome .toolbar { position: fixed; top: 0; left: 0; right: 0; height: var(--toolbar-height); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; padding: 0 22px; background: #1f1f1f; border-bottom: 1px solid #000; color: #e6e6e6; font-family: var(--font); user-select: none; }
 html.has-chrome .navigator { position: fixed; top: var(--toolbar-height); left: 0; bottom: 0; width: var(--navigator-width); display: block; padding: 14px 10px 40px 6px; overflow-y: auto; background: #1a1a1a; border-right: 1px solid #000; font-family: var(--font); user-select: none; scrollbar-width: thin; scrollbar-color: #3a3a3a transparent; }
-html.has-chrome.is-navigator-hidden .navigator { display: none; }
 html.is-playing .toolbar, html.is-playing .navigator { display: none; }
 html.has-chrome:not(.is-playing) .stage *, html.has-chrome:not(.is-playing) .stage *::before, html.has-chrome:not(.is-playing) .stage *::after { transition: none !important; animation: none !important; }
 .navigator, .navigator button { outline: none; }
@@ -673,25 +671,22 @@ html.is-preview *, html.is-preview *::before, html.is-preview *::after { transit
 
 <header class="toolbar">
   <div class="toolbar-start">
-  <button class="tool" data-action="navigator" title="Mostrar u ocultar el navegador">
-    <span class="tool-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg></span>Vista
-  </button>
   <div class="toolbar-title"><strong>System One 01.1</strong><span id="toolbar-status"></span></div>
   </div>
   <div class="toolbar-actions">
-    <button class="tool" data-action="play-window" title="Reproducir en la ventana (Esc para salir)">
-      <span class="tool-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3.5" width="16" height="13" rx="2.5"/><path d="M8.5 7.5v5l4-2.5z" fill="currentColor" stroke-linejoin="round"/></svg></span>Reproducir en ventana
+    <button class="tool" data-action="play-window" title="Play in this window (Esc to exit)">
+      <span class="tool-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3.5" width="16" height="13" rx="2.5"/><path d="M8.5 7.5v5l4-2.5z" fill="currentColor" stroke-linejoin="round"/></svg></span>Play in Window
     </button>
-    <button class="tool tool-primary" data-action="play" title="Reproducir a pantalla completa (F)">
-      <span class="tool-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M6 3.8v12.4a1 1 0 0 0 1.5.86l10-6.2a1 1 0 0 0 0-1.72l-10-6.2A1 1 0 0 0 6 3.8z"/></svg></span>Reproducir
+    <button class="tool tool-primary" data-action="play" title="Play fullscreen (F)">
+      <span class="tool-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M6 3.8v12.4a1 1 0 0 0 1.5.86l10-6.2a1 1 0 0 0 0-1.72l-10-6.2A1 1 0 0 0 6 3.8z"/></svg></span>Play
     </button>
   </div>
   <div class="toolbar-end">
-    <button class="tool" data-action="copy-presenter-url" title="Copiar la URL de la ventana del presentador">
-      <span class="tool-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M8.5 11.5a3.2 3.2 0 0 0 4.6 0l2.6-2.6a3.2 3.2 0 0 0-4.6-4.6l-1 1"/><path d="M11.5 8.5a3.2 3.2 0 0 0-4.6 0l-2.6 2.6a3.2 3.2 0 0 0 4.6 4.6l1-1"/></svg></span><span data-label>Copiar URL</span>
+    <button class="tool" data-action="copy-presenter-url" title="Copy the presenter view URL">
+      <span class="tool-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M8.5 11.5a3.2 3.2 0 0 0 4.6 0l2.6-2.6a3.2 3.2 0 0 0-4.6-4.6l-1 1"/><path d="M11.5 8.5a3.2 3.2 0 0 0-4.6 0l-2.6 2.6a3.2 3.2 0 0 0 4.6 4.6l1-1"/></svg></span><span data-label>Copy URL</span>
     </button>
-    <button class="tool" data-action="presenter" title="Abrir la ventana del presentador (P)">
-      <span class="tool-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.5" y="4" width="11" height="8" rx="1.5"/><rect x="14" y="6" width="4.5" height="6" rx="1"/><path d="M4.5 16h5M7 12v4"/></svg></span>Presentador
+    <button class="tool" data-action="presenter" title="Open the presenter view (P)">
+      <span class="tool-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.5" y="4" width="11" height="8" rx="1.5"/><rect x="14" y="6" width="4.5" height="6" rx="1"/><path d="M4.5 16h5M7 12v4"/></svg></span>Presenter
     </button>
   </div>
 </header>
@@ -799,7 +794,7 @@ html.is-preview *, html.is-preview *::before, html.is-preview *::after { transit
     <div class="question-type is-active" data-magic="question-choice"><span class="emoji">🏷️</span>Choice</div>
     <div class="question-type" data-magic="question-score"><span class="emoji">📊</span>Score</div>
   </div>
-  <div class="editor-stack" data-magic="choice-editors">
+  <div class="editor-stack">
   <div class="editor editor-request" data-step="1" data-anim="fade-scale" data-state-at="7" data-magic="choice-request">
     <div class="editor-bar"><span class="editor-dots"><i></i><i></i><i></i></span>ask-jev.sh</div>
 <pre class="editor-code" data-code><span class="ln" data-focus="2">curl https://api.typesafe.ai/v1/systemone <span class="flag">\</span></span><span class="ln" data-focus="2">  <span class="flag">-H</span> <span class="s">"Authorization: Bearer $TYPESAFE_API_KEY"</span> <span class="flag">\</span></span><span class="ln">  <span class="flag">--json</span> <span class="s">'</span>{</span><span class="ln">    <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,</span><span class="ln" data-focus="3">    <span class="k">"state"</span>: { <span class="k">"thing"</span>: <span class="s">"cat"</span> },</span><span class="ln" data-focus="4">    <span class="k">"questions"</span>: {</span><span class="ln" data-focus="5">      <span class="k">"kind"</span>: {</span><span class="ln" data-focus="5">        <span class="k">"type"</span>: <span class="s">"choice"</span>,</span><span class="ln" data-focus="5">        <span class="k">"instructions"</span>: <span class="s">"What is it?"</span>,</span><span class="ln" data-focus="6">        <span class="k">"criteria"</span>: { <span class="k">"plant"</span>: <span class="s">"Plant"</span>, <span class="k">"animal"</span>: <span class="s">"Animal"</span>, <span class="k">"tool"</span>: <span class="s">"Tool"</span> }</span><span class="ln" data-focus="5">      }</span><span class="ln" data-focus="4">    }</span><span class="ln">  }<span class="s">'</span></span></pre>
@@ -817,7 +812,7 @@ html.is-preview *, html.is-preview *::before, html.is-preview *::after { transit
     <div class="question-type" data-magic="question-choice"><span class="emoji">🏷️</span>Choice</div>
     <div class="question-type is-active" data-magic="question-score"><span class="emoji">📊</span>Score</div>
   </div>
-  <div class="editor-stack" data-magic="score-editors">
+  <div class="editor-stack">
   <div class="editor editor-request" data-step="1" data-anim="fade-scale" data-state-at="7">
     <div class="editor-bar"><span class="editor-dots"><i></i><i></i><i></i></span>ask-jev.sh</div>
 <pre class="editor-code" data-code><span class="ln" data-focus="2">curl https://api.typesafe.ai/v1/systemone <span class="flag">\</span></span><span class="ln" data-focus="2">  <span class="flag">-H</span> <span class="s">"Authorization: Bearer $TYPESAFE_API_KEY"</span> <span class="flag">\</span></span><span class="ln">  <span class="flag">--json</span> <span class="s">'</span>{</span><span class="ln">    <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,</span><span class="ln" data-focus="3">    <span class="k">"state"</span>: { <span class="k">"thing"</span>: <span class="s">"cat"</span> },</span><span class="ln" data-focus="4">    <span class="k">"questions"</span>: {</span><span class="ln" data-focus="5">      <span class="k">"size"</span>: {</span><span class="ln" data-focus="5">        <span class="k">"type"</span>: <span class="s">"score"</span>,</span><span class="ln" data-focus="5">        <span class="k">"instructions"</span>: <span class="s">"How big is it?"</span>,</span><span class="ln" data-focus="6">        <span class="k">"criteria"</span>: [<span class="s">"Tiny"</span>, <span class="s">"Small"</span>, <span class="s">"Medium"</span>, <span class="s">"Big"</span>]</span><span class="ln" data-focus="5">      }</span><span class="ln" data-focus="4">    }</span><span class="ln">  }<span class="s">'</span></span></pre>
@@ -830,7 +825,7 @@ html.is-preview *, html.is-preview *::before, html.is-preview *::after { transit
 </section>
 
 <!-- 7 · Don't LLMs already do this? -->
-<section class="slide" data-name="llms">
+<section class="slide" data-name="llms" data-backdrop="score" data-transition="callout" data-auto>
   <div class="callout">
     <p data-step="1" data-anim="anvil">But don’t LLMs already do this?</p>
     <div class="mini-book" data-step="2" data-anim="up">
@@ -946,10 +941,14 @@ const fitStage = () => {
   stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
 };
 
+let magicGeneration = 0;
+
 const applyMagicNames = () => {
+  magicGeneration += 1;
   slides.forEach((slide) =>
     slide.querySelectorAll("[data-magic]").forEach((element) => {
-      element.style.viewTransitionName = element.dataset.magic;
+      element.style.viewTransitionName = `${element.dataset.magic}-${magicGeneration}`;
+      element.style.viewTransitionClass = element.dataset.magic;
     }),
   );
 };
@@ -1171,7 +1170,7 @@ const renderAnvils = (slide, step) => {
     clearTimeout(run.timer);
     element.querySelector("canvas")?.getContext("2d").clearRect(-1e4, -1e4, 2e4, 2e4);
     const animated = run.step === at - 1 && step === at && !document.documentElement.classList.contains("is-jumping");
-    anvilRuns.set(element, { step, timer: animated ? setTimeout(() => playAnvilSmoke(element), 190) : undefined });
+    anvilRuns.set(element, { step, timer: animated ? setTimeout(() => playAnvilSmoke(element), 300) : undefined });
   });
 };
 
@@ -1188,20 +1187,42 @@ const renderSparkles = (slide, step) => {
   });
 };
 
+const applyStep = (root, step) => {
+  root.querySelectorAll("[data-step]").forEach((element) => {
+    element.classList.toggle("is-built", step >= Number(element.dataset.step));
+  });
+  root.querySelectorAll("[data-out]").forEach((element) => {
+    element.classList.toggle("is-out", step >= Number(element.dataset.out));
+  });
+  root.querySelectorAll("[data-state-at]").forEach((element) => {
+    element.classList.toggle("is-on", step >= Number(element.dataset.stateAt) && step < Number(element.dataset.stateUntil ?? Infinity));
+  });
+  renderCodeFocus(root, step);
+};
+
+const stepAttributes = ["data-step", "data-anim", "data-out", "data-state-at", "data-state-until", "data-focus", "data-code", "data-magic", "data-magic-text", "data-sparkle-at", "data-swap-at"];
+
+const renderBackdrops = () => {
+  slides
+    .filter((slide) => slide.dataset.backdrop)
+    .forEach((slide) => {
+      const source = slides.find((candidate) => candidate.dataset.name === slide.dataset.backdrop);
+      const backdrop = document.createElement("div");
+      backdrop.className = "slide-backdrop";
+      backdrop.append(...[...source.children].map((child) => child.cloneNode(true)));
+      applyStep(backdrop, maxStep(source));
+      backdrop.querySelectorAll(stepAttributes.map((name) => `[${name}]`).join(", ")).forEach((element) => {
+        stepAttributes.forEach((name) => element.removeAttribute(name));
+      });
+      slide.prepend(backdrop);
+    });
+};
+
 const render = () => {
   slides.forEach((slide, index) => slide.classList.toggle("is-active", index === state.index));
   const slide = slides[state.index];
-  slide.querySelectorAll("[data-step]").forEach((element) => {
-    element.classList.toggle("is-built", state.step >= Number(element.dataset.step));
-  });
-  slide.querySelectorAll("[data-out]").forEach((element) => {
-    element.classList.toggle("is-out", state.step >= Number(element.dataset.out));
-  });
-  slide.querySelectorAll("[data-state-at]").forEach((element) => {
-    element.classList.toggle("is-on", state.step >= Number(element.dataset.stateAt) && state.step < Number(element.dataset.stateUntil ?? Infinity));
-  });
+  applyStep(slide, state.step);
   renderSwapTexts(slide, state.step);
-  renderCodeFocus(slide, state.step);
   renderSparkles(slide, state.step);
   renderAnvils(slide, state.step);
   if (!view) widgets[slide.dataset.widget]?.onStep(slide, playMode ? state.step : 0);
@@ -1322,6 +1343,9 @@ const fadeTo = (index, step) => {
   }, half);
 };
 
+const usesCallout = (index, previousSlide) =>
+  Math.abs(index - slides.indexOf(previousSlide)) === 1 && slides[Math.max(index, slides.indexOf(previousSlide))].dataset.transition === "callout";
+
 const usesFade = (index) => {
   if (Math.abs(index - state.index) !== 1) return false;
   const boundary = index > state.index ? slides[index] : slides[state.index];
@@ -1343,6 +1367,7 @@ const goTo = (index, step) => {
   const changesSlide = index !== state.index;
   state.index = index;
   state.step = step;
+  if (changesSlide && step === 0 && slides[index].hasAttribute("data-auto")) scheduleAutoStep(index);
   const previousSlide = slides.find((slide) => slide.classList.contains("is-active"));
   activeTransition?.skipTransition();
   const swaps = changesSlide ? [] : pendingSwaps(slides[index], step);
@@ -1363,11 +1388,12 @@ const goTo = (index, step) => {
     });
     return;
   }
-  if (!changesSlide || !document.startViewTransition) {
+  if (!changesSlide || !document.startViewTransition || usesCallout(index, previousSlide)) {
     render();
     return;
   }
   document.documentElement.classList.add("is-jumping");
+  applyMagicNames();
   const nameTargets = pairMagicText(previousSlide, slides[index]);
   const transition = document.startViewTransition(() => {
     clearWordNames();
@@ -1381,6 +1407,15 @@ const goTo = (index, step) => {
     clearWordNames();
     document.documentElement.classList.remove("is-jumping");
   });
+};
+
+let autoStepTimer;
+const scheduleAutoStep = (index) => {
+  clearTimeout(autoStepTimer);
+  const delay = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--transition-duration")) * 1000;
+  autoStepTimer = setTimeout(() => {
+    if (state.index === index && state.step === 0 && playMode) goTo(index, 1);
+  }, delay);
 };
 
 const next = () => {
@@ -1494,7 +1529,7 @@ const channel = new BroadcastChannel("system-one-01-1-slides");
 
 const nextPosition = () => {
   if (state.step < maxStep(slides[state.index])) return { index: state.index, step: state.step + 1 };
-  if (state.index + 1 < slides.length) return { index: state.index + 1, step: 0 };
+  if (state.index + 1 < slides.length) return { index: state.index + 1, step: slides[state.index + 1].hasAttribute("data-auto") ? 1 : 0 };
   return null;
 };
 
@@ -1640,7 +1675,7 @@ const loadNavigatorPrefs = () => {
   }
 };
 
-const navigatorPrefs = { expanded: [slides[0].dataset.name], hidden: false, ...loadNavigatorPrefs() };
+const navigatorPrefs = { expanded: [slides[0].dataset.name], ...loadNavigatorPrefs() };
 
 const saveNavigatorPrefs = () => {
   try {
@@ -1660,7 +1695,7 @@ const navigatorItem = (slide, index) => {
   item.dataset.name = slide.dataset.name;
   item.innerHTML = `
     <div class="nav-slide" data-index="${index}">
-      ${canExpand ? `<button class="nav-toggle" aria-label="Desplegar">${chevron}</button>` : "<span></span>"}
+      ${canExpand ? `<button class="nav-toggle" aria-label="Expand">${chevron}</button>` : "<span></span>"}
       <span class="nav-number">${index + 1}</span>
       <button class="nav-thumb" data-go="${index}.0" title="${textOf(slide.querySelector(".title, h1") ?? slide)}">
         <iframe loading="lazy" tabindex="-1" src="${location.pathname}?view=thumb&version=${deckVersion}#${index + 1}.${thumbStep}"></iframe>
@@ -1688,8 +1723,6 @@ const renderNavigatorExpansion = () => {
     const children = item.querySelector(".nav-children");
     if (children) children.hidden = !expanded;
   });
-  document.documentElement.classList.toggle("is-navigator-hidden", navigatorPrefs.hidden);
-  document.querySelector('[data-action="navigator"]').classList.toggle("is-on", !navigatorPrefs.hidden);
   fitStage();
 };
 
@@ -1802,7 +1835,7 @@ const jumpTo = (index, step) => {
 const renderChrome = () => {
   if (!document.documentElement.classList.contains("has-chrome")) return;
   const total = maxStep(slides[state.index]);
-  document.getElementById("toolbar-status").textContent = `Slide ${state.index + 1} de ${slides.length} · Paso ${state.step} de ${total}`;
+  document.getElementById("toolbar-status").textContent = `Slide ${state.index + 1} of ${slides.length} · Build ${state.step} of ${total}`;
   document.querySelectorAll(".nav-slide").forEach((row) => row.classList.toggle("is-current", Number(row.dataset.index) === state.index));
   document.querySelectorAll(".nav-build").forEach((button) => {
     const [index, step] = button.dataset.go.split(".").map(Number);
@@ -1838,11 +1871,6 @@ const stopPlaying = () => {
 };
 
 const actions = {
-  navigator: () => {
-    navigatorPrefs.hidden = !navigatorPrefs.hidden;
-    saveNavigatorPrefs();
-    renderNavigatorExpansion();
-  },
   "play-window": playInWindow,
   play: playFullscreen,
   presenter: () => openPresenter(),
@@ -1856,9 +1884,9 @@ const copyPresenterUrl = async () => {
     () => true,
     () => false,
   );
-  label.textContent = copied ? "¡Copiada!" : "No se pudo copiar";
+  label.textContent = copied ? "Copied!" : "Copy failed";
   clearTimeout(copyLabelTimer);
-  copyLabelTimer = setTimeout(() => (label.textContent = "Copiar URL"), 1500);
+  copyLabelTimer = setTimeout(() => (label.textContent = "Copy URL"), 1500);
 };
 
 const startDeck = () => {
@@ -1910,16 +1938,16 @@ const startPreview = () => {
 };
 
 const startPresenter = () => {
-  document.title = "Presentador · System One 01.1";
+  document.title = "Presenter · System One 01.1";
   document.querySelectorAll(".viewport, .toolbar, .navigator").forEach((element) => element.remove());
 
   const presenter = document.createElement("div");
   presenter.className = "presenter";
   presenter.innerHTML = `
-    <div class="presenter-frame"><iframe data-next title="Siguiente paso"></iframe><div class="presenter-end" data-end hidden>🏁 Fin</div></div>
+    <div class="presenter-frame"><iframe data-next title="Next build"></iframe><div class="presenter-end" data-end hidden>🏁 End</div></div>
     <div class="presenter-info">
-      <div><small>Hora</small><strong data-clock></strong></div>
-      <button class="presenter-timer is-waiting" data-timer title="Clic para reiniciar"><small>Duración</small><strong data-elapsed>00:00</strong></button>
+      <div><small>Time</small><strong data-clock></strong></div>
+      <button class="presenter-timer is-waiting" data-timer title="Click to restart"><small>Duration</small><strong data-elapsed>00:00</strong></button>
     </div>`;
   document.body.append(presenter);
 
@@ -1954,7 +1982,7 @@ const startPresenter = () => {
     const seconds = playStartedAt ? Math.floor((Date.now() - playStartedAt) / 1000) : 0;
     presenter.querySelector("[data-timer]").classList.toggle("is-waiting", !playStartedAt);
     presenter.querySelector("[data-elapsed]").textContent = `${pad(Math.floor(seconds / 60))}:${pad(seconds % 60)}`;
-    presenter.querySelector("[data-clock]").textContent = new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+    presenter.querySelector("[data-clock]").textContent = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
   };
   tick();
   setInterval(tick, 1000);
@@ -1971,6 +1999,7 @@ if (view === "presenter") {
     restoreFromHash();
     render();
   });
+  renderBackdrops();
   widgetStepMarkers();
   view ? startPreview() : startDeck();
   splitMagicText();
