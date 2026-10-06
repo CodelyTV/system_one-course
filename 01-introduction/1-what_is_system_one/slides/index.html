@@ -301,19 +301,11 @@ code, .code { font-family: var(--mono); }
   transition: transform 1.1s cubic-bezier(.65, 0, .25, 1), z-index 0s 1.1s;
 }
 .book.is-on .book-back { z-index: 2; transform: translateZ(2px) rotateY(-180deg); transition: transform 1.1s cubic-bezier(.65, 0, .25, 1), z-index 0s; }
-.book-shadow {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 50%;
-  height: 100%;
-  z-index: -1;
-  border-radius: 18px;
-  box-shadow: 0 40px 80px rgba(0, 0, 0, .5);
-  transition: left 1.1s cubic-bezier(.65, 0, .25, 1), width 1.1s cubic-bezier(.65, 0, .25, 1);
-}
-.book-body.is-on .book-shadow { left: 0; width: 100%; }
-.book.is-on .book-shadow { left: 0; width: 50%; }
+.book-shadow { position: absolute; top: 0; width: 50%; height: 100%; z-index: -1; box-shadow: 0 40px 80px rgba(0, 0, 0, .5); }
+.book-shadow-left { left: 0; border-radius: 18px 0 0 18px; opacity: 0; transition: opacity .35s ease-out; }
+.book-shadow-right { left: 50%; border-radius: 0 18px 18px 0; transition: opacity .5s ease-in .5s; }
+.book-body.is-on .book-shadow-left { opacity: 1; transition: opacity .5s ease-in .5s; }
+.book.is-on .book-shadow-right { opacity: 0; transition: opacity .35s ease-out .45s; }
 .book-back-cover {
   transform: rotateY(180deg);
   border-radius: 14px 4px 4px 14px;
@@ -667,7 +659,8 @@ html.is-preview .stage [data-step] { transition-duration: .25s; transition-delay
   <h2 class="title"><span class="emoji" data-magic="title-emoji">🧠</span><span data-magic-text="title">System One vs System Two</span></h2>
   <div class="book" data-step="1" data-anim="up" data-state-at="17" data-magic="book">
     <div class="book-body" data-state-at="2">
-      <div class="book-shadow"></div>
+      <div class="book-shadow book-shadow-left"></div>
+      <div class="book-shadow book-shadow-right"></div>
       <div class="book-back">
       <div class="book-face book-page book-page-right">
         <div class="page-running">Part I · Two Systems</div>
