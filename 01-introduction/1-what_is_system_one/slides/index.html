@@ -67,6 +67,7 @@ body { font-family: var(--font); color: var(--text); -webkit-font-smoothing: ant
   transform-origin: center center;
   overflow: hidden;
   background: var(--bg);
+  color: var(--text);
 }
 
 .slide { position: absolute; inset: 0; display: none; background: var(--bg); }
@@ -484,7 +485,7 @@ code, .code { font-family: var(--mono); }
   to { opacity: 1; transform: none; }
 }
 .slide.is-active[data-transition="callout"] > .callout { animation: callout-in var(--transition-duration) ease-in-out both; }
-@keyframes callout-in { from { background-color: rgba(16, 22, 33, 0); backdrop-filter: blur(0); -webkit-backdrop-filter: blur(0); } }
+@keyframes callout-in { from { background-color: transparent; backdrop-filter: blur(0); -webkit-backdrop-filter: blur(0); } }
 .callout p { margin: 0; font-size: 96px; font-weight: 700; letter-spacing: -.01em; color: var(--text); text-align: center; }
 .race { position: absolute; left: var(--margin-x); right: var(--margin-x); top: 250px; display: grid; gap: 40px; }
 .lane {
@@ -584,6 +585,45 @@ code, .code { font-family: var(--mono); }
 .comparison-table .row > div { border-width: 0 1px 1px 0; border-color: #000; background: var(--bg); }
 .comparison-table .price { flex-direction: column; gap: 4px; font-size: 36px; }
 .comparison-table .price small { margin: 4px 0 0; font-size: 22px; opacity: .7; }
+
+/* Light theme */
+html[data-theme="light"] .stage {
+  --bg: #ffffff;
+  --bg-deep: #f6f5f1;
+  --surface: #ecebe5;
+  --line: #d4d2ca;
+  --text: #2b2b2b;
+  --text-soft: #4a4a4a;
+  --text-muted: #8a8a8a;
+  --green: #1faa48;
+  --panel-green: #dcf6d6;
+  --panel-purple: #ede4fb;
+  --arrow: #3a3a3a;
+  --code-key: #a8540c;
+  --code-string: #1e8a3c;
+  --code-number: #0b6cb0;
+  --code-keyword: #6c2bd9;
+  --code-punct: #3a3a3a;
+  --concept-bg: #fffcc9;
+  --concept-border: #4f5236;
+  --window-bg: #f2efe9;
+  --window-border: #c4c0b8;
+  --callout-bg: rgba(255, 255, 255, .86);
+  --table-empty: #f2f2f2;
+}
+html[data-theme="light"] .cover { --green: #6ef06c; }
+html[data-theme="light"] #arrowhead path { fill: #3a3a3a; }
+html[data-theme="light"] .question-type { border-color: var(--concept-border); background: var(--concept-bg); box-shadow: none; }
+html[data-theme="light"] .editor, html[data-theme="light"] .lane-prompt { border-color: var(--window-border); background: var(--window-bg); box-shadow: 0 6px 14px rgba(0, 0, 0, .14); }
+html[data-theme="light"] .lane-count, html[data-theme="light"] .lane-cost { border-color: var(--window-border); background: var(--window-bg); box-shadow: 0 2px 5px rgba(0, 0, 0, .12); }
+html[data-theme="light"] .lane-two { --lane-color: var(--purple); }
+html[data-theme="light"] .code.has-focus .ln.is-focus { background: rgba(0, 0, 0, .05); }
+html[data-theme="light"] .callout { background: var(--callout-bg); }
+html[data-theme="light"] .book-shadow, html[data-theme="light"] .mini-book { box-shadow: 0 30px 60px rgba(0, 0, 0, .22); }
+html[data-theme="light"] .comparison-table { background: var(--table-empty); }
+html[data-theme="light"] .panel.purple { color: var(--purple); }
+html[data-theme="light"] .editor-request.is-on { filter: blur(3px); opacity: .5; }
+html[data-theme="light"] .table .corner img { filter: brightness(0) opacity(.85); }
 
 /* Editor */
 html.has-chrome { --toolbar-height: 76px; --navigator-width: 252px; }
@@ -696,6 +736,9 @@ html.is-preview *, html.is-preview *::before, html.is-preview *::after { transit
     </button>
   </div>
   <div class="toolbar-end">
+    <button class="tool" data-action="toggle-theme" title="Switch the slides between dark and light (T)">
+      <span class="tool-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="7"/><path d="M10 3a7 7 0 0 1 0 14z" fill="currentColor"/></svg></span><span data-label>Light</span>
+    </button>
     <button class="tool" data-action="copy-presenter-url" title="Copy the presenter view URL">
       <span class="tool-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M8.5 11.5a3.2 3.2 0 0 0 4.6 0l2.6-2.6a3.2 3.2 0 0 0-4.6-4.6l-1 1"/><path d="M11.5 8.5a3.2 3.2 0 0 0-4.6 0l-2.6 2.6a3.2 3.2 0 0 0 4.6 4.6l1-1"/></svg></span><span data-label>Copy URL</span>
     </button>
@@ -1572,6 +1615,43 @@ const restoreFromHash = () => {
 const view = new URLSearchParams(location.search).get("view");
 const deckVersion = new Date(document.lastModified).getTime();
 const channel = new BroadcastChannel("system-one-01-1-slides");
+const themeKey = "system-one-01-1-theme";
+
+const loadTheme = () => {
+  const requested = new URLSearchParams(location.search).get("theme");
+  if (requested) return requested === "light" ? "light" : "dark";
+  try {
+    return localStorage.getItem(themeKey) === "light" ? "light" : "dark";
+  } catch {
+    return "dark";
+  }
+};
+
+const applyTheme = (theme) => {
+  document.documentElement.dataset.theme = theme;
+  const label = document.querySelector('[data-action="toggle-theme"] [data-label]');
+  if (label) label.textContent = theme === "light" ? "Dark" : "Light";
+  document.querySelectorAll("iframe[src]").forEach((frame) => {
+    const themed = frame.getAttribute("src").replace(/theme=\w+/, `theme=${theme}`);
+    if (themed !== frame.getAttribute("src")) frame.src = themed;
+  });
+};
+
+const themeParam = () => `theme=${document.documentElement.dataset.theme}`;
+
+const toggleTheme = () => {
+  const theme = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+  try {
+    localStorage.setItem(themeKey, theme);
+  } catch {}
+  applyTheme(theme);
+  channel.postMessage({ type: "theme", theme });
+};
+
+applyTheme(loadTheme());
+channel.addEventListener("message", ({ data }) => {
+  if (data.type === "theme") applyTheme(data.theme);
+});
 
 const nextPosition = () => {
   if (state.step < maxStep(slides[state.index])) return { index: state.index, step: state.step + 1 };
@@ -1596,6 +1676,7 @@ const commands = {
   previous,
   first: () => goTo(0, 0),
   last: () => goTo(slides.length - 1, maxStep(slides[slides.length - 1])),
+  theme: toggleTheme,
   resetTimer: () => {
     playStartedAt = playMode ? Date.now() : null;
     publish();
@@ -1641,6 +1722,8 @@ const handleKeys = (event, run) => {
     run("play");
   } else if (event.key.toLowerCase() === "p") {
     run("presenter");
+  } else if (event.key.toLowerCase() === "t") {
+    run("theme");
   } else if (event.key === "Escape") {
     run("stop");
   }
@@ -1744,7 +1827,7 @@ const navigatorItem = (slide, index) => {
       ${canExpand ? `<button class="nav-toggle" aria-label="Expand">${chevron}</button>` : "<span></span>"}
       <span class="nav-number">${index + 1}</span>
       <button class="nav-thumb" data-go="${index}.0" title="${textOf(slide.querySelector(".title, h1") ?? slide)}">
-        <iframe loading="lazy" tabindex="-1" src="${location.pathname}?view=thumb&version=${deckVersion}#${index + 1}.${thumbStep}"></iframe>
+        <iframe loading="lazy" tabindex="-1" src="${location.pathname}?view=thumb&version=${deckVersion}&${themeParam()}#${index + 1}.${thumbStep}"></iframe>
       </button>
     </div>
     <ol class="nav-builds">
@@ -1955,6 +2038,7 @@ const actions = {
   play: playFullscreen,
   presenter: () => openPresenter(),
   "copy-presenter-url": () => copyPresenterUrl(),
+  "toggle-theme": () => toggleTheme(),
 };
 
 let copyLabelTimer;
@@ -1985,6 +2069,7 @@ const startDeck = () => {
     handleNavigatorKeys(event) ||
     handleKeys(event, (command) => {
       if (command === "presenter") return openPresenter();
+      if (command === "theme") return toggleTheme();
       if (command === "play") return playFullscreen();
       if (command === "stop") return stopPlaying();
       setAnimatedNavigation(false);
@@ -2038,7 +2123,7 @@ const startPresenter = () => {
   const nextFrame = presenter.querySelector("[data-next]");
   const showIn = (frame, position) => {
     const hash = `#${position.index + 1}.${position.step}`;
-    if (!frame.src) frame.src = `${location.pathname}?view=preview&version=${deckVersion}${hash}`;
+    if (!frame.src) frame.src = `${location.pathname}?view=preview&version=${deckVersion}&${themeParam()}${hash}`;
     else frame.contentWindow.location.hash = hash;
   };
 
