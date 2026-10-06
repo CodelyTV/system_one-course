@@ -12,3 +12,6 @@ db:
 	npm run db:wait
 	npm run db:schema
 	npm run db:seed
+
+score-customer-support:
+	node .agents/skills/customer-support-prioritize/scripts/prioritize-conversations.mts
