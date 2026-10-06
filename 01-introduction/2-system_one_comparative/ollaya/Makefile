@@ -1,4 +1,4 @@
-MODELS ?= laya kev:0.8b clef-flash
+MODELS ?= laya kev:0.8b
 
 .PHONY: start
 
