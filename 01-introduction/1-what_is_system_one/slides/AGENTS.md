@@ -26,5 +26,7 @@
 - Persistent states: `data-state-at="n"` adds `is-on` from step `n` without hiding the element (used to open the book on slide 2). Add `data-state-until="n"` to remove `is-on` again from step `n`
 - Magic Move between consecutive slides: give matching elements the same `data-magic="name"` (unique per slide). Titles keep the emoji as `data-magic="title-emoji"`
 - Magic Move by word (like Keynote): put `data-magic-text="name"` on text in consecutive slides. Shared words move to their new position, the rest fade. The cover title uses it to move into the slide 2 header. Add `data-magic-swap` to make the words that do not match leave downwards and enter from above (Fade and Move, 0.3s each) instead of a fade
+- Magic Move by word inside a slide: add `data-swap-at="n" data-swap-text="New text"` to a `data-magic-text` element. At step `n` the text changes to the new one; shared words move and the rest fade, while the rest of the slide keeps animating live
+- Fade through the background: add `data-transition="fade"` to a slide to fade the previous slide out to the background color and this one in (also when going back)
 - Presenter view: press `P` to open a window with the current and next step
 - Preview locally with `python3 -m http.server 8611 --directory 01-introduction/1-what_is_system_one/slides`

@@ -69,6 +69,8 @@ body { font-family: var(--font); color: var(--text); -webkit-font-smoothing: ant
 
 .slide { position: absolute; inset: 0; display: none; background: var(--bg); }
 .slide.is-active { display: block; }
+.stage::after { content: ""; position: absolute; inset: 0; z-index: 100; background: var(--bg); opacity: 0; pointer-events: none; transition: opacity calc(var(--transition-duration) / 2) ease-in-out; }
+.stage.is-covered::after { opacity: 1; }
 
 .emoji { font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; font-weight: 400; line-height: 1; }
 .mono { font-family: var(--mono); }
@@ -129,6 +131,7 @@ html.is-jumping *, html.is-jumping *::before, html.is-jumping *::after { transit
 ::view-transition-new(boolean-request), ::view-transition-new(boolean-response),
 ::view-transition-new(choice-request), ::view-transition-new(choice-response) { animation: editor-out-up var(--transition-duration) cubic-bezier(.65, 0, .35, 1) reverse both; }
 @keyframes editor-out-up { to { opacity: 0; transform: translateY(-388px); } }
+html.is-swapping { view-transition-name: none; }
 ::view-transition-old(book) { animation: book-out .3s ease-in both; }
 @keyframes book-out { to { opacity: 0; transform: translateY(48px); } }
 @keyframes word-out { to { opacity: 0; transform: translateY(40px); } }
@@ -381,12 +384,12 @@ code, .code { font-family: var(--mono); }
   display: flex;
   align-items: baseline;
   justify-content: center;
-  gap: 16px;
+  gap: 12px;
   margin-top: 40px;
   padding: 22px 0 20px;
   border-top: 1px solid #b9ad97;
   border-bottom: 1px solid #b9ad97;
-  font-size: 46px;
+  font-size: 38px;
   font-weight: 500;
   white-space: nowrap;
 }
@@ -482,6 +485,45 @@ code, .code { font-family: var(--mono); }
   to { opacity: 1; transform: none; }
 }
 .callout p { margin: 0; font-size: 96px; font-weight: 700; letter-spacing: -.01em; color: var(--text); text-align: center; }
+.race { position: absolute; left: var(--margin-x); right: var(--margin-x); top: 250px; display: grid; gap: 40px; }
+.lane {
+  --lane-color: var(--green);
+  --lane-ease: cubic-bezier(.65, 0, .35, 1);
+  display: grid;
+  grid-template-columns: 300px 250px 1fr 230px 0px;
+  align-items: center;
+  gap: 30px;
+  height: 130px;
+  margin-right: -30px;
+  transition: opacity .3s ease-out calc(var(--i, 0) * 110ms), transform .3s ease-out calc(var(--i, 0) * 110ms), grid-template-columns .6s var(--lane-ease), margin-right .6s var(--lane-ease);
+}
+.lane.is-on { grid-template-columns: 300px 250px 1fr 210px 250px; margin-right: 0; }
+.lane-two { --lane-color: #9b6bff; }
+.lane-name { display: flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 700; line-height: 1.15; }
+.lane-name .emoji { font-size: 48px; }
+.lane-name small { display: block; margin-top: 6px; font-family: var(--mono); font-size: 22px; font-weight: 400; color: var(--text); }
+.lane-prompt { display: grid; gap: 8px; padding: 18px 22px; border: 1px solid #3a3a3a; border-radius: 14px; background: #1f1f1f; box-shadow: 0 6px 12px rgba(0, 0, 0, .21); }
+.lane-prompt span { font-size: 15px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--text); }
+.lane-prompt code { font-size: 26px; color: var(--code-string); white-space: nowrap; }
+.lane-prompt.is-sending { border-color: var(--lane-color); }
+.lane-track { position: relative; height: 4px; border-radius: 2px; background: repeating-linear-gradient(90deg, var(--line) 0 14px, transparent 14px 24px); }
+.lane-ball { position: absolute; left: 0; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff 0 12%, var(--lane-color) 55%); box-shadow: 0 0 22px var(--lane-color), 0 0 60px color-mix(in srgb, var(--lane-color) 40%, transparent); will-change: transform; }
+.lane-ball::before { content: ""; position: absolute; right: 50%; top: 50%; width: var(--trail, 0px); height: 10px; margin-top: -5px; border-radius: 5px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--lane-color) 70%, transparent)); }
+.lane-answer { position: absolute; right: -12px; top: -58px; padding: .2em .55em; border-radius: .4em; font-size: 22px; background: var(--badge-yellow); color: var(--badge-yellow-text); opacity: 0; }
+.lane-answer.is-pop { animation: answer-pop .5s ease-out; }
+.lane-count { position: relative; display: grid; justify-items: center; padding: 14px 0 16px; border: 1px solid #2e3a55; border-radius: 28px; background: #121826; box-shadow: 0 2px 5px rgba(0, 0, 0, .5); }
+.lane-count b { font-size: 72px; line-height: 1; font-variant-numeric: tabular-nums; color: var(--lane-color); }
+.lane-count span { font-size: 20px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--text); }
+.lane-cost { --i: 0; min-width: 0; overflow: hidden; white-space: nowrap; display: grid; justify-items: center; gap: 6px; padding: 22px 0 20px; border: 1px solid #2e3a55; border-radius: 28px; background: #121826; box-shadow: 0 2px 5px rgba(0, 0, 0, .5); }
+.lane-cost b { font-family: var(--mono); font-size: 38px; font-weight: 400; font-variant-numeric: tabular-nums; color: var(--text); }
+.lane-cost span { font-size: 17px; font-weight: 500; letter-spacing: .08em; color: var(--text); }
+.lane-cost.is-bump b { animation: cost-tick .3s ease-out; }
+@keyframes cost-tick { 0% { color: var(--badge-yellow); } 100% { color: var(--text); } }
+.lane-count.is-bump b { animation: count-bump .25s ease-out; }
+.plus-one { position: absolute; right: 18px; top: 6px; font-size: 30px; font-weight: 700; color: var(--lane-color); pointer-events: none; animation: plus-one .7s ease-out forwards; }
+@keyframes answer-pop { 0% { opacity: 0; transform: translateY(8px) scale(.8); } 25% { opacity: 1; transform: none; } 75% { opacity: 1; } 100% { opacity: 0; transform: translateY(-6px); } }
+@keyframes count-bump { 50% { transform: scale(1.15); } }
+@keyframes plus-one { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-46px); } }
 .question-column { display: flex; flex-direction: column; align-items: center; gap: 32px; }
 .answer-options { position: relative; display: grid; justify-items: center; gap: 16px; margin: 0; padding: 0; list-style: none; font-size: 36px; font-weight: 500; color: var(--text); }
 .answer-options li { margin: -.2em 0; padding: .2em .55em; border-radius: .4em; transition: background-color .3s ease-out, color .3s ease-out; }
@@ -651,7 +693,7 @@ html.is-preview .stage [data-step] { transition-duration: .25s; transition-delay
             <li data-step="6" data-anim="fade-move"><span class="emoji">🪶</span>Effortless</li>
             <li data-step="7" data-anim="fade-move"><span class="emoji">🎯</span>Intuitive</li>
           </ul>
-          <div class="page-example" data-step="8" data-anim="up">Is fire hot? <span class="answer" data-step="8" data-anim="pop" style="--i:3">Yes</span></div>
+          <div class="page-example" data-step="8" data-anim="up">Does fire burn? <span class="answer" data-step="8" data-anim="pop" style="--i:3">Yes</span></div>
           <div class="pencil-mark" data-step="16">
             <svg viewBox="0 0 430 116"><path pathLength="1" d="M330 16C250 4 90 6 34 30C4 46 10 88 70 102C150 118 330 114 396 92C432 78 428 34 372 20C330 10 270 12 236 16"/></svg>
           </div>
@@ -664,7 +706,7 @@ html.is-preview .stage [data-step] { transition-duration: .25s; transition-delay
 <section class="slide" data-name="question-types">
   <h2 class="title"><span class="emoji" data-magic="title-emoji">🧠</span><span data-magic-text="title" data-magic-swap>System One question types</span></h2>
   <div class="question-types">
-    <div class="question-column"><div class="question-type" data-step="1" data-anim="fade-scale" data-magic="question-boolean"><span class="emoji">✅</span><span class="sparkle-swap" data-sparkle-at="2"><span class="sparkle-out">Noul</span><span class="sparkle-in">Boolean</span></span></div><span class="question-example" data-step="3" data-anim="fade-move-down">Is fire hot?</span></div>
+    <div class="question-column"><div class="question-type" data-step="1" data-anim="fade-scale" data-magic="question-boolean"><span class="emoji">✅</span><span class="sparkle-swap" data-sparkle-at="2"><span class="sparkle-out">Noul</span><span class="sparkle-in">Boolean</span></span></div><span class="question-example" data-step="3" data-anim="fade-move-down">Does fire burn?</span></div>
     <div class="question-column"><div class="question-type" data-step="4" data-anim="fade-scale" data-magic="question-choice"><span class="emoji">🏷️</span>Choice</div><span class="question-example" data-step="5" data-anim="fade-move-down">What is a cat?</span>
       <ul class="answer-options" data-step="6" data-anim="fade-move-down">
         <li>Plant</li>
@@ -693,11 +735,11 @@ html.is-preview .stage [data-step] { transition-duration: .25s; transition-delay
   <div class="editor-stack">
   <div class="editor editor-request" data-step="1" data-anim="fade-scale" data-state-at="7" data-magic="boolean-request">
     <div class="editor-bar"><span class="editor-dots"><i></i><i></i><i></i></span>ask-jev.sh</div>
-<pre class="editor-code" data-code><span class="ln" data-focus="2">curl https://api.typesafe.ai/v1/systemone <span class="flag">\</span></span><span class="ln" data-focus="2">  <span class="flag">-H</span> <span class="s">"Authorization: Bearer $TYPESAFE_API_KEY"</span> <span class="flag">\</span></span><span class="ln">  <span class="flag">--json</span> <span class="s">'</span>{</span><span class="ln" data-focus="3">    <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,</span><span class="ln" data-focus="4">    <span class="k">"state"</span>: { <span class="k">"thing"</span>: <span class="s">"fire"</span> },</span><span class="ln" data-focus="5">    <span class="k">"questions"</span>: {</span><span class="ln" data-focus="6">      <span class="k">"isHot"</span>: { <span class="k">"type"</span>: <span class="s">"noul"</span>, <span class="k">"instructions"</span>: <span class="s">"Is it hot?"</span> }</span><span class="ln" data-focus="5">    }</span><span class="ln">  }<span class="s">'</span></span></pre>
+<pre class="editor-code" data-code><span class="ln" data-focus="2">curl https://api.typesafe.ai/v1/systemone <span class="flag">\</span></span><span class="ln" data-focus="2">  <span class="flag">-H</span> <span class="s">"Authorization: Bearer $TYPESAFE_API_KEY"</span> <span class="flag">\</span></span><span class="ln">  <span class="flag">--json</span> <span class="s">'</span>{</span><span class="ln" data-focus="3">    <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,</span><span class="ln" data-focus="4">    <span class="k">"state"</span>: { <span class="k">"thing"</span>: <span class="s">"fire"</span> },</span><span class="ln" data-focus="5">    <span class="k">"questions"</span>: {</span><span class="ln" data-focus="6">      <span class="k">"burns"</span>: { <span class="k">"type"</span>: <span class="s">"noul"</span>, <span class="k">"instructions"</span>: <span class="s">"Does it burn?"</span> }</span><span class="ln" data-focus="5">    }</span><span class="ln">  }<span class="s">'</span></span></pre>
   </div>
   <div class="editor editor-response" data-step="7" data-anim="fade-scale" data-magic="boolean-response">
     <div class="editor-bar"><span class="editor-dots"><i></i><i></i><i></i></span>response.json</div>
-<pre class="editor-code" data-code><span class="ln">{</span><span class="ln" data-focus="8">  <span class="k">"model"</span>: <span class="s">"jev-1.13.0"</span>,</span><span class="ln" data-focus="9">  <span class="k">"answers"</span>: {</span><span class="ln" data-focus="10">    <span class="k">"isHot"</span>: { <span class="k">"type"</span>: <span class="s">"noul"</span>, <span class="k">"noul"</span>: <span class="n">0.99</span> }</span><span class="ln" data-focus="9">  }</span><span class="ln">}</span></pre>
+<pre class="editor-code" data-code><span class="ln">{</span><span class="ln" data-focus="8">  <span class="k">"model"</span>: <span class="s">"jev-1.13.0"</span>,</span><span class="ln" data-focus="9">  <span class="k">"answers"</span>: {</span><span class="ln" data-focus="10">    <span class="k">"burns"</span>: { <span class="k">"type"</span>: <span class="s">"noul"</span>, <span class="k">"noul"</span>: <span class="n">0.99</span> }</span><span class="ln" data-focus="9">  }</span><span class="ln">}</span></pre>
   </div>
   </div>
 </section>
@@ -741,6 +783,26 @@ html.is-preview .stage [data-step] { transition-duration: .25s; transition-delay
     <div class="mini-book" data-step="15" data-anim="up">
       <div class="book-page page-left"><div class="page-head"><span class="emoji">⚡️</span>System One</div><div class="stamps"><span class="stamp" data-step="17" data-anim="stamp" style="--i:3; --r:-8deg"><i class="stamp-logo" style="--logo: url(assets/logos/typesafe-ink.svg)"></i><b>Jev</b></span><span class="stamp" data-step="17" data-anim="stamp" style="--i:1; --r:5deg"><i class="stamp-logo" style="--logo: url(assets/logos/convai-ink.svg)"></i><b>Laya</b></span><span class="stamp stamp-text" data-step="17" data-anim="stamp" style="--i:4; --r:-3deg"><b>Kev</b></span><span class="stamp" data-step="17" data-anim="stamp" style="--i:0; --r:7deg"><i class="stamp-logo" style="--logo: url(assets/logos/openai.svg)"></i><b>Decisions API</b></span><span class="stamp" data-step="17" data-anim="stamp" style="--i:2; --r:-6deg"><i class="stamp-logo" style="--logo: url(assets/logos/cloudflare-color.svg)"></i><b>Clef</b></span></div></div>
       <div class="book-page page-right"><div class="page-head"><span class="emoji">🐢</span>System Two</div><div class="stamps"><span class="stamp" data-step="16" data-anim="stamp" style="--i:2; --r:-8deg"><i class="stamp-logo" style="--logo: url(assets/logos/openai.svg)"></i><b>GPT</b></span><span class="stamp" data-step="16" data-anim="stamp" style="--i:0; --r:5deg"><i class="stamp-logo" style="--logo: url(assets/logos/claude-color.svg)"></i><b>Claude</b></span><span class="stamp" data-step="16" data-anim="stamp" style="--i:3; --r:-3deg"><i class="stamp-logo" style="--logo: url(assets/logos/deepseek-color.svg)"></i><b>DeepSeek</b></span><span class="stamp" data-step="16" data-anim="stamp" style="--i:1; --r:7deg"><i class="stamp-logo" style="--logo: url(assets/logos/zhipu-color.svg)"></i><b>GLM</b></span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-name="speed" data-widget="race" data-transition="fade">
+  <h2 class="title"><span class="emoji" data-magic="title-emoji">🧠</span><span data-magic-text="title" data-swap-at="3" data-swap-text="Speed and price are the points">Speed is the point</span></h2>
+  <div class="race" data-state-at="2">
+    <div class="lane lane-one" data-duration="600" data-cost="0.0000252" data-step="1" data-anim="fade-move" data-state-at="3" style="--i:0">
+      <div class="lane-name"><span class="emoji">⚡️</span><div>System One<small>Jev · ~150 ms</small></div></div>
+      <div class="lane-prompt"><span>Prompt</span><code>Does fire burn?</code></div>
+      <div class="lane-track"><i class="lane-ball"></i><span class="lane-answer">Yes</span></div>
+      <div class="lane-count"><b>0</b><span>answers</span></div>
+      <div class="lane-cost" data-step="3" data-anim="fade-move"><b>$0.000000</b><span>$25 / 1M · Jev</span></div>
+    </div>
+    <div class="lane lane-two" data-duration="4200" data-cost="0.00027" data-step="1" data-anim="fade-move" data-state-at="3" style="--i:3">
+      <div class="lane-name"><span class="emoji">🐢</span><div>System Two<small>LLM · ~1.6 s</small></div></div>
+      <div class="lane-prompt"><span>Prompt</span><code>Does fire burn?</code></div>
+      <div class="lane-track"><i class="lane-ball"></i><span class="lane-answer">Yes</span></div>
+      <div class="lane-count"><b>0</b><span>answers</span></div>
+      <div class="lane-cost" data-step="3" data-anim="fade-move"><b>$0.000000</b><span>$270 / 1M · GPT-5 mini</span></div>
     </div>
   </div>
 </section>
@@ -1032,6 +1094,7 @@ const render = () => {
   slide.querySelectorAll("[data-state-at]").forEach((element) => {
     element.classList.toggle("is-on", state.step >= Number(element.dataset.stateAt) && state.step < Number(element.dataset.stateUntil ?? Infinity));
   });
+  renderSwapTexts(slide, state.step);
   renderCodeFocus(slide, state.step);
   renderSparkles(slide, state.step);
   renderAnvils(slide, state.step);
@@ -1042,7 +1105,40 @@ const render = () => {
   document.getElementById("hud-progress").style.width = `${((state.index + 1) / slides.length) * 100}%`;
 };
 
+const wordsHtml = (text) => text.split(/\s+/).map((word) => `<span class="word">${word}</span>`).join(" ");
+
+const swapTextFor = (element, step) => (step >= Number(element.dataset.swapAt) ? element.dataset.swapText : element.dataset.originalText);
+
+const renderSwapTexts = (slide, step) => {
+  slide.querySelectorAll("[data-swap-at]").forEach((element) => {
+    const text = swapTextFor(element, step);
+    if (element.dataset.currentText === text) return;
+    element.innerHTML = wordsHtml(text);
+    element.dataset.currentText = text;
+  });
+};
+
+const pendingSwaps = (slide, step) =>
+  [...slide.querySelectorAll("[data-swap-at]")].filter((element) => element.dataset.currentText !== swapTextFor(element, step));
+
+const nameSwapWords = (elements, phase) =>
+  elements.forEach((element, elementIndex) => {
+    const words = [...element.querySelectorAll(".word")];
+    const used = new Map();
+    words.forEach((word) => {
+      const key = word.textContent.length > 3 ? word.textContent.replace(/s$/i, "") : word.textContent;
+      const occurrence = used.get(key) ?? 0;
+      used.set(key, occurrence + 1);
+      word.style.viewTransitionName = `swap-${elementIndex}-${key.replace(/[^a-z0-9]/gi, "_")}-${occurrence}`;
+      word.style.viewTransitionClass = phase;
+    });
+  });
+
 const splitMagicText = () => {
+  document.querySelectorAll("[data-swap-at]").forEach((element) => {
+    element.dataset.originalText = element.textContent.trim();
+    element.dataset.currentText = element.dataset.originalText;
+  });
   document.querySelectorAll("[data-magic-text]").forEach((element) => {
     const words = element.textContent.trim().split(/\s+/);
     element.innerHTML = words.map((word) => `<span class="word">${word}</span>`).join(" ");
@@ -1100,13 +1196,66 @@ const pairMagicText = (fromSlide, toSlide) => {
 
 let activeTransition;
 
+let fadeTimer;
+
+const finishFade = () => {
+  clearTimeout(fadeTimer);
+  fadeTimer = undefined;
+  stage.classList.remove("is-covered");
+};
+
+const fadeTo = (index, step) => {
+  const half = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--transition-duration")) * 500;
+  state.index = index;
+  state.step = step;
+  stage.classList.add("is-covered");
+  fadeTimer = setTimeout(() => {
+    render();
+    stage.classList.remove("is-covered");
+    fadeTimer = setTimeout(finishFade, half);
+  }, half);
+};
+
+const usesFade = (index) => {
+  if (Math.abs(index - state.index) !== 1) return false;
+  const boundary = index > state.index ? slides[index] : slides[state.index];
+  return boundary.dataset.transition === "fade";
+};
+
 const goTo = (index, step) => {
   if (index < 0 || index >= slides.length) return;
+  if (fadeTimer) {
+    finishFade();
+    render();
+  }
+  if (index !== state.index && usesFade(index)) {
+    activeTransition?.skipTransition();
+    fadeTo(index, step);
+    return;
+  }
   const changesSlide = index !== state.index;
   state.index = index;
   state.step = step;
   const previousSlide = slides.find((slide) => slide.classList.contains("is-active"));
   activeTransition?.skipTransition();
+  const swaps = changesSlide ? [] : pendingSwaps(slides[index], step);
+  if (swaps.length && document.startViewTransition) {
+    document.documentElement.classList.add("is-swapping");
+    nameSwapWords(swaps, "swap");
+    const transition = document.startViewTransition(() => {
+      clearWordNames();
+      render();
+      nameSwapWords(swaps, "swap");
+    });
+    activeTransition = transition;
+    transition.finished.finally(() => {
+      if (activeTransition !== transition) return;
+      activeTransition = undefined;
+      clearWordNames();
+      document.documentElement.classList.remove("is-swapping");
+    });
+    return;
+  }
   if (!changesSlide || !document.startViewTransition) {
     render();
     return;
@@ -1139,6 +1288,76 @@ const previous = () => {
 };
 
 const widgets = {};
+
+const raceLoops = new WeakMap();
+
+const resetRace = (slide) => {
+  cancelAnimationFrame(raceLoops.get(slide));
+  raceLoops.delete(slide);
+  slide.querySelectorAll(".lane").forEach((lane) => {
+    lane.querySelector(".lane-ball").style.transform = "translateX(0)";
+    lane.querySelector(".lane-ball").style.setProperty("--trail", "0px");
+    lane.querySelector(".lane-count b").textContent = "0";
+    lane.querySelector(".lane-cost b").textContent = "$0.000000";
+  });
+};
+
+const startRace = (slide) => {
+  if (raceLoops.has(slide)) return;
+  const start = performance.now();
+  const lanes = [...slide.querySelectorAll(".lane")].map((lane) => ({
+    duration: Number(lane.dataset.duration),
+    ball: lane.querySelector(".lane-ball"),
+    track: lane.querySelector(".lane-track"),
+    prompt: lane.querySelector(".lane-prompt"),
+    answer: lane.querySelector(".lane-answer"),
+    count: lane.querySelector(".lane-count"),
+    cost: lane.querySelector(".lane-cost"),
+    rate: Number(lane.dataset.cost),
+    laps: 0,
+  }));
+  const frame = (now) => {
+    if (!slide.classList.contains("is-active") || state.step < 2) return resetRace(slide);
+    lanes.forEach((lane) => {
+      const elapsed = now - start;
+      const progress = (elapsed % lane.duration) / lane.duration;
+      const eased = 0.5 - Math.cos(progress * Math.PI) / 2;
+      const speed = Math.sin(progress * Math.PI);
+      const width = lane.track.offsetWidth;
+      lane.ball.style.transform = `translateX(${eased * width}px)`;
+      lane.ball.style.setProperty("--trail", `${speed * Math.min(160, width * 300 / lane.duration)}px`);
+      lane.prompt.classList.toggle("is-sending", progress < 0.15);
+      const laps = Math.floor(elapsed / lane.duration);
+      if (laps > lane.laps) {
+        lane.laps = laps;
+        lane.count.querySelector("b").textContent = String(laps);
+        lane.cost.querySelector("b").textContent = `$${(laps * lane.rate).toFixed(6)}`;
+        lane.cost.classList.remove("is-bump");
+        void lane.cost.offsetWidth;
+        lane.cost.classList.add("is-bump");
+        lane.count.classList.remove("is-bump");
+        void lane.count.offsetWidth;
+        lane.count.classList.add("is-bump");
+        lane.answer.classList.remove("is-pop");
+        void lane.answer.offsetWidth;
+        lane.answer.classList.add("is-pop");
+        const plus = document.createElement("span");
+        plus.className = "plus-one";
+        plus.textContent = "+1";
+        plus.addEventListener("animationend", () => plus.remove());
+        lane.count.append(plus);
+      }
+    });
+    raceLoops.set(slide, requestAnimationFrame(frame));
+  };
+  raceLoops.set(slide, requestAnimationFrame(frame));
+};
+
+widgets.race = {
+  steps: 0,
+  init: () => {},
+  onStep: (slide, step) => (step >= 2 ? startRace(slide) : resetRace(slide)),
+};
 
 const widgetStepMarkers = () => {
   slides.forEach((slide) => {
