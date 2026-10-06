@@ -595,7 +595,7 @@ html.has-chrome .stage { box-shadow: 0 10px 40px rgba(0, 0, 0, .55); }
 html.has-chrome .toolbar { position: fixed; top: 0; left: 0; right: 0; height: var(--toolbar-height); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; padding: 0 22px; background: #1f1f1f; border-bottom: 1px solid #000; color: #e6e6e6; font-family: var(--font); user-select: none; }
 html.has-chrome .navigator { position: fixed; top: var(--toolbar-height); left: 0; bottom: 0; width: var(--navigator-width); display: block; padding: 14px 10px 40px 6px; overflow-y: auto; background: #1a1a1a; border-right: 1px solid #000; font-family: var(--font); user-select: none; scrollbar-width: thin; scrollbar-color: #3a3a3a transparent; }
 html.is-playing .toolbar, html.is-playing .navigator { display: none; }
-html.has-chrome:not(.is-playing) .stage *, html.has-chrome:not(.is-playing) .stage *::before, html.has-chrome:not(.is-playing) .stage *::after { transition: none !important; animation: none !important; }
+html.has-chrome:not(.is-playing, .is-animating) .stage *, html.has-chrome:not(.is-playing, .is-animating) .stage *::before, html.has-chrome:not(.is-playing, .is-animating) .stage *::after { transition: none !important; animation: none !important; }
 .navigator, .navigator button { outline: none; }
 html.is-playing .viewport { inset: 0; background: #000; }
 html.is-playing .viewport-inner { inset: 0; }
@@ -1271,7 +1271,7 @@ const render = () => {
   renderSwapTexts(slide, state.step);
   renderSparkles(slide, state.step);
   renderAnvils(slide, state.step);
-  if (!view) widgets[slide.dataset.widget]?.onStep(slide, playMode ? state.step : 0);
+  if (!view) widgets[slide.dataset.widget]?.onStep(slide, playMode || animatedNavigation ? state.step : 0);
   if (view === "preview") renderCues(slide, state.step);
   history.replaceState(null, "", `${location.search}#${state.index + 1}.${state.step}`);
   publish();
@@ -1400,7 +1400,7 @@ const usesFade = (index) => {
 
 const goTo = (index, step) => {
   if (index < 0 || index >= slides.length) return;
-  if (!view && !playMode) return jumpTo(index, step);
+  if (!view && !playMode && !animatedNavigation) return jumpTo(index, step);
   if (fadeTimer) {
     finishFade();
     render();
@@ -1778,15 +1778,17 @@ const isNavigatorFocused = () => document.getElementById("navigator").contains(d
 
 const rowPosition = (row) => (row.dataset.go ?? `${row.dataset.index}.0`).split(".").map(Number);
 
-const selectRow = (row) => {
+const selectRow = (row, animated = false) => {
   if (!row) return;
   (row.querySelector(".nav-thumb") ?? row).focus({ preventScroll: true });
-  jumpTo(...rowPosition(row));
+  if (!animated) return jumpTo(...rowPosition(row));
+  setAnimatedNavigation(true);
+  goTo(...rowPosition(row));
 };
 
 const navigatorKeys = {
-  ArrowUp: (rows, position) => selectRow(rows[position - 1]),
-  ArrowDown: (rows, position) => selectRow(rows[position + 1]),
+  ArrowUp: (rows, position, event) => selectRow(rows[position - 1], event.shiftKey),
+  ArrowDown: (rows, position, event) => selectRow(rows[position + 1], event.shiftKey),
   ArrowLeft: (rows, position) => {
     const item = rows[position].closest(".nav-item");
     if (navigatorPrefs.expanded.includes(item.dataset.name) && item.querySelector(".nav-toggle")) return setExpanded(item.dataset.name, false);
@@ -1809,7 +1811,7 @@ const handleNavigatorKeys = (event) => {
   const isAt = (row) => rowPosition(row)[0] === state.index && (row.classList.contains("nav-slide") || rowPosition(row)[1] === state.step);
   const builds = rows.filter((row) => isAt(row) && row.classList.contains("nav-build"));
   const position = rows.indexOf(builds[0] ?? rows.find(isAt));
-  if (position >= 0) action(rows, position);
+  if (position >= 0) action(rows, position, event);
   return true;
 };
 
@@ -1869,7 +1871,15 @@ const buildNavigator = () => {
   scaleThumbs();
 };
 
+let animatedNavigation = false;
+
+const setAnimatedNavigation = (animated) => {
+  animatedNavigation = animated;
+  document.documentElement.classList.toggle("is-animating", animated);
+};
+
 const jumpTo = (index, step) => {
+  setAnimatedNavigation(false);
   activeTransition?.skipTransition();
   document.documentElement.classList.add("is-jumping");
   state.index = index;
@@ -1952,6 +1962,7 @@ const startDeck = () => {
       if (command === "presenter") return openPresenter();
       if (command === "play") return playFullscreen();
       if (command === "stop") return stopPlaying();
+      setAnimatedNavigation(false);
       commands[command]();
     }),
   );
@@ -1964,12 +1975,14 @@ const startDeck = () => {
 
   document.addEventListener("click", (event) => {
     if (!isOnSlides(event) || event.target.closest("[data-interactive], button, input, a")) return;
+    setAnimatedNavigation(false);
     next();
   });
 
   document.addEventListener("contextmenu", (event) => {
     if (!isOnSlides(event)) return;
     event.preventDefault();
+    setAnimatedNavigation(false);
     previous();
   });
 
