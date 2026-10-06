@@ -133,6 +133,8 @@ html.is-jumping *, html.is-jumping *::before, html.is-jumping *::after { transit
 @keyframes editor-out-up { to { opacity: 0; transform: translateY(-388px); } }
 html.is-swapping { view-transition-name: none; }
 ::view-transition-old(book) { animation: book-out .3s ease-in both; }
+::view-transition-old(choice-editors), ::view-transition-old(score-editors) { animation: editors-out .3s ease-in both; }
+@keyframes editors-out { to { opacity: 0; transform: translateY(-108px); } }
 @keyframes book-out { to { opacity: 0; transform: translateY(48px); } }
 @keyframes word-out { to { opacity: 0; transform: translateY(40px); } }
 @keyframes word-in { from { opacity: 0; transform: translateY(-40px); } }
@@ -797,7 +799,7 @@ html.is-preview *, html.is-preview *::before, html.is-preview *::after { transit
     <div class="question-type is-active" data-magic="question-choice"><span class="emoji">🏷️</span>Choice</div>
     <div class="question-type" data-magic="question-score"><span class="emoji">📊</span>Score</div>
   </div>
-  <div class="editor-stack">
+  <div class="editor-stack" data-magic="choice-editors">
   <div class="editor editor-request" data-step="1" data-anim="fade-scale" data-state-at="7" data-magic="choice-request">
     <div class="editor-bar"><span class="editor-dots"><i></i><i></i><i></i></span>ask-jev.sh</div>
 <pre class="editor-code" data-code><span class="ln" data-focus="2">curl https://api.typesafe.ai/v1/systemone <span class="flag">\</span></span><span class="ln" data-focus="2">  <span class="flag">-H</span> <span class="s">"Authorization: Bearer $TYPESAFE_API_KEY"</span> <span class="flag">\</span></span><span class="ln">  <span class="flag">--json</span> <span class="s">'</span>{</span><span class="ln">    <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,</span><span class="ln" data-focus="3">    <span class="k">"state"</span>: { <span class="k">"thing"</span>: <span class="s">"cat"</span> },</span><span class="ln" data-focus="4">    <span class="k">"questions"</span>: {</span><span class="ln" data-focus="5">      <span class="k">"kind"</span>: {</span><span class="ln" data-focus="5">        <span class="k">"type"</span>: <span class="s">"choice"</span>,</span><span class="ln" data-focus="5">        <span class="k">"instructions"</span>: <span class="s">"What is it?"</span>,</span><span class="ln" data-focus="6">        <span class="k">"criteria"</span>: { <span class="k">"plant"</span>: <span class="s">"Plant"</span>, <span class="k">"animal"</span>: <span class="s">"Animal"</span>, <span class="k">"tool"</span>: <span class="s">"Tool"</span> }</span><span class="ln" data-focus="5">      }</span><span class="ln" data-focus="4">    }</span><span class="ln">  }<span class="s">'</span></span></pre>
@@ -815,7 +817,7 @@ html.is-preview *, html.is-preview *::before, html.is-preview *::after { transit
     <div class="question-type" data-magic="question-choice"><span class="emoji">🏷️</span>Choice</div>
     <div class="question-type is-active" data-magic="question-score"><span class="emoji">📊</span>Score</div>
   </div>
-  <div class="editor-stack">
+  <div class="editor-stack" data-magic="score-editors">
   <div class="editor editor-request" data-step="1" data-anim="fade-scale" data-state-at="7">
     <div class="editor-bar"><span class="editor-dots"><i></i><i></i><i></i></span>ask-jev.sh</div>
 <pre class="editor-code" data-code><span class="ln" data-focus="2">curl https://api.typesafe.ai/v1/systemone <span class="flag">\</span></span><span class="ln" data-focus="2">  <span class="flag">-H</span> <span class="s">"Authorization: Bearer $TYPESAFE_API_KEY"</span> <span class="flag">\</span></span><span class="ln">  <span class="flag">--json</span> <span class="s">'</span>{</span><span class="ln">    <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,</span><span class="ln" data-focus="3">    <span class="k">"state"</span>: { <span class="k">"thing"</span>: <span class="s">"cat"</span> },</span><span class="ln" data-focus="4">    <span class="k">"questions"</span>: {</span><span class="ln" data-focus="5">      <span class="k">"size"</span>: {</span><span class="ln" data-focus="5">        <span class="k">"type"</span>: <span class="s">"score"</span>,</span><span class="ln" data-focus="5">        <span class="k">"instructions"</span>: <span class="s">"How big is it?"</span>,</span><span class="ln" data-focus="6">        <span class="k">"criteria"</span>: [<span class="s">"Tiny"</span>, <span class="s">"Small"</span>, <span class="s">"Medium"</span>, <span class="s">"Big"</span>]</span><span class="ln" data-focus="5">      }</span><span class="ln" data-focus="4">    }</span><span class="ln">  }<span class="s">'</span></span></pre>
