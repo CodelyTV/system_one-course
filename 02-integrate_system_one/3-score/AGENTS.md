@@ -1,3 +1,7 @@
+# Language
+
+- Always reply in English, whatever language the user writes in.
+
 # Useful commands
 
 ```bash
