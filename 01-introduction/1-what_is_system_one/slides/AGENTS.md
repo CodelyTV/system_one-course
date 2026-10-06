@@ -1,4 +1,4 @@
-# Slides: 01.1 What is a System One and how it works: Jev, Laya, Kev, Decisions API, Clef
+# Slides: 01.1 System One Models: What they are and how to use them
 
 ## Rules
 
