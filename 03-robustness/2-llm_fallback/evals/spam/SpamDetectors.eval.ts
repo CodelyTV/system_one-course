@@ -44,17 +44,19 @@ const gateway = createGateway({
 });
 
 const evaluationModel = gateway.evaluationModel("typesafe-ai/jev");
-const languageModel = gateway.languageModel("openai/gpt-6-luna");
+const lunaLanguageModel = gateway.languageModel("openai/gpt-6-luna");
+const terraLanguageModel = gateway.languageModel("openai/gpt-5.6-terra");
 
 const detectors: Record<string, ProductReviewSpamDetector> = {
 	"Rule based": new RuleBasedProductReviewSpamDetector(),
 	"System One (typesafe-ai/jev)":
 		new EvaluationModelProductReviewSpamDetector(evaluationModel),
-	"LLM (openai/gpt-6-luna)": new LlmProductReviewSpamDetector(languageModel),
+	"LLM (openai/gpt-6-luna)": new LlmProductReviewSpamDetector(lunaLanguageModel),
+	"LLM (openai/gpt-5.6-terra)": new LlmProductReviewSpamDetector(terraLanguageModel),
 	"System One + LLM fallback":
 		new EvaluationModelWithFallbackProductReviewSpamDetector(
 			evaluationModel,
-			new LlmProductReviewSpamDetector(languageModel),
+			new LlmProductReviewSpamDetector(lunaLanguageModel),
 		),
 };
 
