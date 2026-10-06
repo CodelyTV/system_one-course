@@ -44,13 +44,13 @@ const gateway = createGateway({
 });
 
 const evaluationModel = gateway.evaluationModel("typesafe-ai/jev");
-const languageModel = gateway.languageModel("openai/gpt-5-nano");
+const languageModel = gateway.languageModel("openai/gpt-6-luna");
 
 const detectors: Record<string, ProductReviewSpamDetector> = {
 	"Rule based": new RuleBasedProductReviewSpamDetector(),
 	"System One (typesafe-ai/jev)":
 		new EvaluationModelProductReviewSpamDetector(evaluationModel),
-	"LLM (openai/gpt-5-nano)": new LlmProductReviewSpamDetector(languageModel),
+	"LLM (openai/gpt-6-luna)": new LlmProductReviewSpamDetector(languageModel),
 	"System One + LLM fallback":
 		new EvaluationModelWithFallbackProductReviewSpamDetector(
 			evaluationModel,

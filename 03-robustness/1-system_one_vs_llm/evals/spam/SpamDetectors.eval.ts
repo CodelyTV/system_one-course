@@ -45,8 +45,8 @@ const detectors: Record<string, ProductReviewSpamDetector> = {
 		new EvaluationModelProductReviewSpamDetector(
 			gateway.evaluationModel("typesafe-ai/jev"),
 		),
-	"LLM (openai/gpt-5-nano)": new LlmProductReviewSpamDetector(
-		gateway.languageModel("openai/gpt-5-nano"),
+	"LLM (openai/gpt-6-luna)": new LlmProductReviewSpamDetector(
+		gateway.languageModel("openai/gpt-6-luna"),
 	),
 };
 

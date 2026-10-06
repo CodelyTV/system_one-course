@@ -73,7 +73,7 @@ class RetailContainer {
 		this.gateway.evaluationModel("typesafe-ai/jev");
 
 	private readonly languageModel =
-		this.gateway.languageModel("openai/gpt-5-nano");
+		this.gateway.languageModel("openai/gpt-6-luna");
 
 	private readonly domainEventSubscribers: DomainEventSubscriber<DomainEvent>[] =
 		[];

@@ -8,7 +8,7 @@ import { ProductReviewMother } from "../domain/ProductReviewMother";
 const detector = new LlmProductReviewSpamDetector(
 	createGateway({
 		apiKey: process.env.VERCEL_AI_GATEWAY_API_KEY,
-	}).languageModel("openai/gpt-5-nano"),
+	}).languageModel("openai/gpt-6-luna"),
 );
 
 describe("LlmProductReviewSpamDetector should", () => {
