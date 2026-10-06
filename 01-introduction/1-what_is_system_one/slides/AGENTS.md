@@ -21,6 +21,8 @@
 - Build out: `data-out="n"` hides a built element from step `n` with the reverse of its `data-anim` effect
 - Sparkle (Keynote, left to right): wrap two stacked texts in `<span class="sparkle-swap" data-sparkle-at="n"><span class="sparkle-out">Old</span><span class="sparkle-in">New</span></span>`. At step `n` a glowing particle head sweeps the text, hides the old one and reveals the new one (canvas, 0.3s)
 - Code focus: put `data-code` on the code block, wrap each line in `<span class="ln">` and add `data-focus="n"` (space-separated steps) to the lines to keep colored at step `n`. The other lines dim to gray
+- Anvil (Keynote): `data-anim="anvil"` drops the element from above with a squash and a canvas smoke cloud on impact
+- Callout: `<div class="callout" data-step="n"><p data-step="n" data-anim="fade-scale">Text</p></div>` blurs and darkens the whole slide and shows a big centered sentence
 - Persistent states: `data-state-at="n"` adds `is-on` from step `n` without hiding the element (used to open the book on slide 2). Add `data-state-until="n"` to remove `is-on` again from step `n`
 - Magic Move between consecutive slides: give matching elements the same `data-magic="name"` (unique per slide). Titles keep the emoji as `data-magic="title-emoji"`
 - Magic Move by word (like Keynote): put `data-magic-text="name"` on text in consecutive slides. Shared words move to their new position, the rest fade. The cover title uses it to move into the slide 2 header. Add `data-magic-swap` to make the words that do not match leave downwards and enter from above (Fade and Move, 0.3s each) instead of a fade

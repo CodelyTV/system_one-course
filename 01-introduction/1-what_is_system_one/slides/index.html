@@ -98,6 +98,15 @@ body { font-family: var(--font); color: var(--text); -webkit-font-smoothing: ant
 [data-anim="fade-move"].is-out { transform: translateX(-10%); }
 [data-anim="fade-move-down"].is-out { transform: translateY(-40px); }
 [data-anim="fade-move-up"].is-out { transform: translateY(40px); }
+[data-anim="anvil"] { position: relative; transition: none; }
+[data-anim="anvil"].is-built { animation: anvil-drop .35s both; }
+[data-anim="anvil"] canvas { position: absolute; z-index: -1; pointer-events: none; }
+@keyframes anvil-drop {
+  0% { opacity: 1; transform: translateY(-700px); animation-timing-function: cubic-bezier(.55, 0, 1, .45); }
+  55% { opacity: 1; transform: translateY(0) scale(1.04, .9); animation-timing-function: ease-out; }
+  75% { transform: translateY(-14px) scale(.99, 1.02); animation-timing-function: ease-in; }
+  100% { opacity: 1; transform: none; }
+}
 [data-anim="fade-scale"], [data-anim="fade-move"], [data-anim="fade-move-down"], [data-anim="fade-move-up"] { transition-duration: .3s; transition-timing-function: ease-out; }
 [data-anim="fade-scale"] { transform: scale(.95); }
 [data-anim="fade-move"] { transform: translateX(-10%); }
@@ -438,6 +447,41 @@ code, .code { font-family: var(--mono); }
 .editor-code .flag { color: var(--cell-red); }
 .editor-code .ln { display: block; transition: opacity .3s ease-out, filter .3s ease-out; }
 .editor-code.has-focus .ln:not(.is-focus) { opacity: .3; filter: grayscale(1); }
+.callout { position: absolute; inset: 0; z-index: 10; overflow: hidden; display: flex; flex-direction: column; align-items: center; gap: 70px; padding-top: 120px; background: rgba(16, 22, 33, .88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition-duration: .6s; }
+.mini-book { display: grid; grid-template-columns: 1fr 1fr; width: 860px; height: 540px; box-shadow: 0 40px 80px rgba(0, 0, 0, .5); border-radius: 18px; }
+.mini-book .book-page { position: relative; width: auto; height: auto; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 56px 24px 0; }
+.mini-book .page-left { border-radius: 18px 0 0 18px; background: linear-gradient(270deg, #d9cfb6 0, #efe7d3 34px, #f6f0e1 90px); box-shadow: -4px 4px 0 #e8dfca, -8px 8px 0 #d8cdb3; }
+.mini-book .page-right { border-radius: 0 18px 18px 0; background: linear-gradient(90deg, #d9cfb6 0, #efe7d3 34px, #f6f0e1 90px); box-shadow: 4px 4px 0 #e8dfca, 8px 8px 0 #d8cdb3; }
+.mini-book .page-head { margin: 0; }
+.stamps { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 5px; }
+.stamp {
+  --ink: #b23b2e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 124px;
+  height: 124px;
+  border: 4px solid var(--ink);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 4px #f6f0e1, inset 0 0 0 6px var(--ink);
+  color: var(--ink);
+  rotate: var(--r, 0deg);
+  mix-blend-mode: multiply;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 2.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mask-size: 160px;
+}
+.stamp b { max-width: 96px; font-size: 14px; font-weight: 700; line-height: 1.1; letter-spacing: .08em; text-align: center; text-transform: uppercase; }
+.stamp-text b { font-size: 28px; }
+.stamp-logo { width: 50px; height: 50px; background: var(--ink); mask: var(--logo) center / contain no-repeat; }
+[data-anim="stamp"] { transition: none; }
+[data-anim="stamp"].is-built { animation: scale-big .4s cubic-bezier(.2, .7, .3, 1) calc(var(--i, 0) * 120ms) both; }
+@keyframes scale-big {
+  from { opacity: 0; transform: scale(2.6); }
+  to { opacity: 1; transform: none; }
+}
+.callout p { margin: 0; font-size: 96px; font-weight: 700; letter-spacing: -.01em; color: var(--text); text-align: center; }
 .question-column { display: flex; flex-direction: column; align-items: center; gap: 32px; }
 .answer-options { position: relative; display: grid; justify-items: center; gap: 16px; margin: 0; padding: 0; list-style: none; font-size: 36px; font-weight: 500; color: var(--text); }
 .answer-options li { margin: -.2em 0; padding: .2em .55em; border-radius: .4em; transition: background-color .3s ease-out, color .3s ease-out; }
@@ -692,6 +736,13 @@ html.is-preview .stage [data-step] { transition-duration: .25s; transition-delay
 <pre class="editor-code" data-code><span class="ln">{</span><span class="ln">  <span class="k">"model"</span>: <span class="s">"jev-1.13.0"</span>,</span><span class="ln" data-focus="8">  <span class="k">"answers"</span>: {</span><span class="ln" data-focus="9">    <span class="k">"size"</span>: {</span><span class="ln" data-focus="9">      <span class="k">"type"</span>: <span class="s">"score"</span>,</span><span class="ln" data-focus="10">      <span class="k">"score"</span>: <span class="n">1.3</span>,</span><span class="ln" data-focus="11">      <span class="k">"confidence"</span>: <span class="n">0.6</span>,</span><span class="ln" data-focus="12">      <span class="k">"probabilities"</span>: { <span class="k">"0"</span>: <span class="n">0.05</span>, <span class="k">"1"</span>: <span class="n">0.6</span>, <span class="k">"2"</span>: <span class="n">0.35</span>, <span class="k">"3"</span>: <span class="n">0</span> },</span><span class="ln" data-focus="13">      <span class="k">"legend"</span>: { <span class="k">"0"</span>: <span class="s">"Tiny"</span>, <span class="k">"1"</span>: <span class="s">"Small"</span>, <span class="k">"2"</span>: <span class="s">"Medium"</span>, <span class="k">"3"</span>: <span class="s">"Big"</span> }</span><span class="ln" data-focus="9">    }</span><span class="ln" data-focus="8">  }</span><span class="ln">}</span></pre>
   </div>
   </div>
+  <div class="callout" data-step="14">
+    <p data-step="14" data-anim="anvil">But don’t LLMs already do this?</p>
+    <div class="mini-book" data-step="15" data-anim="up">
+      <div class="book-page page-left"><div class="page-head"><span class="emoji">⚡️</span>System One</div><div class="stamps"><span class="stamp" data-step="17" data-anim="stamp" style="--i:3; --r:-8deg"><i class="stamp-logo" style="--logo: url(assets/logos/typesafe-ink.svg)"></i><b>Jev</b></span><span class="stamp" data-step="17" data-anim="stamp" style="--i:1; --r:5deg"><i class="stamp-logo" style="--logo: url(assets/logos/convai-ink.svg)"></i><b>Laya</b></span><span class="stamp stamp-text" data-step="17" data-anim="stamp" style="--i:4; --r:-3deg"><b>Kev</b></span><span class="stamp" data-step="17" data-anim="stamp" style="--i:0; --r:7deg"><i class="stamp-logo" style="--logo: url(assets/logos/openai.svg)"></i><b>Decisions API</b></span><span class="stamp" data-step="17" data-anim="stamp" style="--i:2; --r:-6deg"><i class="stamp-logo" style="--logo: url(assets/logos/cloudflare-color.svg)"></i><b>Clef</b></span></div></div>
+      <div class="book-page page-right"><div class="page-head"><span class="emoji">🐢</span>System Two</div><div class="stamps"><span class="stamp" data-step="16" data-anim="stamp" style="--i:2; --r:-8deg"><i class="stamp-logo" style="--logo: url(assets/logos/openai.svg)"></i><b>GPT</b></span><span class="stamp" data-step="16" data-anim="stamp" style="--i:0; --r:5deg"><i class="stamp-logo" style="--logo: url(assets/logos/claude-color.svg)"></i><b>Claude</b></span><span class="stamp" data-step="16" data-anim="stamp" style="--i:3; --r:-3deg"><i class="stamp-logo" style="--logo: url(assets/logos/deepseek-color.svg)"></i><b>DeepSeek</b></span><span class="stamp" data-step="16" data-anim="stamp" style="--i:1; --r:7deg"><i class="stamp-logo" style="--logo: url(assets/logos/zhipu-color.svg)"></i><b>GLM</b></span></div></div>
+    </div>
+  </div>
 </section>
 
 
@@ -826,6 +877,136 @@ const playSparkle = (swap) => {
   sparkleRuns.set(swap, { ...sparkleRuns.get(swap), frame: requestAnimationFrame(frame) });
 };
 
+const anvilRuns = new WeakMap();
+
+const playAnvilSmoke = (element) => {
+  const width = element.offsetWidth;
+  const height = element.offsetHeight;
+  const pad = { x: 700, y: 520 };
+  const ratio = 1.5;
+  const canvas = element.querySelector("canvas") ?? element.appendChild(document.createElement("canvas"));
+  canvas.style.left = `${-pad.x}px`;
+  canvas.style.top = `${-pad.y}px`;
+  canvas.style.width = `${width + pad.x * 2}px`;
+  canvas.style.height = `${height + pad.y * 2}px`;
+  canvas.width = (width + pad.x * 2) * ratio;
+  canvas.height = (height + pad.y * 2) * ratio;
+  const context = canvas.getContext("2d");
+  context.setTransform(ratio, 0, 0, ratio, pad.x * ratio, pad.y * ratio);
+  const center = width / 2;
+  const baseline = height * 0.85;
+  const puffs = [];
+  const specks = [];
+  const spawnPuffs = (count) => {
+    for (let cluster = 0; cluster < count; cluster++) {
+      const clusterX = -width * 0.1 + Math.random() * width * 1.2;
+      const side = Math.max(-1.3, Math.min(1.3, (clusterX - center) / center));
+      const clusterVx = side * (500 + Math.random() * 1250);
+      const plume = Math.random() < 0.3;
+      const clusterVy = plume ? -(300 + Math.random() * 620) : -(20 + Math.random() * 170);
+      for (let index = 0; index < 5; index++) {
+        puffs.push({
+          x: clusterX + (Math.random() - 0.5) * 70,
+          y: baseline + (Math.random() - 0.3) * 40,
+          vx: clusterVx + (Math.random() - 0.5) * 250,
+          vy: clusterVy + (Math.random() - 0.5) * 150,
+          radius: 22 + Math.random() * 46,
+          growth: 100 + Math.random() * 210,
+          life: 0,
+          maxLife: 0.5 + Math.random() * 0.3,
+          alpha: 0.05 + Math.random() * 0.13,
+        });
+      }
+    }
+  };
+  const spawnSpecks = (count) => {
+    for (let index = 0; index < count; index++) {
+      const x = Math.random() * width;
+      const side = (x - center) / center;
+      const streak = Math.random() < 0.45;
+      specks.push({
+        x,
+        y: baseline + (Math.random() - 0.5) * 30,
+        vx: side * (400 + Math.random() * 1700),
+        vy: streak ? (Math.random() - 0.5) * 60 : -(150 + Math.random() * 1000),
+        size: streak ? 1 + Math.random() : 1.5 + Math.random() * 2.5,
+        streak,
+        life: 0,
+        maxLife: 0.4 + Math.random() * 0.4,
+        alpha: 0.4 + Math.random() * 0.5,
+      });
+    }
+  };
+  spawnPuffs(55);
+  spawnSpecks(140);
+  const start = performance.now();
+  let last = start;
+  const frame = (now) => {
+    const delta = Math.min((now - last) / 1000, 0.05);
+    last = now;
+    context.clearRect(-pad.x, -pad.y, width + pad.x * 2, height + pad.y * 2);
+    const drag = Math.pow(0.05, delta);
+    for (let index = puffs.length - 1; index >= 0; index--) {
+      const puff = puffs[index];
+      puff.life += delta;
+      if (puff.life >= puff.maxLife) {
+        puffs.splice(index, 1);
+        continue;
+      }
+      puff.vx *= drag;
+      puff.vy = puff.vy * drag - 25 * delta;
+      puff.x += puff.vx * delta;
+      puff.y += puff.vy * delta;
+      puff.radius += puff.growth * delta;
+      const progress = puff.life / puff.maxLife;
+      const alpha = puff.alpha * (progress < 0.1 ? progress / 0.1 : Math.pow(1 - (progress - 0.1) / 0.9, 1.4));
+      const gradient = context.createRadialGradient(puff.x, puff.y, 0, puff.x, puff.y, puff.radius);
+      gradient.addColorStop(0, `rgba(236, 239, 245, ${alpha})`);
+      gradient.addColorStop(0.45, `rgba(214, 219, 230, ${alpha * 0.6})`);
+      gradient.addColorStop(1, "rgba(200, 206, 220, 0)");
+      context.fillStyle = gradient;
+      context.beginPath();
+      context.arc(puff.x, puff.y, puff.radius, 0, Math.PI * 2);
+      context.fill();
+    }
+    for (let index = specks.length - 1; index >= 0; index--) {
+      const speck = specks[index];
+      speck.life += delta;
+      if (speck.life >= speck.maxLife) {
+        specks.splice(index, 1);
+        continue;
+      }
+      speck.vx *= drag;
+      speck.vy *= drag;
+      speck.x += speck.vx * delta;
+      speck.y += speck.vy * delta;
+      context.globalAlpha = speck.alpha * (1 - speck.life / speck.maxLife);
+      context.fillStyle = "#e9ecf3";
+      if (speck.streak) context.fillRect(speck.x, speck.y, 6 + speck.size * 4, speck.size);
+      else {
+        context.beginPath();
+        context.arc(speck.x, speck.y, speck.size, 0, Math.PI * 2);
+        context.fill();
+      }
+      context.globalAlpha = 1;
+    }
+    if (puffs.length || specks.length) anvilRuns.set(element, { ...anvilRuns.get(element), frame: requestAnimationFrame(frame) });
+  };
+  anvilRuns.set(element, { ...anvilRuns.get(element), frame: requestAnimationFrame(frame) });
+};
+
+const renderAnvils = (slide, step) => {
+  slide.querySelectorAll('[data-anim="anvil"]').forEach((element) => {
+    const at = Number(element.dataset.step);
+    const run = anvilRuns.get(element) ?? {};
+    cancelAnimationFrame(run.frame);
+    clearTimeout(run.timer);
+    element.querySelector("canvas")?.getContext("2d").clearRect(-1e4, -1e4, 2e4, 2e4);
+    const animated = run.step === at - 1 && step === at && !document.documentElement.classList.contains("is-jumping");
+    anvilRuns.set(element, { step, timer: animated ? setTimeout(() => playAnvilSmoke(element), 190) : undefined });
+  });
+};
+
 const renderSparkles = (slide, step) => {
   slide.querySelectorAll("[data-sparkle-at]").forEach((swap) => {
     const at = Number(swap.dataset.sparkleAt);
@@ -853,6 +1034,7 @@ const render = () => {
   });
   renderCodeFocus(slide, state.step);
   renderSparkles(slide, state.step);
+  renderAnvils(slide, state.step);
   widgets[slide.dataset.widget]?.onStep(slide, state.step);
   history.replaceState(null, "", `${location.search}#${state.index + 1}.${state.step}`);
   publish();
