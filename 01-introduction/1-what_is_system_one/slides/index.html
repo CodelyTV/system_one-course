@@ -853,6 +853,60 @@ html.is-preview *, html.is-preview *::before, html.is-preview *::after { transit
 </section>
 
 
+<!-- 01.2 · Cover -->
+<section class="slide cover" data-name="cover-01-2">
+  <div class="cover-title">
+    <span class="emoji">🏛️</span>
+    <h1>Jev vs Laya vs Kev vs Decisions API</h1>
+    <p>System One</p>
+  </div>
+</section>
+
+<!-- 02.1 · Cover -->
+<section class="slide cover" data-name="cover-02-1">
+  <div class="cover-title">
+    <span class="emoji">✉️</span>
+    <h1>Use System One to detect spam comments: Noul question</h1>
+    <p>System One</p>
+  </div>
+</section>
+
+<!-- 02.2 · Cover -->
+<section class="slide cover" data-name="cover-02-2">
+  <div class="cover-title">
+    <span class="emoji">🏷️</span>
+    <h1>Classify the main reason of a review: Choice question</h1>
+    <p>System One</p>
+  </div>
+</section>
+
+<!-- 02.3 · Cover -->
+<section class="slide cover" data-name="cover-02-3">
+  <div class="cover-title">
+    <span class="emoji">🥇</span>
+    <h1>Sort customer support conversations by priority: Score question</h1>
+    <p>System One</p>
+  </div>
+</section>
+
+<!-- 03.1 · Cover -->
+<section class="slide cover" data-name="cover-03-1">
+  <div class="cover-title">
+    <span class="emoji">🤌</span>
+    <h1>Does it make sense to use System One instead of an LLM?</h1>
+    <p>System One</p>
+  </div>
+</section>
+
+<!-- 03.2 · Cover -->
+<section class="slide cover" data-name="cover-03-2">
+  <div class="cover-title">
+    <span class="emoji">🍂</span>
+    <h1>Use an LLM when System One has low scores: Fallback system</h1>
+    <p>System One</p>
+  </div>
+</section>
+
 </main>
 </div>
 </div>
@@ -1426,6 +1480,7 @@ const restoreFromHash = () => {
 };
 
 const view = new URLSearchParams(location.search).get("view");
+const deckVersion = new Date(document.lastModified).getTime();
 const channel = new BroadcastChannel("system-one-01-1-slides");
 
 const nextPosition = () => {
@@ -1588,7 +1643,7 @@ const chevron = '<svg viewBox="0 0 10 10" fill="currentColor"><path d="M1.5 3h7L
 
 const navigatorItem = (slide, index) => {
   const builds = buildsOf(slide);
-  const isGroup = index === 0;
+  const isGroup = slide.classList.contains("cover");
   const canExpand = isGroup || builds.length > 0;
   const thumbStep = Number(slide.dataset.thumbStep ?? maxStep(slide));
   const item = document.createElement("div");
@@ -1599,7 +1654,7 @@ const navigatorItem = (slide, index) => {
       ${canExpand ? `<button class="nav-toggle" aria-label="Desplegar">${chevron}</button>` : "<span></span>"}
       <span class="nav-number">${index + 1}</span>
       <button class="nav-thumb" data-go="${index}.0" title="${textOf(slide.querySelector(".title, h1") ?? slide)}">
-        <iframe loading="lazy" tabindex="-1" src="${location.pathname}?view=thumb#${index + 1}.${thumbStep}"></iframe>
+        <iframe loading="lazy" tabindex="-1" src="${location.pathname}?view=thumb&version=${deckVersion}#${index + 1}.${thumbStep}"></iframe>
       </button>
     </div>
     <ol class="nav-builds">
@@ -1631,9 +1686,17 @@ const renderNavigatorExpansion = () => {
 
 const buildNavigator = () => {
   const navigator = document.getElementById("navigator");
-  const [root, ...rest] = slides.map(navigatorItem);
-  navigator.append(root);
-  root.querySelector(".nav-children").append(...rest);
+  let group;
+  slides.map(navigatorItem).forEach((item, index) => {
+    if (slides[index].classList.contains("cover") || !group) {
+      navigator.append(item);
+      group = item.querySelector(".nav-children");
+    } else group.append(item);
+  });
+  navigator.querySelectorAll(".nav-item").forEach((item) => {
+    if (item.querySelector(".nav-children")?.children.length || item.querySelector(".nav-build")) return;
+    item.querySelector(".nav-toggle")?.replaceWith(document.createElement("span"));
+  });
   const thumbWidth = (thumb) => thumb.getBoundingClientRect().width;
   const scaleThumbs = () =>
     navigator.querySelectorAll(".nav-thumb").forEach((thumb) => {
@@ -1800,7 +1863,7 @@ const startPresenter = () => {
   const nextFrame = presenter.querySelector("[data-next]");
   const showIn = (frame, position) => {
     const hash = `#${position.index + 1}.${position.step}`;
-    if (!frame.src) frame.src = `${location.pathname}?view=preview${hash}`;
+    if (!frame.src) frame.src = `${location.pathname}?view=preview&version=${deckVersion}${hash}`;
     else frame.contentWindow.location.hash = hash;
   };
 
