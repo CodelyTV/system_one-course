@@ -28,5 +28,7 @@
 - Magic Move by word (like Keynote): put `data-magic-text="name"` on text in consecutive slides. Shared words move to their new position, the rest fade. The cover title uses it to move into the slide 2 header. Add `data-magic-swap` to make the words that do not match leave downwards and enter from above (Fade and Move, 0.3s each) instead of a fade
 - Magic Move by word inside a slide: add `data-swap-at="n" data-swap-text="New text"` to a `data-magic-text` element. At step `n` the text changes to the new one; shared words move and the rest fade, while the rest of the slide keeps animating live
 - Fade through the background: add `data-transition="fade"` to a slide to fade the previous slide out to the background color and this one in (also when going back)
-- Presenter view: press `P` to open a window with the current and next step
+- Viewer (Keynote-like): toolbar on top and a navigator on the left. The cover groups the other slides and each slide expands to list its builds (labels come from `data-anim` and the build attributes). Click a thumbnail or a build to jump to it. Add `data-thumb-step="n"` to a slide to choose the step of its thumbnail (default: last step)
+- Play in Window hides the toolbar, the navigator and the cursor. Play (`F`) does the same in fullscreen. `Esc` goes back to the editor
+- Presenter view: press `P` (or the Presenter button) to open a window with only the next step, the time since the first Play (click it to restart) and the clock. The preview has no animations and outlines in red what changes in that step (elements that disappear stay semi-transparent). "Copiar URL" copies its URL
 - Preview locally with `python3 -m http.server 8611 --directory 01-introduction/1-what_is_system_one/slides`

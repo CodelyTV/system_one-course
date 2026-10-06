@@ -569,63 +569,89 @@ code, .code { font-family: var(--mono); }
 .table .cell.cyan { background: var(--cell-cyan); }
 .table .cell code { font-size: 32px; }
 
-/* HUD */
-.hud {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 10px 18px;
-  font: 500 14px var(--mono);
-  color: #c9cedb;
-  background: linear-gradient(transparent, rgba(0, 0, 0, .7));
-  opacity: 0;
-  transition: opacity .3s;
-  pointer-events: none;
-}
-.hud.is-visible { opacity: 1; }
-.hud-progress { flex: 1; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, .15); overflow: hidden; }
-.hud-progress i { display: block; height: 100%; width: 0; background: var(--green); transition: width .3s; }
+/* Editor */
+html.has-chrome { --toolbar-height: 76px; --navigator-width: 252px; }
+html.has-chrome.is-navigator-hidden { --navigator-width: 0px; }
+html.has-chrome .viewport { top: var(--toolbar-height); left: var(--navigator-width); background: #141414; }
+html.has-chrome .viewport-inner { position: absolute; inset: 40px; }
+html.has-chrome .stage { box-shadow: 0 10px 40px rgba(0, 0, 0, .55); }
+.viewport-inner { position: absolute; inset: 0; }
+.toolbar, .navigator { display: none; }
+html.has-chrome .toolbar { position: fixed; top: 0; left: 0; right: 0; height: var(--toolbar-height); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; padding: 0 22px; background: #1f1f1f; border-bottom: 1px solid #000; color: #e6e6e6; font-family: var(--font); user-select: none; }
+html.has-chrome .navigator { position: fixed; top: var(--toolbar-height); left: 0; bottom: 0; width: var(--navigator-width); display: block; padding: 14px 10px 40px 6px; overflow-y: auto; background: #1a1a1a; border-right: 1px solid #000; font-family: var(--font); user-select: none; scrollbar-width: thin; scrollbar-color: #3a3a3a transparent; }
+html.has-chrome.is-navigator-hidden .navigator { display: none; }
+html.is-playing .toolbar, html.is-playing .navigator { display: none; }
+html.is-playing .viewport { inset: 0; background: #000; }
+html.is-playing .viewport-inner { inset: 0; }
+html.is-playing .stage { box-shadow: none; }
+html.is-playing, html.is-playing * { cursor: none !important; }
 
+.toolbar-start { display: flex; align-items: center; gap: 24px; min-width: 0; }
+.toolbar-end { display: flex; justify-content: flex-end; gap: 24px; }
+.toolbar-title { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.toolbar-title strong { font-size: 16px; font-weight: 700; white-space: nowrap; }
+.toolbar-title span { font-size: 13px; color: #9a9a9a; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.toolbar-actions { display: flex; align-items: flex-end; gap: 24px; }
+.tool { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0; border: 0; background: none; color: #bdbdbd; font: 500 12px var(--font); cursor: pointer; }
+.tool-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; background: #2e2e2e; color: #e6e6e6; transition: background .15s, transform .15s; }
+.tool-icon svg { width: 20px; height: 20px; }
+.tool:hover .tool-icon { background: #3a3a3a; }
+.tool:active .tool-icon { transform: scale(.94); }
+.tool:focus-visible { outline: none; }
+.tool:focus-visible .tool-icon { box-shadow: 0 0 0 2px var(--green); }
+.tool-primary .tool-icon { background: var(--green); color: var(--ink); }
+.tool-primary:hover .tool-icon { background: #8bf589; }
+.tool-primary { color: #e6e6e6; }
+.tool.is-on .tool-icon { background: #4a4a4a; }
+
+.nav-item { position: relative; }
+.nav-children { margin-left: 16px; }
+.nav-slide { display: grid; grid-template-columns: 16px 20px 1fr; align-items: center; gap: 2px; padding: 6px 6px 6px 0; border-radius: 10px; }
+.nav-slide.is-current { background: #2d2d2d; }
+.nav-toggle { display: grid; place-items: center; width: 16px; height: 16px; padding: 0; border: 0; background: none; color: #8a8a8a; cursor: pointer; }
+.nav-toggle svg { width: 10px; height: 10px; transition: transform .15s; }
+.nav-toggle[aria-expanded="false"] svg { transform: rotate(-90deg); }
+.nav-toggle:hover { color: #e6e6e6; }
+.nav-number { font-size: 12px; color: #9a9a9a; text-align: right; padding-right: 6px; font-variant-numeric: tabular-nums; }
+.nav-slide.is-current .nav-number { color: #fff; font-weight: 700; }
+.nav-thumb { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0; border-radius: 4px; overflow: hidden; background: var(--bg); cursor: pointer; box-shadow: 0 0 0 1px #000; }
+.nav-thumb iframe { position: absolute; top: 0; left: 0; width: 1920px; height: 1080px; border: 0; transform-origin: 0 0; transform: scale(var(--thumb-scale, .09)); pointer-events: none; }
+.nav-slide.is-current .nav-thumb { box-shadow: 0 0 0 3px var(--green); }
+.nav-builds { list-style: none; margin: 2px 0 8px 38px; padding: 0; }
+.nav-build { display: grid; grid-template-columns: 22px 1fr; align-items: baseline; gap: 4px; width: 100%; padding: 5px 8px 5px 4px; border: 0; border-radius: 6px; background: none; color: #cfcfcf; font: 400 12px var(--font); text-align: left; cursor: pointer; }
+.nav-build:hover { background: #262626; }
+.nav-build.is-done { color: #8a8a8a; }
+.nav-build.is-current { background: var(--green); color: var(--ink); }
+.nav-build b { font-weight: 500; font-variant-numeric: tabular-nums; opacity: .7; }
+.nav-build span { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.nav-build em { font-style: normal; font-weight: 500; }
+.nav-build small { font-size: 12px; opacity: .7; }
 
 /* Presenter */
 [hidden] { display: none !important; }
-html.is-preview .stage [data-step] { transition-duration: .25s; transition-delay: 0s; }
+html.is-preview *, html.is-preview *::before, html.is-preview *::after { transition: none !important; animation: none !important; }
+.is-cue { outline: 6px dashed var(--cell-red); outline-offset: 10px; border-radius: 12px; }
+.is-cue-out { opacity: .45 !important; }
 
 .presenter {
   position: fixed;
   inset: 0;
   display: grid;
-  grid-template-columns: 1.55fr 1fr;
+  grid-template-rows: 1fr auto;
   gap: 28px;
-  padding: 28px;
+  padding: 32px;
   background: #0b0f17;
   font-family: var(--font);
 }
-.presenter section { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-.presenter header { display: flex; align-items: center; gap: 14px; font-size: 18px; color: var(--text-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.presenter-tag { padding: 4px 14px; border-radius: 999px; font-weight: 700; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; background: var(--green); color: var(--ink); }
-.presenter-tag.next { background: var(--arrow); }
-.presenter-next.is-new-slide .presenter-tag.next { background: var(--orange); }
-.presenter-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: #000; box-shadow: 0 0 0 2px var(--line); }
-.presenter-next.is-new-slide .presenter-frame { box-shadow: 0 0 0 3px var(--orange); }
+.presenter-frame { position: relative; align-self: center; justify-self: center; width: min(100%, (100vh - 220px) * 16 / 9); aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: var(--bg); box-shadow: 0 0 0 2px var(--line); }
 .presenter-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; }
-.presenter-end { position: absolute; inset: 0; display: grid; place-items: center; font-size: 40px; color: var(--text-soft); }
-.presenter-info { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 8px; }
-.presenter-info > * { display: flex; flex-direction: column; gap: 6px; padding: 16px 20px; border-radius: 14px; background: var(--bg); border: 0; color: var(--text); font: inherit; text-align: left; }
-.presenter-info small { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); }
-.presenter-info strong { font: 500 34px var(--mono); white-space: nowrap; }
-@media (max-width: 1100px) {
-  .presenter { grid-template-columns: 1fr; overflow-y: auto; }
-}
+.presenter-end { position: absolute; inset: 0; display: grid; place-items: center; font-size: 48px; color: var(--text-soft); }
+.presenter-info { display: flex; justify-content: center; gap: 96px; }
+.presenter-info > * { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0; border: 0; background: none; color: var(--text); font: inherit; }
+.presenter-info small { font-size: 15px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); }
+.presenter-info strong { font: 500 72px var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .presenter-timer { cursor: pointer; }
-.presenter-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.presenter-controls button { font: 500 20px var(--font); padding: 16px; border-radius: 14px; border: 2px solid var(--line); background: var(--surface); color: var(--text); cursor: pointer; }
-.presenter-controls button:hover { border-color: var(--green); }
-.presenter-waiting { font-size: 16px; color: var(--cell-yellow); }
+.presenter-timer.is-waiting strong { color: var(--text-muted); }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; }
@@ -641,7 +667,34 @@ html.is-preview .stage [data-step] { transition-duration: .25s; transition-delay
   </defs>
 </svg>
 
+<header class="toolbar">
+  <div class="toolbar-start">
+  <button class="tool" data-action="navigator" title="Mostrar u ocultar el navegador">
+    <span class="tool-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg></span>Vista
+  </button>
+  <div class="toolbar-title"><strong>System One 01.1</strong><span id="toolbar-status"></span></div>
+  </div>
+  <div class="toolbar-actions">
+    <button class="tool" data-action="play-window" title="Reproducir en la ventana (Esc para salir)">
+      <span class="tool-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3.5" width="16" height="13" rx="2.5"/><path d="M8.5 7.5v5l4-2.5z" fill="currentColor" stroke-linejoin="round"/></svg></span>Reproducir en ventana
+    </button>
+    <button class="tool tool-primary" data-action="play" title="Reproducir a pantalla completa (F)">
+      <span class="tool-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M6 3.8v12.4a1 1 0 0 0 1.5.86l10-6.2a1 1 0 0 0 0-1.72l-10-6.2A1 1 0 0 0 6 3.8z"/></svg></span>Reproducir
+    </button>
+  </div>
+  <div class="toolbar-end">
+    <button class="tool" data-action="copy-presenter-url" title="Copiar la URL de la ventana del presentador">
+      <span class="tool-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M8.5 11.5a3.2 3.2 0 0 0 4.6 0l2.6-2.6a3.2 3.2 0 0 0-4.6-4.6l-1 1"/><path d="M11.5 8.5a3.2 3.2 0 0 0-4.6 0l-2.6 2.6a3.2 3.2 0 0 0 4.6 4.6l1-1"/></svg></span><span data-label>Copiar URL</span>
+    </button>
+    <button class="tool" data-action="presenter" title="Abrir la ventana del presentador (P)">
+      <span class="tool-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.5" y="4" width="11" height="8" rx="1.5"/><rect x="14" y="6" width="4.5" height="6" rx="1"/><path d="M4.5 16h5M7 12v4"/></svg></span>Presentador
+    </button>
+  </div>
+</header>
+<nav class="navigator" id="navigator"></nav>
+
 <div class="viewport">
+<div class="viewport-inner" id="viewport-inner">
 <main class="stage" id="stage">
 
 <!-- 1 · Cover -->
@@ -654,7 +707,7 @@ html.is-preview .stage [data-step] { transition-duration: .25s; transition-delay
 </section>
 
 <!-- 2 · System 1 vs System 2 -->
-<section class="slide" data-name="system-1-vs-system-2">
+<section class="slide" data-name="system-1-vs-system-2" data-thumb-step="16">
   <h2 class="title"><span class="emoji" data-magic="title-emoji">🧠</span><span data-magic-text="title">System One vs System Two</span></h2>
   <div class="book" data-step="1" data-anim="up" data-state-at="17" data-magic="book">
     <div class="book-body" data-state-at="2">
@@ -802,13 +855,12 @@ html.is-preview .stage [data-step] { transition-duration: .25s; transition-delay
 
 </main>
 </div>
-
-<div class="hud" id="hud"><span id="hud-counter"></span><div class="hud-progress"><i id="hud-progress"></i></div><span>← → navegar · F pantalla completa · P presentador</span></div>
+</div>
 
 <script>
 const stage = document.getElementById("stage");
 const slides = [...stage.querySelectorAll(".slide")];
-const hud = document.getElementById("hud");
+const viewportInner = document.getElementById("viewport-inner");
 
 const state = { index: 0, step: 0 };
 
@@ -828,7 +880,7 @@ const maxStep = (slide) =>
   );
 
 const fitStage = () => {
-  const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+  const scale = Math.min(viewportInner.clientWidth / 1920, viewportInner.clientHeight / 1080);
   stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
 };
 
@@ -1090,11 +1142,11 @@ const render = () => {
   renderCodeFocus(slide, state.step);
   renderSparkles(slide, state.step);
   renderAnvils(slide, state.step);
-  widgets[slide.dataset.widget]?.onStep(slide, state.step);
+  if (!view) widgets[slide.dataset.widget]?.onStep(slide, state.step);
+  if (view === "preview") renderCues(slide, state.step);
   history.replaceState(null, "", `${location.search}#${state.index + 1}.${state.step}`);
   publish();
-  document.getElementById("hud-counter").textContent = `${state.index + 1}/${slides.length} · ${state.step}/${maxStep(slide)}`;
-  document.getElementById("hud-progress").style.width = `${((state.index + 1) / slides.length) * 100}%`;
+  renderChrome();
 };
 
 const wordsHtml = (text) => text.split(/\s+/).map((word) => `<span class="word">${word}</span>`).join(" ");
@@ -1373,13 +1425,6 @@ const restoreFromHash = () => {
   state.step = Math.min(Math.max(step || 0, 0), maxStep(slides[state.index]));
 };
 
-let hudTimer;
-const showHud = () => {
-  hud.classList.add("is-visible");
-  clearTimeout(hudTimer);
-  hudTimer = setTimeout(() => hud.classList.remove("is-visible"), 1800);
-};
-
 const view = new URLSearchParams(location.search).get("view");
 const channel = new BroadcastChannel("system-one-01-1-slides");
 
@@ -1396,6 +1441,7 @@ const publish = () => {
     current: { index: state.index, step: state.step, maxStep: maxStep(slides[state.index]) },
     next: nextPosition(),
     total: slides.length,
+    playStartedAt,
     title: slides[state.index].querySelector(".title, h1, .corner span")?.innerText.replace(/\s+/g, " ").trim() ?? "",
   });
 };
@@ -1405,10 +1451,34 @@ const commands = {
   previous,
   first: () => goTo(0, 0),
   last: () => goTo(slides.length - 1, maxStep(slides[slides.length - 1])),
+  resetTimer: () => {
+    playStartedAt = playMode ? Date.now() : null;
+    publish();
+  },
 };
 
 const openPresenter = () => {
-  window.open(`${location.pathname}?view=presenter`, "system-one-presenter", "popup,width=1500,height=900");
+  const width = Math.min(1500, screen.availWidth);
+  const height = Math.min(900, screen.availHeight);
+  const features = {
+    popup: "yes",
+    width,
+    height,
+    left: screen.availLeft + Math.round((screen.availWidth - width) / 2),
+    top: screen.availTop + Math.round((screen.availHeight - height) / 2),
+    toolbar: "no",
+    location: "no",
+    menubar: "no",
+    status: "no",
+    scrollbars: "no",
+    resizable: "yes",
+  };
+  const presenterWindow = window.open(
+    `${location.pathname}?view=presenter`,
+    "system-one-presenter-window",
+    Object.entries(features).map(([name, value]) => `${name}=${value}`).join(","),
+  );
+  presenterWindow?.focus();
 };
 
 const handleKeys = (event, run) => {
@@ -1423,28 +1493,285 @@ const handleKeys = (event, run) => {
   } else if (event.key === "End") {
     run("last");
   } else if (event.key.toLowerCase() === "f") {
-    document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    run("play");
   } else if (event.key.toLowerCase() === "p") {
     run("presenter");
+  } else if (event.key === "Escape") {
+    run("stop");
   }
 };
 
+const effectNames = {
+  up: "Move In",
+  down: "Move In",
+  left: "Move In",
+  right: "Move In",
+  pop: "Pop",
+  wipe: "Wipe",
+  draw: "Draw",
+  "fade-scale": "Fade and Scale",
+  "fade-move": "Fade and Move",
+  "fade-move-down": "Fade and Move",
+  "fade-move-up": "Fade and Move",
+  anvil: "Anvil",
+  stamp: "Scale Big",
+};
+
+const textOf = (element) => {
+  if (element.hasAttribute("aria-label")) return element.getAttribute("aria-label");
+  const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, {
+    acceptNode: (node) => (node.parentElement.closest(".emoji, .sparkle-out") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
+  });
+  const parts = [];
+  while (walker.nextNode()) parts.push(walker.currentNode.textContent);
+  return parts.join(" ").replace(/\s+/g, " ").trim();
+};
+
+const effectsAt = (element, step) => {
+  const { dataset } = element;
+  const effects = [];
+  if (Number(dataset.step) === step) effects.push(element.hidden ? "Widget" : effectNames[dataset.anim] ?? "Dissolve");
+  if (Number(dataset.out) === step) effects.push("Build Out");
+  if (Number(dataset.stateAt) === step || Number(dataset.stateUntil) === step) effects.push("Action");
+  if (Number(dataset.sparkleAt) === step) effects.push("Sparkle");
+  if (Number(dataset.swapAt) === step) effects.push("Magic Move");
+  if ((dataset.focus ?? "").split(" ").includes(String(step))) effects.push("Code Focus");
+  return effects;
+};
+
+const cueKind = (effects) => {
+  if (effects.includes("Build Out")) return "out";
+  if (effects.some((effect) => ["Action", "Sparkle", "Magic Move", "Code Focus"].includes(effect))) return "change";
+  return "in";
+};
+
+const renderCues = (slide, step) => {
+  document.querySelectorAll(".is-cue").forEach((element) => element.classList.remove("is-cue", "is-cue-in", "is-cue-change", "is-cue-out"));
+  if (step === 0) return;
+  const cued = [...slide.querySelectorAll("*")]
+    .filter((element) => !element.hidden && effectsAt(element, step).length)
+    .map((element) => ({ element, kind: cueKind(effectsAt(element, step)) }));
+  cued
+    .filter(({ element, kind }) => !cued.some((other) => other.element !== element && other.kind === kind && other.element.contains(element)))
+    .forEach(({ element, kind }) => element.classList.add("is-cue", `is-cue-${kind}`));
+};
+
+const buildsOf = (slide) =>
+  Array.from({ length: maxStep(slide) }, (_, offset) => {
+    const step = offset + 1;
+    const entries = [...slide.querySelectorAll("*")].flatMap((element) => effectsAt(element, step).map((effect) => ({ effect, element })));
+    const effect = entries.find((entry) => entry.effect !== "Action")?.effect ?? entries[0]?.effect ?? "Build";
+    const focused = entries.filter((entry) => entry.effect === "Code Focus").map((entry) => textOf(entry.element));
+    const detail = focused.length ? focused.join(" ") : entries.map((entry) => textOf(entry.element)).find(Boolean) ?? "";
+    return { step, effect, detail };
+  });
+
+const navigatorKey = "system-one-01-1-navigator";
+
+const loadNavigatorPrefs = () => {
+  try {
+    return JSON.parse(localStorage.getItem(navigatorKey)) ?? {};
+  } catch {
+    return {};
+  }
+};
+
+const navigatorPrefs = { expanded: [slides[0].dataset.name], hidden: false, ...loadNavigatorPrefs() };
+
+const saveNavigatorPrefs = () => {
+  try {
+    localStorage.setItem(navigatorKey, JSON.stringify(navigatorPrefs));
+  } catch {}
+};
+
+const chevron = '<svg viewBox="0 0 10 10" fill="currentColor"><path d="M1.5 3h7L5 7.5z"/></svg>';
+
+const navigatorItem = (slide, index) => {
+  const builds = buildsOf(slide);
+  const isGroup = index === 0;
+  const canExpand = isGroup || builds.length > 0;
+  const thumbStep = Number(slide.dataset.thumbStep ?? maxStep(slide));
+  const item = document.createElement("div");
+  item.className = "nav-item";
+  item.dataset.name = slide.dataset.name;
+  item.innerHTML = `
+    <div class="nav-slide" data-index="${index}">
+      ${canExpand ? `<button class="nav-toggle" aria-label="Desplegar">${chevron}</button>` : "<span></span>"}
+      <span class="nav-number">${index + 1}</span>
+      <button class="nav-thumb" data-go="${index}.0" title="${textOf(slide.querySelector(".title, h1") ?? slide)}">
+        <iframe loading="lazy" tabindex="-1" src="${location.pathname}?view=thumb#${index + 1}.${thumbStep}"></iframe>
+      </button>
+    </div>
+    <ol class="nav-builds">
+      ${builds
+        .map(
+          ({ step, effect, detail }) => `
+        <li><button class="nav-build" data-go="${index}.${step}" title="${effect} · ${detail.replace(/"/g, "&quot;")}">
+          <b>${step}</b><span><em>${effect}</em>${detail ? ` <small>${detail}</small>` : ""}</span>
+        </button></li>`,
+        )
+        .join("")}
+    </ol>`;
+  if (isGroup) item.insertAdjacentHTML("beforeend", '<div class="nav-children"></div>');
+  return item;
+};
+
+const renderNavigatorExpansion = () => {
+  document.querySelectorAll(".nav-item").forEach((item) => {
+    const expanded = navigatorPrefs.expanded.includes(item.dataset.name);
+    item.querySelector(".nav-toggle")?.setAttribute("aria-expanded", String(expanded));
+    item.querySelector(".nav-builds").hidden = !expanded;
+    const children = item.querySelector(".nav-children");
+    if (children) children.hidden = !expanded;
+  });
+  document.documentElement.classList.toggle("is-navigator-hidden", navigatorPrefs.hidden);
+  document.querySelector('[data-action="navigator"]').classList.toggle("is-on", !navigatorPrefs.hidden);
+  fitStage();
+};
+
+const buildNavigator = () => {
+  const navigator = document.getElementById("navigator");
+  const [root, ...rest] = slides.map(navigatorItem);
+  navigator.append(root);
+  root.querySelector(".nav-children").append(...rest);
+  const thumbWidth = (thumb) => thumb.getBoundingClientRect().width;
+  const scaleThumbs = () =>
+    navigator.querySelectorAll(".nav-thumb").forEach((thumb) => {
+      if (thumbWidth(thumb)) thumb.style.setProperty("--thumb-scale", thumbWidth(thumb) / 1920);
+    });
+
+  navigator.addEventListener("click", (event) => {
+    const toggle = event.target.closest(".nav-toggle");
+    if (toggle) {
+      const { name } = toggle.closest(".nav-item").dataset;
+      navigatorPrefs.expanded = navigatorPrefs.expanded.includes(name)
+        ? navigatorPrefs.expanded.filter((expandedName) => expandedName !== name)
+        : [...navigatorPrefs.expanded, name];
+      saveNavigatorPrefs();
+      renderNavigatorExpansion();
+      scaleThumbs();
+      return;
+    }
+    const target = event.target.closest("[data-go]");
+    if (!target) return;
+    const [index, step] = target.dataset.go.split(".").map(Number);
+    jumpTo(index, step);
+  });
+
+  new ResizeObserver(scaleThumbs).observe(navigator);
+  renderNavigatorExpansion();
+  scaleThumbs();
+};
+
+const jumpTo = (index, step) => {
+  activeTransition?.skipTransition();
+  document.documentElement.classList.add("is-jumping");
+  state.index = index;
+  state.step = step;
+  render();
+  requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.remove("is-jumping")));
+};
+
+const renderChrome = () => {
+  if (!document.documentElement.classList.contains("has-chrome")) return;
+  const total = maxStep(slides[state.index]);
+  document.getElementById("toolbar-status").textContent = `Slide ${state.index + 1} de ${slides.length} · Paso ${state.step} de ${total}`;
+  document.querySelectorAll(".nav-slide").forEach((row) => row.classList.toggle("is-current", Number(row.dataset.index) === state.index));
+  document.querySelectorAll(".nav-build").forEach((button) => {
+    const [index, step] = button.dataset.go.split(".").map(Number);
+    button.classList.toggle("is-current", index === state.index && step === state.step);
+    button.classList.toggle("is-done", index === state.index && step < state.step);
+  });
+  const current = document.querySelector(".nav-build.is-current:not([hidden])") ?? document.querySelector(".nav-slide.is-current");
+  if (current?.offsetParent) current.scrollIntoView({ block: "nearest" });
+};
+
+let playMode = null;
+let playStartedAt = null;
+
+const setPlaying = (mode) => {
+  playMode = mode;
+  if (mode && !playStartedAt) {
+    playStartedAt = Date.now();
+    publish();
+  }
+  document.documentElement.classList.toggle("is-playing", Boolean(mode));
+  fitStage();
+};
+
+const playInWindow = () => setPlaying("window");
+
+const playFullscreen = () => {
+  if (document.fullscreenElement) return stopPlaying();
+  setPlaying("fullscreen");
+  document.documentElement.requestFullscreen().catch(() => setPlaying(null));
+};
+
+const stopPlaying = () => {
+  if (document.fullscreenElement) document.exitFullscreen();
+  setPlaying(null);
+};
+
+const actions = {
+  navigator: () => {
+    navigatorPrefs.hidden = !navigatorPrefs.hidden;
+    saveNavigatorPrefs();
+    renderNavigatorExpansion();
+  },
+  "play-window": playInWindow,
+  play: playFullscreen,
+  presenter: () => openPresenter(),
+  "copy-presenter-url": () => copyPresenterUrl(),
+};
+
+let copyLabelTimer;
+const copyPresenterUrl = async () => {
+  const label = document.querySelector('[data-action="copy-presenter-url"] [data-label]');
+  const copied = await navigator.clipboard.writeText(`${location.origin}${location.pathname}?view=presenter`).then(
+    () => true,
+    () => false,
+  );
+  label.textContent = copied ? "¡Copiada!" : "No se pudo copiar";
+  clearTimeout(copyLabelTimer);
+  copyLabelTimer = setTimeout(() => (label.textContent = "Copiar URL"), 1500);
+};
+
 const startDeck = () => {
-  document.addEventListener("keydown", (event) =>
-    handleKeys(event, (command) => (command === "presenter" ? openPresenter() : commands[command]())),
+  document.documentElement.classList.add("has-chrome");
+  buildNavigator();
+
+  document.querySelectorAll("[data-action]").forEach((button) =>
+    button.addEventListener("click", (event) => {
+      event.currentTarget.blur();
+      actions[event.currentTarget.dataset.action]();
+    }),
   );
 
+  document.addEventListener("keydown", (event) =>
+    handleKeys(event, (command) => {
+      if (command === "presenter") return openPresenter();
+      if (command === "play") return playFullscreen();
+      if (command === "stop") return stopPlaying();
+      commands[command]();
+    }),
+  );
+
+  document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement && playMode === "fullscreen") setPlaying(null);
+  });
+
+  const isOnSlides = (event) => playMode || event.target.closest(".stage");
+
   document.addEventListener("click", (event) => {
-    if (event.target.closest("[data-interactive], button, input, a")) return;
+    if (!isOnSlides(event) || event.target.closest("[data-interactive], button, input, a")) return;
     next();
   });
 
   document.addEventListener("contextmenu", (event) => {
+    if (!isOnSlides(event)) return;
     event.preventDefault();
     previous();
   });
-
-  document.addEventListener("mousemove", showHud);
 
   channel.addEventListener("message", ({ data }) => {
     if (data.type === "hello") publish();
@@ -1453,85 +1780,55 @@ const startDeck = () => {
 };
 
 const startPreview = () => {
-  hud.hidden = true;
-  document.documentElement.classList.add("is-preview");
+  document.documentElement.classList.add("is-preview", "is-jumping");
 };
 
 const startPresenter = () => {
   document.title = "Presentador · System One 01.1";
-  document.querySelector(".viewport").remove();
-  hud.remove();
+  document.querySelectorAll(".viewport, .toolbar, .navigator").forEach((element) => element.remove());
 
   const presenter = document.createElement("div");
   presenter.className = "presenter";
   presenter.innerHTML = `
-    <section class="presenter-current">
-      <header><span class="presenter-tag">Ahora</span><span data-current-label></span></header>
-      <div class="presenter-frame"><iframe data-current title="Slide actual"></iframe></div>
-    </section>
-    <section class="presenter-next">
-      <header><span class="presenter-tag next">Siguiente</span><span data-next-label></span></header>
-      <div class="presenter-frame"><iframe data-next title="Siguiente paso"></iframe><div class="presenter-end" data-end hidden>🏁 Fin</div></div>
-      <div class="presenter-info">
-        <div><small>Slide</small><strong data-slide></strong></div>
-        <div><small>Paso</small><strong data-step-count></strong></div>
-        <button class="presenter-timer" data-timer title="Clic para reiniciar"><small>Tiempo</small><strong data-elapsed>00:00</strong></button>
-        <div><small>Hora</small><strong data-clock></strong></div>
-      </div>
-      <div class="presenter-controls">
-        <button data-command="previous">← Anterior</button>
-        <button data-command="next">Siguiente →</button>
-      </div>
-      <p class="presenter-waiting" data-waiting>Esperando a la ventana de las slides…</p>
-    </section>`;
+    <div class="presenter-frame"><iframe data-next title="Siguiente paso"></iframe><div class="presenter-end" data-end hidden>🏁 Fin</div></div>
+    <div class="presenter-info">
+      <button class="presenter-timer is-waiting" data-timer title="Clic para reiniciar"><small>Tiempo</small><strong data-elapsed>00:00</strong></button>
+      <div><small>Hora</small><strong data-clock></strong></div>
+    </div>`;
   document.body.append(presenter);
 
-  const currentFrame = presenter.querySelector("[data-current]");
   const nextFrame = presenter.querySelector("[data-next]");
-  const previewUrl = (position) => `${location.pathname}?view=preview#${position.index + 1}.${position.step}`;
   const showIn = (frame, position) => {
-    const url = previewUrl(position);
-    if (!frame.src) frame.src = url;
-    else frame.contentWindow.location.hash = `#${position.index + 1}.${position.step}`;
+    const hash = `#${position.index + 1}.${position.step}`;
+    if (!frame.src) frame.src = `${location.pathname}?view=preview${hash}`;
+    else frame.contentWindow.location.hash = hash;
   };
 
-  const describe = (position, total, isNewSlide) =>
-    !position ? "" : isNewSlide ? `Nueva slide · ${position.index + 1}/${total}` : `Paso ${position.step} · misma slide`;
+  let playStartedAt = null;
 
   channel.addEventListener("message", ({ data }) => {
     if (data.type !== "state") return;
-    presenter.querySelector("[data-waiting]").hidden = true;
-    const { current, next: upcoming, total, title } = data;
-    showIn(currentFrame, current);
-    presenter.querySelector("[data-current-label]").textContent = title;
-    presenter.querySelector("[data-slide]").textContent = `${current.index + 1} / ${total}`;
-    presenter.querySelector("[data-step-count]").textContent = `${current.step} / ${current.maxStep}`;
+    const { next: upcoming } = data;
+    playStartedAt = data.playStartedAt;
     presenter.querySelector("[data-end]").hidden = Boolean(upcoming);
     nextFrame.style.visibility = upcoming ? "visible" : "hidden";
     if (upcoming) showIn(nextFrame, upcoming);
-    presenter.querySelector("[data-next-label]").textContent = describe(upcoming, total, upcoming && upcoming.index !== current.index);
-    presenter.querySelector(".presenter-next").classList.toggle("is-new-slide", Boolean(upcoming && upcoming.index !== current.index));
+    tick();
   });
 
   const send = (command) => channel.postMessage({ type: "command", command });
-  presenter.querySelectorAll("[data-command]").forEach((button) =>
-    button.addEventListener("click", () => {
-      button.blur();
-      send(button.dataset.command);
-    }),
-  );
   document.addEventListener("keydown", (event) => handleKeys(event, (command) => command !== "presenter" && send(command)));
 
-  let startedAt = Date.now();
   presenter.querySelector("[data-timer]").addEventListener("click", (event) => {
     event.currentTarget.blur();
-    startedAt = Date.now();
+    send("resetTimer");
   });
   const pad = (value) => String(value).padStart(2, "0");
   const tick = () => {
-    const seconds = Math.floor((Date.now() - startedAt) / 1000);
+    const seconds = playStartedAt ? Math.floor((Date.now() - playStartedAt) / 1000) : 0;
+    presenter.querySelector("[data-timer]").classList.toggle("is-waiting", !playStartedAt);
     presenter.querySelector("[data-elapsed]").textContent = `${pad(Math.floor(seconds / 60))}:${pad(seconds % 60)}`;
-    presenter.querySelector("[data-clock]").textContent = new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+    presenter.querySelector("[data-clock]").textContent = new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
   };
   tick();
   setInterval(tick, 1000);
@@ -1542,14 +1839,14 @@ const startPresenter = () => {
 if (view === "presenter") {
   startPresenter();
 } else {
-  window.addEventListener("resize", fitStage);
+  new ResizeObserver(fitStage).observe(viewportInner);
   window.addEventListener("hashchange", () => {
     if (location.hash === `#${state.index + 1}.${state.step}`) return;
     restoreFromHash();
     render();
   });
-  view === "preview" ? startPreview() : startDeck();
   widgetStepMarkers();
+  view ? startPreview() : startDeck();
   splitMagicText();
   applyMagicNames();
   fitStage();
