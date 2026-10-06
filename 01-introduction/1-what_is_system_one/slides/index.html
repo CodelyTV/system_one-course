@@ -505,9 +505,9 @@ code, .code { font-family: var(--mono); }
 .lane-count { position: relative; display: grid; justify-items: center; padding: 14px 0 16px; border: 1px solid #2e3a55; border-radius: 28px; background: #121826; box-shadow: 0 2px 5px rgba(0, 0, 0, .5); }
 .lane-count b { font-size: 72px; line-height: 1; font-variant-numeric: tabular-nums; color: var(--lane-color); }
 .lane-count span { font-size: 20px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--text); }
-.lane-cost { --i: 0; min-width: 0; overflow: hidden; white-space: nowrap; display: grid; justify-items: center; gap: 6px; padding: 22px 0 20px; border: 1px solid #2e3a55; border-radius: 28px; background: #121826; box-shadow: 0 2px 5px rgba(0, 0, 0, .5); }
+.lane-cost { --i: 0; min-width: 0; overflow: hidden; white-space: nowrap; display: grid; justify-items: center; gap: 6px; padding: 14px 0; border: 1px solid #2e3a55; border-radius: 28px; background: #121826; box-shadow: 0 2px 5px rgba(0, 0, 0, .5); }
 .lane-cost b { font-family: var(--mono); font-size: 38px; font-weight: 400; font-variant-numeric: tabular-nums; color: var(--text); }
-.lane-cost span { font-size: 17px; font-weight: 500; letter-spacing: .08em; color: var(--text); }
+.lane-cost span { font-size: 16px; font-weight: 500; line-height: 1.35; letter-spacing: .04em; text-align: center; color: var(--text); }
 .lane-cost.is-bump b { animation: cost-tick .3s ease-out; }
 @keyframes cost-tick { 0% { color: var(--badge-yellow); } 100% { color: var(--text); } }
 .lane-count.is-bump b { animation: count-bump .25s ease-out; }
@@ -787,14 +787,14 @@ html.is-preview .stage [data-step] { transition-duration: .25s; transition-delay
       <div class="lane-prompt"><span>Prompt</span><code>Does fire burn?</code></div>
       <div class="lane-track"><i class="lane-ball"></i><span class="lane-answer">Yes</span></div>
       <div class="lane-count"><b>0</b><span>answers</span></div>
-      <div class="lane-cost" data-step="3" data-anim="fade-move"><b>$0.000000</b><span>$25 / 1M · Jev</span></div>
+      <div class="lane-cost" data-step="3" data-anim="fade-move"><b>$0.000000</b><span>$0.042 in · $0 out<br>per 1M tokens · Jev</span></div>
     </div>
     <div class="lane lane-two" data-duration="4200" data-cost="0.00027" data-step="1" data-anim="fade-move" data-state-at="3" style="--i:3">
       <div class="lane-name"><span class="emoji">🐢</span><div>System Two<small>LLM · ~1.6 s</small></div></div>
       <div class="lane-prompt"><span>Prompt</span><code>Does fire burn?</code></div>
       <div class="lane-track"><i class="lane-ball"></i><span class="lane-answer">Yes</span></div>
       <div class="lane-count"><b>0</b><span>answers</span></div>
-      <div class="lane-cost" data-step="3" data-anim="fade-move"><b>$0.000000</b><span>$270 / 1M · GPT-5 mini</span></div>
+      <div class="lane-cost" data-step="3" data-anim="fade-move"><b>$0.000000</b><span>$0.25 in · $2 out<br>per 1M tokens · GPT-5 mini</span></div>
     </div>
   </div>
 </section>
