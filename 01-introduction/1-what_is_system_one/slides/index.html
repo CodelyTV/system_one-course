@@ -648,7 +648,7 @@ html.is-preview *, html.is-preview *::before, html.is-preview *::after { transit
 .presenter-end { position: absolute; inset: 0; display: grid; place-items: center; font-size: 48px; color: var(--text-soft); }
 .presenter-info { display: flex; justify-content: center; gap: 96px; }
 .presenter-info > * { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0; border: 0; background: none; color: var(--text); font: inherit; }
-.presenter-info small { font-size: 15px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); }
+.presenter-info small { font-size: 18px; color: var(--text); }
 .presenter-info strong { font: 500 72px var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .presenter-timer { cursor: pointer; }
 .presenter-timer.is-waiting strong { color: var(--text-muted); }
@@ -1792,8 +1792,8 @@ const startPresenter = () => {
   presenter.innerHTML = `
     <div class="presenter-frame"><iframe data-next title="Siguiente paso"></iframe><div class="presenter-end" data-end hidden>🏁 Fin</div></div>
     <div class="presenter-info">
-      <button class="presenter-timer is-waiting" data-timer title="Clic para reiniciar"><small>Tiempo</small><strong data-elapsed>00:00</strong></button>
       <div><small>Hora</small><strong data-clock></strong></div>
+      <button class="presenter-timer is-waiting" data-timer title="Clic para reiniciar"><small>Duración</small><strong data-elapsed>00:00</strong></button>
     </div>`;
   document.body.append(presenter);
 
@@ -1828,7 +1828,7 @@ const startPresenter = () => {
     const seconds = playStartedAt ? Math.floor((Date.now() - playStartedAt) / 1000) : 0;
     presenter.querySelector("[data-timer]").classList.toggle("is-waiting", !playStartedAt);
     presenter.querySelector("[data-elapsed]").textContent = `${pad(Math.floor(seconds / 60))}:${pad(seconds % 60)}`;
-    presenter.querySelector("[data-clock]").textContent = new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    presenter.querySelector("[data-clock]").textContent = new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
   };
   tick();
   setInterval(tick, 1000);
