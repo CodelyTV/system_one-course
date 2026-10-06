@@ -45,7 +45,6 @@ type ScoredConversation = {
 
 const projectRoot = join(import.meta.dirname, "..", "..", "..", "..");
 const mcpServerName = "customer-support";
-const concurrency = 10;
 
 const priorityLevels = [
 	"Can wait: compliments, feedback, suggestions or general questions with no open order problem.",
@@ -151,15 +150,8 @@ async function scoreAll(
 	model: EvaluationModel,
 	conversations: Conversation[],
 ): Promise<ScoredConversation[]> {
-	const scored: ScoredConversation[] = [];
-	const queue = conversations.values();
-
-	await Promise.all(
-		Array.from({ length: concurrency }, async () => {
-			for (const conversation of queue) {
-				scored.push(await score(model, conversation));
-			}
-		}),
+	const scored = await Promise.all(
+		conversations.map((conversation) => score(model, conversation)),
 	);
 
 	return scored.sort(byPriority);
