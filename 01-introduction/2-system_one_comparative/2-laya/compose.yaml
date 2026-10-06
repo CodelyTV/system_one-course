@@ -1,0 +1,12 @@
+services:
+  laya:
+    image: ghcr.io/ouijan/laya-serve
+    ports:
+      - "127.0.0.1:11500:11500"
+    environment:
+      LAYA_MODELS: english,multilingual
+    volumes:
+      - laya-models:/var/cache/huggingface
+
+volumes:
+  laya-models:
