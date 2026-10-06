@@ -581,6 +581,8 @@ html.has-chrome .toolbar { position: fixed; top: 0; left: 0; right: 0; height: v
 html.has-chrome .navigator { position: fixed; top: var(--toolbar-height); left: 0; bottom: 0; width: var(--navigator-width); display: block; padding: 14px 10px 40px 6px; overflow-y: auto; background: #1a1a1a; border-right: 1px solid #000; font-family: var(--font); user-select: none; scrollbar-width: thin; scrollbar-color: #3a3a3a transparent; }
 html.has-chrome.is-navigator-hidden .navigator { display: none; }
 html.is-playing .toolbar, html.is-playing .navigator { display: none; }
+html.has-chrome:not(.is-playing) .stage *, html.has-chrome:not(.is-playing) .stage *::before, html.has-chrome:not(.is-playing) .stage *::after { transition: none !important; animation: none !important; }
+.navigator, .navigator button { outline: none; }
 html.is-playing .viewport { inset: 0; background: #000; }
 html.is-playing .viewport-inner { inset: 0; }
 html.is-playing .stage { box-shadow: none; }
@@ -691,7 +693,7 @@ html.is-preview *, html.is-preview *::before, html.is-preview *::after { transit
     </button>
   </div>
 </header>
-<nav class="navigator" id="navigator"></nav>
+<nav class="navigator" id="navigator" tabindex="-1"></nav>
 
 <div class="viewport">
 <div class="viewport-inner" id="viewport-inner">
@@ -1196,7 +1198,7 @@ const render = () => {
   renderCodeFocus(slide, state.step);
   renderSparkles(slide, state.step);
   renderAnvils(slide, state.step);
-  if (!view) widgets[slide.dataset.widget]?.onStep(slide, state.step);
+  if (!view) widgets[slide.dataset.widget]?.onStep(slide, playMode ? state.step : 0);
   if (view === "preview") renderCues(slide, state.step);
   history.replaceState(null, "", `${location.search}#${state.index + 1}.${state.step}`);
   publish();
@@ -1322,6 +1324,7 @@ const usesFade = (index) => {
 
 const goTo = (index, step) => {
   if (index < 0 || index >= slides.length) return;
+  if (!view && !playMode) return jumpTo(index, step);
   if (fadeTimer) {
     finishFade();
     render();
@@ -1684,6 +1687,47 @@ const renderNavigatorExpansion = () => {
   fitStage();
 };
 
+let setExpanded = () => {};
+
+const isNavigatorFocused = () => document.getElementById("navigator").contains(document.activeElement);
+
+const rowPosition = (row) => (row.dataset.go ?? `${row.dataset.index}.0`).split(".").map(Number);
+
+const selectRow = (row) => {
+  if (!row) return;
+  (row.querySelector(".nav-thumb") ?? row).focus({ preventScroll: true });
+  jumpTo(...rowPosition(row));
+};
+
+const navigatorKeys = {
+  ArrowUp: (rows, position) => selectRow(rows[position - 1]),
+  ArrowDown: (rows, position) => selectRow(rows[position + 1]),
+  ArrowLeft: (rows, position) => {
+    const item = rows[position].closest(".nav-item");
+    if (navigatorPrefs.expanded.includes(item.dataset.name) && item.querySelector(".nav-toggle")) return setExpanded(item.dataset.name, false);
+    const group = item.parentElement.closest(".nav-item");
+    if (!group) return;
+    setExpanded(group.dataset.name, false);
+    selectRow(group.querySelector(".nav-slide"));
+  },
+  ArrowRight: (rows, position) => {
+    const item = rows[position].closest(".nav-item");
+    if (item.querySelector(".nav-toggle")) setExpanded(item.dataset.name, true);
+  },
+};
+
+const handleNavigatorKeys = (event) => {
+  const action = navigatorKeys[event.key];
+  if (!action || !isNavigatorFocused()) return false;
+  event.preventDefault();
+  const rows = [...document.querySelectorAll(".nav-slide, .nav-build")].filter((row) => row.offsetParent);
+  const isAt = (row) => rowPosition(row)[0] === state.index && (row.classList.contains("nav-slide") || rowPosition(row)[1] === state.step);
+  const builds = rows.filter((row) => isAt(row) && row.classList.contains("nav-build"));
+  const position = rows.indexOf(builds[0] ?? rows.find(isAt));
+  if (position >= 0) action(rows, position);
+  return true;
+};
+
 const buildNavigator = () => {
   const navigator = document.getElementById("navigator");
   let group;
@@ -1703,16 +1747,17 @@ const buildNavigator = () => {
       if (thumbWidth(thumb)) thumb.style.setProperty("--thumb-scale", thumbWidth(thumb) / 1920);
     });
 
+  navigator.addEventListener("pointerdown", () => {
+    requestAnimationFrame(() => {
+      if (!navigator.contains(document.activeElement)) navigator.focus({ preventScroll: true });
+    });
+  });
+
   navigator.addEventListener("click", (event) => {
     const toggle = event.target.closest(".nav-toggle");
     if (toggle) {
       const { name } = toggle.closest(".nav-item").dataset;
-      navigatorPrefs.expanded = navigatorPrefs.expanded.includes(name)
-        ? navigatorPrefs.expanded.filter((expandedName) => expandedName !== name)
-        : [...navigatorPrefs.expanded, name];
-      saveNavigatorPrefs();
-      renderNavigatorExpansion();
-      scaleThumbs();
+      setExpanded(name, !navigatorPrefs.expanded.includes(name));
       return;
     }
     const target = event.target.closest("[data-go]");
@@ -1720,6 +1765,19 @@ const buildNavigator = () => {
     const [index, step] = target.dataset.go.split(".").map(Number);
     jumpTo(index, step);
   });
+
+  setExpanded = (name, expanded) => {
+    const wasFocused = isNavigatorFocused();
+    navigatorPrefs.expanded = navigatorPrefs.expanded.filter((expandedName) => expandedName !== name);
+    if (expanded) navigatorPrefs.expanded.push(name);
+    saveNavigatorPrefs();
+    renderNavigatorExpansion();
+    scaleThumbs();
+    if (wasFocused && !document.activeElement?.offsetParent) {
+      const currentThumb = navigator.querySelector(`.nav-slide[data-index="${state.index}"] .nav-thumb`);
+      (currentThumb?.offsetParent ? currentThumb : navigator).focus({ preventScroll: true });
+    }
+  };
 
   new ResizeObserver(scaleThumbs).observe(navigator);
   renderNavigatorExpansion();
@@ -1760,6 +1818,7 @@ const setPlaying = (mode) => {
   }
   document.documentElement.classList.toggle("is-playing", Boolean(mode));
   fitStage();
+  render();
 };
 
 const playInWindow = () => setPlaying("window");
@@ -1811,6 +1870,7 @@ const startDeck = () => {
   );
 
   document.addEventListener("keydown", (event) =>
+    handleNavigatorKeys(event) ||
     handleKeys(event, (command) => {
       if (command === "presenter") return openPresenter();
       if (command === "play") return playFullscreen();
