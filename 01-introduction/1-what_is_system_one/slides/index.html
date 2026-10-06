@@ -34,7 +34,9 @@
   --cell-green: #a9f99a;
   --cell-red: #f88a87;
   --cell-yellow: #faeca3;
-  --cell-cyan: #a7f1e8;
+  --cell-cyan: #a6f2e8;
+  --cell-lime: #d6f584;
+  --cell-orange: #f8c27d;
   --code-key: #f8ef7a;
   --code-string: #a9f99a;
   --code-number: #f39a3d;
@@ -576,7 +578,13 @@ code, .code { font-family: var(--mono); }
 .table .cell.red { background: var(--cell-red); }
 .table .cell.yellow { background: var(--cell-yellow); }
 .table .cell.cyan { background: var(--cell-cyan); }
+.table .cell.lime { background: var(--cell-lime); }
+.table .cell.orange { background: var(--cell-orange); }
 .table .cell code { font-size: 32px; }
+.comparison-table { background: #181818; }
+.comparison-table .row > div { border-width: 0 1px 1px 0; border-color: #000; background: var(--bg); }
+.comparison-table .price { flex-direction: column; gap: 4px; font-size: 36px; }
+.comparison-table .price small { margin: 4px 0 0; font-size: 22px; opacity: .7; }
 
 /* Editor */
 html.has-chrome { --toolbar-height: 76px; --navigator-width: 252px; }
@@ -871,6 +879,36 @@ html.is-preview *, html.is-preview *::before, html.is-preview *::after { transit
     <span class="emoji">🏛️</span>
     <h1>Jev vs Laya vs Kev vs Decisions API</h1>
     <p>System One</p>
+  </div>
+</section>
+
+<!-- 01.2 · Comparison -->
+<section class="slide" data-name="system-one-comparison">
+  <div class="table comparison-table" style="--cols: 500px repeat(5, 1fr)">
+    <div class="row head">
+      <div class="corner"><img src="assets/codely-logo.png" alt="Codely"><span>System One<br>models</span></div>
+      <div>Jev</div><div>Laya</div><div>Kev</div><div>Decisions API</div><div>Clef</div>
+    </div>
+    <div class="row" data-step="1" data-anim="fade-move">
+      <div class="label"><span class="emoji">🏆</span><span>Quality</span></div>
+      <div class="cell green">Highest</div><div class="cell yellow">Medium</div><div class="cell lime">High</div><div class="cell green">Highest</div><div class="cell green">Highest</div>
+    </div>
+    <div class="row" data-step="2" data-anim="fade-move">
+      <div class="label"><span class="emoji">🔧</span><span>Needs fine-tuning</span></div>
+      <div class="cell green">No</div><div class="cell red">Yes</div><div class="cell cyan">Optional</div><div class="cell green">No</div><div class="cell cyan">Optional</div>
+    </div>
+    <div class="row" data-step="3" data-anim="fade-move">
+      <div class="label"><span class="emoji">🔓</span><span>Open model</span></div>
+      <div class="cell red">No</div><div class="cell green">Yes</div><div class="cell green">Yes</div><div class="cell red">No</div><div class="cell green">Yes</div>
+    </div>
+    <div class="row" data-step="4" data-anim="fade-move">
+      <div class="label"><span class="emoji">🖼️</span><span>Accepts images</span></div>
+      <div class="cell red">No</div><div class="cell red">No</div><div class="cell red">No</div><div class="cell green">Yes</div><div class="cell green">Yes</div>
+    </div>
+    <div class="row" data-step="5" data-anim="fade-move">
+      <div class="label"><span class="emoji">💰</span><span>Price per 1M</span></div>
+      <div class="cell green price"><span>In: $0.042</span><span>Out: $0</span></div><div class="cell cyan price"><span>In: $0</span><span>Out: $0</span><small>self-hosted</small></div><div class="cell cyan price"><span>In: $0</span><span>Out: $0</span><small>self-hosted</small></div><div class="cell cyan">Not public yet</div><div class="cell orange price"><span>In: $0.24</span><span>Out: $0</span></div>
+    </div>
   </div>
 </section>
 
