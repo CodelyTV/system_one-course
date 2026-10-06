@@ -391,6 +391,13 @@ code, .code { font-family: var(--mono); }
   font-weight: 700;
 }
 .pencil-mark { position: absolute; left: 10px; top: 80px; width: 430px; height: 116px; pointer-events: none; transition-duration: 0s; }
+.pencil-mark.is-out { transition: opacity .3s ease-in; }
+.page-stamps { position: absolute; top: 200px; gap: 20px 24px; }
+.book-page-left .page-stamps { left: 44px; right: 64px; }
+.book-page-right .page-stamps { left: 64px; right: 44px; }
+.book-page-right .page-stamps { transition: visibility 0s .55s; }
+.book.is-on .book-page-right .page-stamps { visibility: hidden; }
+.page-stamps [data-anim="stamp"].is-built { animation-delay: calc(.3s + var(--i, 0) * 120ms); }
 .pencil-mark svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .pencil-mark path { fill: none; stroke: #2d2924; stroke-opacity: .85; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
 .pencil-mark.is-built path { stroke-dashoffset: 0; transition: stroke-dashoffset .5s ease-in-out; }
@@ -706,9 +713,9 @@ html.is-preview *, html.is-preview *::before, html.is-preview *::after { transit
 </section>
 
 <!-- 2 · System 1 vs System 2 -->
-<section class="slide" data-name="system-1-vs-system-2" data-thumb-step="16">
+<section class="slide" data-name="system-1-vs-system-2" data-thumb-step="18">
   <h2 class="title"><span class="emoji" data-magic="title-emoji">🧠</span><span data-magic-text="title">System One vs System Two</span></h2>
-  <div class="book" data-step="1" data-anim="up" data-state-at="17" data-magic="book">
+  <div class="book" data-step="1" data-anim="up" data-state-at="19" data-magic="book">
     <div class="book-body" data-state-at="2">
       <div class="book-shadow book-shadow-left"></div>
       <div class="book-shadow book-shadow-right"></div>
@@ -717,12 +724,13 @@ html.is-preview *, html.is-preview *::before, html.is-preview *::after { transit
         <div class="page-running">Part I · Two Systems</div>
         <div class="page-head" data-step="9" data-anim="fade-scale"><span class="emoji">🐢</span>System Two</div>
         <ul class="page-list">
-          <li data-step="10" data-anim="fade-move"><span class="emoji">🐌</span>Slow</li>
-          <li data-step="11" data-anim="fade-move"><span class="emoji">🧐</span>Deliberate</li>
-          <li data-step="12" data-anim="fade-move"><span class="emoji">🏋️</span>Effortful</li>
-          <li data-step="13" data-anim="fade-move"><span class="emoji">🧮</span>Analytical</li>
+          <li data-step="10" data-anim="fade-move" data-out="17"><span class="emoji">🐌</span>Slow</li>
+          <li data-step="11" data-anim="fade-move" data-out="17"><span class="emoji">🧐</span>Deliberate</li>
+          <li data-step="12" data-anim="fade-move" data-out="17"><span class="emoji">🏋️</span>Effortful</li>
+          <li data-step="13" data-anim="fade-move" data-out="17"><span class="emoji">🧮</span>Analytical</li>
         </ul>
-        <div class="page-example" data-step="14" data-anim="up">17 × 24 = <span class="result"><span class="thinking emoji">🤔</span><span class="answer" data-step="15" data-anim="pop">408</span></span></div>
+        <div class="page-example" data-step="14" data-anim="up" data-out="17">17 × 24 = <span class="result"><span class="thinking emoji">🤔</span><span class="answer" data-step="15" data-anim="pop">408</span></span></div>
+        <div class="stamps page-stamps"><span class="stamp" data-step="17" data-anim="stamp" style="--i:2; --r:-8deg"><i class="stamp-logo" style="--logo: url(assets/logos/openai.svg)"></i><b>GPT</b></span><span class="stamp" data-step="17" data-anim="stamp" style="--i:0; --r:5deg"><i class="stamp-logo" style="--logo: url(assets/logos/claude-color.svg)"></i><b>Claude</b></span><span class="stamp" data-step="17" data-anim="stamp" style="--i:3; --r:-3deg"><i class="stamp-logo" style="--logo: url(assets/logos/deepseek-color.svg)"></i><b>DeepSeek</b></span><span class="stamp" data-step="17" data-anim="stamp" style="--i:1; --r:7deg"><i class="stamp-logo" style="--logo: url(assets/logos/zhipu-color.svg)"></i><b>GLM</b></span></div>
       </div>
       <div class="book-face book-back-cover" role="img" aria-label="Back cover of Thinking, Fast and Slow"></div>
       </div>
@@ -732,15 +740,16 @@ html.is-preview *, html.is-preview *::before, html.is-preview *::after { transit
           <div class="page-running">Thinking, Fast and Slow</div>
           <div class="page-head" data-step="3" data-anim="fade-scale"><span class="emoji">⚡️</span>System One</div>
           <ul class="page-list">
-            <li data-step="4" data-anim="fade-move"><span class="emoji">🏎️</span>Fast</li>
-            <li data-step="5" data-anim="fade-move"><span class="emoji">🤖</span>Automatic</li>
-            <li data-step="6" data-anim="fade-move"><span class="emoji">🪶</span>Effortless</li>
-            <li data-step="7" data-anim="fade-move"><span class="emoji">🎯</span>Intuitive</li>
+            <li data-step="4" data-anim="fade-move" data-out="18"><span class="emoji">🏎️</span>Fast</li>
+            <li data-step="5" data-anim="fade-move" data-out="18"><span class="emoji">🤖</span>Automatic</li>
+            <li data-step="6" data-anim="fade-move" data-out="18"><span class="emoji">🪶</span>Effortless</li>
+            <li data-step="7" data-anim="fade-move" data-out="18"><span class="emoji">🎯</span>Intuitive</li>
           </ul>
-          <div class="page-example" data-step="8" data-anim="up">Does fire burn? <span class="answer" data-step="8" data-anim="pop" style="--i:3">Yes</span></div>
-          <div class="pencil-mark" data-step="16">
+          <div class="page-example" data-step="8" data-anim="up" data-out="18">Does fire burn? <span class="answer" data-step="8" data-anim="pop" style="--i:3">Yes</span></div>
+          <div class="pencil-mark" data-step="16" data-out="18">
             <svg viewBox="0 0 430 116"><path pathLength="1" d="M330 16C250 4 90 6 34 30C4 46 10 88 70 102C150 118 330 114 396 92C432 78 428 34 372 20C330 10 270 12 236 16"/></svg>
           </div>
+          <div class="stamps page-stamps"><span class="stamp" data-step="18" data-anim="stamp" style="--i:3; --r:-8deg"><i class="stamp-logo" style="--logo: url(assets/logos/typesafe-ink.svg)"></i><b>Jev</b></span><span class="stamp" data-step="18" data-anim="stamp" style="--i:1; --r:5deg"><i class="stamp-logo" style="--logo: url(assets/logos/laya.svg)"></i><b>Laya</b></span><span class="stamp stamp-text" data-step="18" data-anim="stamp" style="--i:4; --r:-3deg"><b>Kev</b></span><span class="stamp" data-step="18" data-anim="stamp" style="--i:0; --r:7deg"><i class="stamp-logo" style="--logo: url(assets/logos/openai.svg)"></i><b>Decisions API</b></span><span class="stamp" data-step="18" data-anim="stamp" style="--i:2; --r:-6deg"><i class="stamp-logo" style="--logo: url(assets/logos/cloudflare-color.svg)"></i><b>Clef</b></span></div>
         </div>
       </div>
     </div>
