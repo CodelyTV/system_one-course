@@ -9,7 +9,7 @@
 </p>
 
 <h1 align="center">
-    {COURSE_EMOJI} {COURSE_NAME_IN_ENGLISH}
+    ⚖️ Jev and System One models: Practical uses
 </h1>
 
 <p align="center">
@@ -18,10 +18,10 @@
 </p>
 
 <p align="center">
-    {COURSE_SUMMARY_IN_ENGLISH}
+    Integrate System One models (Jev, Laya, Kev, Clef) in a real application, compare them with LLMs and use an LLM fallback to make them robust.
 </p>
 
 <p align="center">
-  <a href="https://github.com/CodelyTV/{REPOSITORY_NAME}/stargazers">Stars are welcome 😊</a><br><br>
-  Course (Spanish): <a href="{COURSE_URL}">{COURSE_NAME_IN_SPANISH}</a>
+  <a href="https://github.com/CodelyTV/system_one-course/stargazers">Stars are welcome 😊</a><br><br>
+  Course (Spanish): <a href="https://codely.com/cursos">Jev y modelos System One: Usos prácticos</a>
 </p>
