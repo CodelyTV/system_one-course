@@ -37,6 +37,34 @@
 	font-weight: 700;
 }
 
+.search {
+	display: flex;
+	gap: 8px;
+}
+
+.searchInput {
+	min-width: 16rem;
+	padding: 8px 16px;
+	font: inherit;
+	font-size: 0.875rem;
+	color: var(--codely-blue);
+	background: var(--codely-white);
+	border: 1px solid var(--border);
+	border-radius: 999px;
+}
+
+.searchButton {
+	padding: 8px 16px;
+	font: inherit;
+	font-size: 0.875rem;
+	font-weight: 700;
+	color: var(--codely-white);
+	background: var(--codely-blue);
+	border: 1px solid var(--codely-blue);
+	border-radius: 999px;
+	cursor: pointer;
+}
+
 .filters {
 	display: flex;
 	flex-wrap: wrap;

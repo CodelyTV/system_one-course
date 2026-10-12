@@ -11,7 +11,7 @@ describe("EvaluationModelWithFallbackProductReviewSpamDetector should", () => {
 	const fallback = Mock.create<ProductReviewSpamDetector>();
 	const detector = new EvaluationModelWithFallbackProductReviewSpamDetector(
 		createGateway({
-			apiKey: process.env.VERCEL_AI_GATEWAY_API_KEY,
+			apiKey: process.env.AI_GATEWAY_API_KEY,
 		}).evaluationModel("typesafe-ai/jev"),
 		fallback,
 	);

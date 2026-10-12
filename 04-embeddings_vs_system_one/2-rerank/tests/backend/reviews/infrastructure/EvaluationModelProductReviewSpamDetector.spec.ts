@@ -7,7 +7,7 @@ import { ProductReviewMother } from "../domain/ProductReviewMother";
 
 const detector = new EvaluationModelProductReviewSpamDetector(
 	createGateway({
-		apiKey: process.env.VERCEL_AI_GATEWAY_API_KEY,
+		apiKey: process.env.AI_GATEWAY_API_KEY,
 	}).evaluationModel("typesafe-ai/jev"),
 );
 

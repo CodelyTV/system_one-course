@@ -1,3 +1,4 @@
+import Form from "next/form";
 import Link from "next/link";
 
 import { retailContainer } from "@/contexts/backend/shared/infrastructure/RetailContainer";
@@ -10,11 +11,23 @@ import styles from "./page.module.scss";
 export const dynamic = "force-dynamic";
 
 type CatalogPageProps = {
-	searchParams: Promise<{ collection?: string; category?: string }>;
+	searchParams: Promise<{
+		q?: string;
+		collection?: string;
+		category?: string;
+	}>;
 };
 
-function catalogHref(collection?: string, category?: string): string {
+function catalogHref(
+	query?: string,
+	collection?: string,
+	category?: string,
+): string {
 	const params = new URLSearchParams();
+
+	if (query) {
+		params.set("q", query);
+	}
 
 	if (collection) {
 		params.set("collection", collection);
@@ -24,15 +37,19 @@ function catalogHref(collection?: string, category?: string): string {
 		params.set("category", category);
 	}
 
-	const query = params.toString();
+	const queryString = params.toString();
 
-	return query ? `/?${query}` : "/";
+	return queryString ? `/?${queryString}` : "/";
 }
 
 export default async function CatalogPage({ searchParams }: CatalogPageProps) {
-	const { collection, category } = await searchParams;
+	const { q: query, collection, category } = await searchParams;
 	const [products, categories] = await Promise.all([
-		retailContainer.productsSearcher.search({ collection, category }),
+		retailContainer.productsSearcher.search({
+			query,
+			collection,
+			category,
+		}),
 		retailContainer.categoriesLister.list(),
 	]);
 	const totalStock = products.reduce(
@@ -77,6 +94,38 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
 							Explore the collection
 						</h2>
 					</div>
+					<Form
+						role="search"
+						action="/"
+						scroll={false}
+						className={styles.search}
+					>
+						<input
+							type="search"
+							name="q"
+							defaultValue={query}
+							placeholder="Search products"
+							aria-label="Search products"
+							className={styles.searchInput}
+						/>
+						{collection && (
+							<input
+								type="hidden"
+								name="collection"
+								value={collection}
+							/>
+						)}
+						{category && (
+							<input
+								type="hidden"
+								name="category"
+								value={category}
+							/>
+						)}
+						<button type="submit" className={styles.searchButton}>
+							Search
+						</button>
+					</Form>
 					<nav
 						className={styles.filters}
 						aria-label="Filter by garment type"
@@ -89,7 +138,11 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
 							return (
 								<Link
 									key={filter.label}
-									href={catalogHref(collection, filter.value)}
+									href={catalogHref(
+										query,
+										collection,
+										filter.value,
+									)}
 									aria-current={isActive ? "page" : undefined}
 									className={`${styles.filter} ${isActive ? styles.filterActive : ""}`}
 								>
@@ -102,7 +155,9 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
 
 				{products.length === 0 ? (
 					<p className={styles.empty}>
-						There are no products in this collection yet.
+						{query
+							? `There are no products similar to "${query}".`
+							: "There are no products in this collection yet."}
 					</p>
 				) : (
 					<div className={styles.grid}>

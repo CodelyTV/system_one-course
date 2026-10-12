@@ -28,7 +28,7 @@ type GatewayResponse = {
 const gatewayResponses: GatewayResponse[] = [];
 
 const gateway = createGateway({
-	apiKey: process.env.VERCEL_AI_GATEWAY_API_KEY,
+	apiKey: process.env.AI_GATEWAY_API_KEY,
 	fetch: async (input, init) => {
 		const response = await fetch(input, init);
 		const body = await response.clone().json();

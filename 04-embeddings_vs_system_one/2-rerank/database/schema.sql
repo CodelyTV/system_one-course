@@ -1,3 +1,5 @@
+create extension if not exists vector;
+
 drop table if exists product_reviews;
 drop table if exists order_lines;
 drop table if exists orders;
@@ -22,7 +24,8 @@ create table products (
 	price_amount integer not null,
 	price_currency text not null default 'EUR',
 	badges text[] not null default '{}',
-	accent text not null
+	accent text not null,
+	embedding vector(768)
 );
 
 create table product_variants (

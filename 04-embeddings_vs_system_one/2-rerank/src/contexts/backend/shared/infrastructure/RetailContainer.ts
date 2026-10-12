@@ -41,10 +41,6 @@ import { SystemClock } from "./SystemClock";
 class RetailContainer {
 	private readonly connection = new PostgresConnection();
 
-	private readonly productRepository = new PostgresProductRepository(
-		this.connection,
-	);
-
 	private readonly orderRepository = new PostgresOrderRepository(
 		this.connection,
 	);
@@ -66,7 +62,7 @@ class RetailContainer {
 	private readonly clock = new SystemClock();
 
 	private readonly gateway = createGateway({
-		apiKey: process.env.VERCEL_AI_GATEWAY_API_KEY,
+		apiKey: process.env.AI_GATEWAY_API_KEY,
 	});
 
 	private readonly evaluationModel =
@@ -74,6 +70,15 @@ class RetailContainer {
 
 	private readonly languageModel =
 		this.gateway.languageModel("openai/gpt-6-luna");
+
+	private readonly embeddingModel = this.gateway.embeddingModel(
+		"openai/text-embedding-3-small",
+	);
+
+	private readonly productRepository = new PostgresProductRepository(
+		this.connection,
+		this.embeddingModel,
+	);
 
 	private readonly domainEventSubscribers: DomainEventSubscriber<DomainEvent>[] =
 		[];

@@ -1,3 +1,6 @@
+import { embed, type EmbeddingModel } from "ai";
+
+import type { PostgresConnection } from "@/contexts/backend/shared/infrastructure/PostgresConnection";
 import { PostgresRepository } from "@/contexts/backend/shared/infrastructure/PostgresRepository";
 
 import { Product, type ProductAccent } from "../domain/Product";
@@ -28,14 +31,102 @@ type ProductVariantRow = {
 	length: number;
 };
 
+const productColumns = [
+	"id",
+	"name",
+	"collection",
+	"category",
+	"description",
+	"price_amount",
+	"price_currency",
+	"badges",
+	"accent",
+];
+
+const embeddingDimensions = 768;
+
 export class PostgresProductRepository
 	extends PostgresRepository
 	implements ProductRepository
 {
+	constructor(
+		connection: PostgresConnection,
+		private readonly embeddingModel: EmbeddingModel,
+	) {
+		super(connection);
+	}
+
+	async save(product: Product): Promise<void> {
+		const primitives = product.toPrimitives();
+		const embedding = await this.generateEmbedding(
+			this.serializeForEmbedding(product),
+		);
+
+		await this.sql.begin(async (sql) => {
+			await sql`
+				insert into products (id, name, collection, category, description, price_amount, price_currency, badges, accent, embedding)
+				values (
+					${primitives.id},
+					${primitives.name},
+					${primitives.collection},
+					${primitives.category},
+					${primitives.description},
+					${primitives.price.amount},
+					${primitives.price.currency},
+					${primitives.badges},
+					${primitives.accent},
+					${embedding}
+				)
+				on conflict (id) do update set
+					name = excluded.name,
+					collection = excluded.collection,
+					category = excluded.category,
+					description = excluded.description,
+					price_amount = excluded.price_amount,
+					price_currency = excluded.price_currency,
+					badges = excluded.badges,
+					accent = excluded.accent,
+					embedding = excluded.embedding
+			`;
+
+			if (primitives.variants.length > 0) {
+				await sql`
+					insert into product_variants ${sql(
+						primitives.variants.map((variant) => ({
+							id: variant.id,
+							product_id: primitives.id,
+							color: variant.color,
+							color_hex: variant.colorHex,
+							size: variant.size,
+							online_stock: variant.onlineStock,
+							chest: variant.measurements.chest,
+							length: variant.measurements.length,
+						})),
+						"id",
+						"product_id",
+						"color",
+						"color_hex",
+						"size",
+						"online_stock",
+						"chest",
+						"length",
+					)}
+					on conflict (id) do update set
+						color = excluded.color,
+						color_hex = excluded.color_hex,
+						size = excluded.size,
+						online_stock = excluded.online_stock,
+						chest = excluded.chest,
+						length = excluded.length
+				`;
+			}
+		});
+	}
+
 	async searchAll(): Promise<Product[]> {
 		const [productRows, variantRows] = await Promise.all([
 			this.sql<ProductRow[]>`
-				select *
+				select ${this.sql(productColumns)}
 				from products
 				order by collection, name
 			`,
@@ -57,7 +148,7 @@ export class PostgresProductRepository
 	async search(id: ProductId): Promise<Product | null> {
 		const product = (
 			await this.sql<ProductRow[]>`
-				select *
+				select ${this.sql(productColumns)}
 				from products
 				where id = ${id.value}
 			`
@@ -67,14 +158,7 @@ export class PostgresProductRepository
 			return null;
 		}
 
-		const variantRows = await this.sql<ProductVariantRow[]>`
-			select *
-			from product_variants
-			where product_id = ${id.value}
-			order by
-				array_position(array['XS', 'S', 'M', 'L', 'XL'], size),
-				color
-		`;
+		const variantRows = await this.searchVariants([id.value]);
 
 		return this.toProduct(product, variantRows);
 	}
@@ -95,6 +179,26 @@ export class PostgresProductRepository
 		return this.search(new ProductId(row.product_id));
 	}
 
+	async searchSimilar(query: string, limit: number): Promise<Product[]> {
+		const embedding = await this.generateEmbedding(query);
+
+		const productRows = await this.sql<ProductRow[]>`
+			select ${this.sql(productColumns)}
+			from products
+			where embedding is not null
+			order by embedding <=> ${embedding}::vector
+			limit ${limit}
+		`;
+
+		const variantRows = await this.searchVariants(
+			productRows.map((product) => product.id),
+		);
+
+		return productRows.map((product) =>
+			this.toProduct(product, variantRows),
+		);
+	}
+
 	async searchCategories(): Promise<string[]> {
 		const rows = await this.sql<Array<{ category: string }>>`
 			select distinct category
@@ -103,6 +207,42 @@ export class PostgresProductRepository
 		`;
 
 		return rows.map((row) => row.category);
+	}
+
+	private async searchVariants(
+		productIds: string[],
+	): Promise<ProductVariantRow[]> {
+		return await this.sql<ProductVariantRow[]>`
+			select *
+			from product_variants
+			where product_id = any(${productIds}::text[])
+			order by
+				array_position(array['XS', 'S', 'M', 'L', 'XL'], size),
+				color
+		`;
+	}
+
+	private async generateEmbedding(value: string): Promise<string> {
+		const { embedding } = await embed({
+			model: this.embeddingModel,
+			value,
+			providerOptions: { openai: { dimensions: embeddingDimensions } },
+		});
+
+		return JSON.stringify(embedding);
+	}
+
+	private serializeForEmbedding(product: Product): string {
+		return [
+			`Name: ${product.name}`,
+			`Collection: ${product.collection}`,
+			`Category: ${product.category}`,
+			`Description: ${product.description}`,
+			`Colors: ${product
+				.colors()
+				.map((color) => color.name)
+				.join(", ")}`,
+		].join("|");
 	}
 
 	private toProduct(

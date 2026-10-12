@@ -46,4 +46,15 @@ describe("ProductsSearcher should", () => {
 			}),
 		).toEqual([toProductResponse(wanted)]);
 	});
+
+	it("search the products similar to the query when one is given", async () => {
+		const products = [ProductMother.create(), ProductMother.create()];
+		repository.searchSimilarShouldReturn(products);
+
+		expect(await searcher.search({ query: "warm hoodie" })).toEqual(
+			products.map(toProductResponse),
+		);
+		repository.expectSearchSimilarToHaveBeenCalledWith("warm hoodie", 6);
+		repository.expectSearchAllNotToHaveBeenCalled();
+	});
 });
