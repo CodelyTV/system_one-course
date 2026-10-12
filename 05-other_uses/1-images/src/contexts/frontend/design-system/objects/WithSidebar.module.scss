@@ -1,0 +1,30 @@
+@use "../settings/spacing";
+
+.withSidebar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+
+	&--large {
+		gap: spacing.$xl;
+	}
+
+	&--medium {
+		gap: spacing.$md;
+	}
+
+	&--small {
+		gap: spacing.$tiny;
+	}
+
+	& > :first-child {
+		flex-basis: 0;
+		flex-grow: 999;
+		min-inline-size: 50%;
+	}
+
+	& > :last-child {
+		flex-grow: 1;
+	}
+}

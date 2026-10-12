@@ -1,0 +1,83 @@
+@use "sass:color";
+@use "../settings/border";
+@use "../settings/colors";
+@use "../tools/colors" as colorMixins;
+@use "../settings/spacing";
+@use "../settings/typography";
+
+.badge {
+	display: inline-flex;
+	gap: spacing.$tiny;
+	align-items: center;
+	padding: spacing.$tiny spacing.$xxs;
+	color: colors.$text-primary;
+	font: typography.$b200-bold;
+	letter-spacing: 0.02em;
+	white-space: nowrap;
+	background: colors.$bg;
+	border-color: transparent;
+	border-radius: border.$radius-large;
+	box-shadow: none;
+	cursor: inherit;
+	user-select: none;
+
+	/* Variants */
+	&--subtle {
+		@include colorMixins.color-with-bg-modifiers;
+
+		&--neutral {
+			color: color.mix(colors.$text-secondary, colors.$bg-darkTheme, 50%);
+			background: color.mix(colors.$bg, colors.$white, 50%);
+		}
+	}
+
+	&--outline {
+		@include colorMixins.color-outline-modifiers;
+
+		&--neutral {
+			color: colors.$text-secondary;
+			background: transparent;
+			border: 1px solid colors.$input-border;
+		}
+	}
+
+	&--live {
+		color: color.mix(colors.$state-error, colors.$bg-darkTheme, 60%);
+		background: colors.$white;
+		border: 1px solid colors.$state-error;
+
+		&::before {
+			display: inline-block;
+			width: 0.5rem;
+			height: 0.5rem;
+			background: colors.$state-error;
+			border-radius: 999px;
+			content: "";
+
+			@media (prefers-reduced-motion: no-preference) {
+				animation: pulse 1.5s ease-in-out infinite;
+			}
+		}
+	}
+
+	/* Sizes */
+	&--xs {
+		padding: 0 spacing.$xxs;
+		font: typography.$b100-bold;
+		border-radius: border.$radius-default;
+	}
+}
+
+@keyframes pulse {
+	0% {
+		opacity: 0.1;
+	}
+
+	50% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0.1;
+	}
+}

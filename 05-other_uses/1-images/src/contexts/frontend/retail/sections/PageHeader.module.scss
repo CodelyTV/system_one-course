@@ -1,0 +1,29 @@
+.header {
+	display: grid;
+	gap: 24px;
+	padding: 40px 0;
+}
+
+.intro {
+	max-width: 48rem;
+}
+
+.description {
+	margin-top: 16px;
+	max-width: 36rem;
+	color: var(--codely-gray);
+	font-size: 1.125rem;
+	line-height: 1.7;
+}
+
+.aside {
+	align-self: end;
+}
+
+@media (min-width: 768px) {
+	.header {
+		grid-template-columns: 1fr auto;
+		align-items: end;
+		padding: 56px 0;
+	}
+}

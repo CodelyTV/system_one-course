@@ -1,0 +1,53 @@
+.visual {
+	position: relative;
+	overflow: hidden;
+	border-radius: var(--radius-md);
+	background: var(--surface-strong);
+}
+
+.card {
+	min-height: 230px;
+}
+
+.hero {
+	min-height: 420px;
+}
+
+.image {
+	object-fit: cover;
+}
+
+.caption {
+	position: absolute;
+	inset: auto 0 0;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 20px;
+	background: linear-gradient(transparent, rgb(26 34 51 / 72%));
+	color: var(--codely-white);
+}
+
+.collection {
+	font-family: var(--font-sans);
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	opacity: 0.85;
+}
+
+.name {
+	max-width: 16rem;
+	font-size: 1.35rem;
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+.accent-green,
+.accent-violet,
+.accent-yellow,
+.accent-pink {
+	background: var(--surface-strong);
+}
