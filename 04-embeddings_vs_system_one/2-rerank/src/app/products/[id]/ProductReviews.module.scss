@@ -1,0 +1,182 @@
+.section {
+	margin-top: 48px;
+}
+
+.header {
+	display: flex;
+	margin-top: 8px;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.heading {
+	font-size: 1.5rem;
+	font-weight: 700;
+}
+
+.summary {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--codely-gray);
+	font-size: 0.95rem;
+}
+
+.layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 24px;
+	margin-top: 20px;
+}
+
+@media (min-width: 860px) {
+	.layout {
+		grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+	}
+}
+
+.list {
+	display: grid;
+	align-content: start;
+	gap: 12px;
+}
+
+.empty {
+	color: var(--codely-gray);
+}
+
+.review {
+	padding: 20px;
+	background: var(--codely-white);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+}
+
+.reviewHeader {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.comment {
+	margin-top: 12px;
+	line-height: 1.6;
+}
+
+.meta {
+	margin-top: 12px;
+	color: var(--codely-gray);
+	font-size: 0.85rem;
+}
+
+.starsDisplay {
+	color: var(--codely-blue);
+	font-size: 1.1rem;
+	letter-spacing: 2px;
+}
+
+.starsEmpty {
+	color: var(--codely-gray-light);
+}
+
+.panel {
+	align-self: start;
+	padding: 24px;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+}
+
+.panelHeading {
+	margin-bottom: 16px;
+	font-size: 1.125rem;
+	font-weight: 700;
+}
+
+.form {
+	display: grid;
+	gap: 12px;
+}
+
+.label {
+	font-size: 0.875rem;
+	font-weight: 700;
+}
+
+.optional {
+	color: var(--codely-gray);
+	font-weight: 400;
+}
+
+.rating {
+	display: grid;
+	gap: 8px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+.stars {
+	display: inline-flex;
+	flex-direction: row-reverse;
+	justify-content: flex-end;
+	gap: 4px;
+}
+
+.star {
+	color: var(--codely-gray-light);
+	font-size: 1.75rem;
+	line-height: 1;
+	cursor: pointer;
+	transition: color 0.12s ease;
+
+	&:hover,
+	&:hover ~ &,
+	&:has(.starInput:checked),
+	&:has(.starInput:checked) ~ & {
+		color: var(--codely-blue);
+	}
+
+	&:has(.starInput:focus-visible) {
+		outline: 2px solid var(--codely-blue);
+		outline-offset: 2px;
+		border-radius: var(--radius-sm);
+	}
+}
+
+.starInput {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.visuallyHidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+.textarea {
+	width: 100%;
+	padding: 12px;
+	font: inherit;
+	background: var(--codely-white);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-sm);
+	resize: vertical;
+
+	&:focus {
+		outline: 2px solid var(--codely-blue);
+		outline-offset: 1px;
+	}
+}
+
+.error {
+	color: var(--codely-red);
+	font-size: 0.875rem;
+}

@@ -1,0 +1,32 @@
+.nav {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 4px;
+}
+
+.link {
+	padding: 8px 12px;
+	color: var(--codely-gray);
+	font-size: 0.9rem;
+	font-weight: 700;
+	border-radius: var(--radius-sm);
+	transition: background 0.15s ease;
+
+	&:hover {
+		background: var(--surface-strong);
+		color: var(--codely-blue);
+	}
+}
+
+.active {
+	color: var(--codely-blue);
+	background: var(--surface-strong);
+}
+
+@media (min-width: 900px) {
+	.nav {
+		flex-direction: column;
+		gap: 2px;
+	}
+}

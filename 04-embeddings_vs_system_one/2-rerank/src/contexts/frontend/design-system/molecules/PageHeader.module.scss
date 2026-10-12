@@ -1,0 +1,14 @@
+@use "../settings/spacing";
+
+.header {
+	display: flex;
+	flex-direction: column;
+	gap: spacing.$md;
+	align-items: flex-start;
+	max-width: 50rem;
+	margin: spacing.$xxl 0 spacing.$section;
+
+	&--fullWidth {
+		max-width: 100%;
+	}
+}
