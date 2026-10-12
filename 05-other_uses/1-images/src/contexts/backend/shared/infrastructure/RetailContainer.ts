@@ -25,7 +25,7 @@ import { AllProductReviewsSearcher } from "@/contexts/backend/reviews/applicatio
 import { ProductReviewValidator } from "@/contexts/backend/reviews/application/validate/ProductReviewValidator";
 import { ValidateProductReviewOnProductReviewCreated } from "@/contexts/backend/reviews/application/validate/ValidateProductReviewOnProductReviewCreated";
 import { EvaluationModelProductReviewLabelDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelProductReviewLabelDetector";
-import { EvaluationModelWithFallbackProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelWithFallbackProductReviewSpamDetector";
+import { EvaluationModelAiSdkWithFallbackProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelAiSdkWithFallbackProductReviewSpamDetector";
 import { LlmProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/LlmProductReviewSpamDetector";
 import { PostgresProductReviewRepository } from "@/contexts/backend/reviews/infrastructure/PostgresProductReviewRepository";
 import { CurrentUserGetter } from "@/contexts/backend/users/application/current/CurrentUserGetter";
@@ -69,6 +69,10 @@ class RetailContainer {
 	private readonly evaluationModel =
 		this.gateway.evaluationModel("typesafe-ai/jev");
 
+	private readonly visionDecisionModel = this.gateway.decisionModel(
+		"openai/gpt-6-luna-decisions",
+	);
+
 	private readonly languageModel =
 		this.gateway.languageModel("openai/gpt-6-luna");
 
@@ -99,8 +103,8 @@ class RetailContainer {
 			new ValidateProductReviewOnProductReviewCreated(
 				new ProductReviewValidator(
 					this.productReviewRepository,
-					new EvaluationModelWithFallbackProductReviewSpamDetector(
-						this.evaluationModel,
+					new EvaluationModelAiSdkWithFallbackProductReviewSpamDetector(
+						this.visionDecisionModel,
 						new LlmProductReviewSpamDetector(this.languageModel),
 					),
 					this.eventBus,

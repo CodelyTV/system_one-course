@@ -3,8 +3,7 @@ import { describe, it } from "vitest";
 
 import { ProductReview } from "@/contexts/backend/reviews/domain/ProductReview";
 import type { ProductReviewSpamDetector } from "@/contexts/backend/reviews/domain/ProductReviewSpamDetector";
-import { EvaluationModelProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelProductReviewSpamDetector";
-import { EvaluationModelWithFallbackProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelWithFallbackProductReviewSpamDetector";
+import { EvaluationModelAiSdkWithFallbackProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/EvaluationModelAiSdkWithFallbackProductReviewSpamDetector";
 import { LlmProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/LlmProductReviewSpamDetector";
 import { RuleBasedProductReviewSpamDetector } from "@/contexts/backend/reviews/infrastructure/RuleBasedProductReviewSpamDetector";
 
@@ -49,12 +48,14 @@ const terraLanguageModel = gateway.languageModel("openai/gpt-5.6-terra");
 
 const detectors: Record<string, ProductReviewSpamDetector> = {
 	"Rule based": new RuleBasedProductReviewSpamDetector(),
-	"System One (typesafe-ai/jev)":
-		new EvaluationModelProductReviewSpamDetector(evaluationModel),
-	"LLM (openai/gpt-6-luna)": new LlmProductReviewSpamDetector(lunaLanguageModel),
-	"LLM (openai/gpt-5.6-terra)": new LlmProductReviewSpamDetector(terraLanguageModel),
+	"LLM (openai/gpt-6-luna)": new LlmProductReviewSpamDetector(
+		lunaLanguageModel,
+	),
+	"LLM (openai/gpt-5.6-terra)": new LlmProductReviewSpamDetector(
+		terraLanguageModel,
+	),
 	"System One + LLM fallback":
-		new EvaluationModelWithFallbackProductReviewSpamDetector(
+		new EvaluationModelAiSdkWithFallbackProductReviewSpamDetector(
 			evaluationModel,
 			new LlmProductReviewSpamDetector(lunaLanguageModel),
 		),
@@ -81,6 +82,7 @@ async function predict(
 			userId: "user-eval",
 			rating: spamCase.rating,
 			comment: spamCase.comment,
+			image: null,
 			status: "pending-validation",
 			label: null,
 			createdAt: new Date().toISOString(),

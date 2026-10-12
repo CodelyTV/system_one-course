@@ -17,6 +17,7 @@ export async function createProductReview(
 	const productId = formData.get("productId");
 	const rating = formData.get("rating");
 	const comment = formData.get("comment");
+	const image = formData.get("image");
 
 	if (typeof id !== "string" || id.length === 0) {
 		throw new Error("id is required");
@@ -40,6 +41,14 @@ export async function createProductReview(
 			userId.value,
 			Number(rating),
 			typeof comment === "string" ? comment : null,
+			image instanceof File && image.size > 0
+				? {
+						mediaType: image.type,
+						data: Buffer.from(await image.arrayBuffer()).toString(
+							"base64",
+						),
+					}
+				: null,
 		);
 	} catch (error) {
 		if (error instanceof CodelyError) {

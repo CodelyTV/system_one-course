@@ -6,6 +6,10 @@ import { ProductReviewComment } from "./ProductReviewComment";
 import { ProductReviewCreatedDomainEvent } from "./ProductReviewCreatedDomainEvent";
 import { ProductReviewId } from "./ProductReviewId";
 import {
+	ProductReviewImage,
+	type ProductReviewImagePrimitives,
+} from "./ProductReviewImage";
+import {
 	ProductReviewLabel,
 	type ProductReviewLabelValue,
 } from "./ProductReviewLabel";
@@ -22,6 +26,7 @@ export type ProductReviewPrimitives = {
 	userId: string;
 	rating: number;
 	comment: string | null;
+	image: ProductReviewImagePrimitives | null;
 	status: ProductReviewStatusValue;
 	label: ProductReviewLabelValue | null;
 	createdAt: string;
@@ -34,6 +39,7 @@ export class ProductReview extends AggregateRoot {
 		readonly userId: string,
 		readonly rating: ProductReviewRating,
 		readonly comment: ProductReviewComment,
+		readonly image: ProductReviewImage | null,
 		private reviewStatus: ProductReviewStatus,
 		private reviewLabel: ProductReviewLabel | null,
 		readonly createdAt: string,
@@ -47,6 +53,7 @@ export class ProductReview extends AggregateRoot {
 		userId: string,
 		rating: number,
 		comment: string | null,
+		image: ProductReviewImagePrimitives | null,
 		createdAt: string,
 	): ProductReview {
 		const review = new ProductReview(
@@ -55,6 +62,7 @@ export class ProductReview extends AggregateRoot {
 			userId,
 			new ProductReviewRating(rating),
 			new ProductReviewComment(comment),
+			image ? ProductReviewImage.fromPrimitives(image) : null,
 			ProductReviewStatus.pendingValidation(),
 			null,
 			createdAt,
@@ -80,6 +88,9 @@ export class ProductReview extends AggregateRoot {
 			primitives.userId,
 			new ProductReviewRating(primitives.rating),
 			new ProductReviewComment(primitives.comment),
+			primitives.image
+				? ProductReviewImage.fromPrimitives(primitives.image)
+				: null,
 			ProductReviewStatus.fromPrimitives(primitives.status),
 			primitives.label
 				? ProductReviewLabel.fromPrimitives(primitives.label)
@@ -131,6 +142,7 @@ export class ProductReview extends AggregateRoot {
 			userId: this.userId,
 			rating: this.rating.value,
 			comment: this.comment.value,
+			image: this.image?.toPrimitives() ?? null,
 			status: this.reviewStatus.value,
 			label: this.reviewLabel?.value ?? null,
 			createdAt: this.createdAt,

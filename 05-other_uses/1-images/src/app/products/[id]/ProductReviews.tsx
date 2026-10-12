@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import type { ProductReviewsResponse } from "@/contexts/backend/reviews/application/search-all/AllProductReviewsSearcher";
 import type { ProductReviewLabelValue } from "@/contexts/backend/reviews/domain/ProductReviewLabel";
 import type { ProductReviewStatusValue } from "@/contexts/backend/reviews/domain/ProductReviewStatus";
@@ -111,6 +113,16 @@ export function ProductReviews({ productId, reviews }: ProductReviewsProps) {
 									<p className={styles.comment}>
 										{review.comment}
 									</p>
+								) : null}
+								{review.imageUrl ? (
+									<Image
+										src={review.imageUrl}
+										alt={`Photo by ${review.authorName}`}
+										width={160}
+										height={160}
+										className={styles.reviewImage}
+										unoptimized
+									/>
 								) : null}
 								<p className={styles.meta}>
 									{review.authorName} ·{" "}

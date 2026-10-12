@@ -2,6 +2,7 @@ import type { Clock } from "@/contexts/shared/domain/Clock";
 import type { EventBus } from "@/contexts/shared/domain/event/EventBus";
 
 import { ProductReview } from "../../domain/ProductReview";
+import type { ProductReviewImagePrimitives } from "../../domain/ProductReviewImage";
 import type { ProductReviewRepository } from "../../domain/ProductReviewRepository";
 
 export class ProductReviewCreator {
@@ -17,6 +18,7 @@ export class ProductReviewCreator {
 		userId: string,
 		rating: number,
 		comment: string | null,
+		image: ProductReviewImagePrimitives | null,
 	): Promise<void> {
 		const review = ProductReview.create(
 			id,
@@ -24,6 +26,7 @@ export class ProductReviewCreator {
 			userId,
 			rating,
 			comment,
+			image,
 			this.clock.now(),
 		);
 

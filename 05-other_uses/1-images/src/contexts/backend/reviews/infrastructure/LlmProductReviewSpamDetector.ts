@@ -10,8 +10,9 @@ export class LlmProductReviewSpamDetector extends ProductReviewSpamDetector {
 
 	async isSpam(review: ProductReview): Promise<boolean> {
 		const comment = review.comment.value;
+		const image = review.image;
 
-		if (!comment) {
+		if (!comment && !image) {
 			return false;
 		}
 
@@ -19,8 +20,28 @@ export class LlmProductReviewSpamDetector extends ProductReviewSpamDetector {
 			model: this.model,
 			instructions: `You moderate product reviews of an online clothing store.
 A review is spam when it does not give an opinion about the product: advertisements, links, promotions, scams, contact details, gibberish or unrelated content.
-A negative, short or badly written opinion about the product is not spam.`,
-			prompt: `Rating: ${review.rating.value}/5\nComment: ${comment}`,
+A negative, short or badly written opinion about the product is not spam.
+A review with an attached image is spam when the image is spam or is unrelated to the reviewed product. A photo of the garment, of someone wearing it, of its packaging or of a defect in it is related.`,
+			messages: [
+				{
+					role: "user",
+					content: [
+						{
+							type: "text",
+							text: `Rating: ${review.rating.value}/5\nComment: ${comment ?? "(no comment)"}`,
+						},
+						...(image
+							? [
+									{
+										type: "file" as const,
+										mediaType: image.mediaType,
+										data: image.data,
+									},
+								]
+							: []),
+					],
+				},
+			],
 			output: Output.choice({ options: ["spam", "not_spam"] }),
 		});
 

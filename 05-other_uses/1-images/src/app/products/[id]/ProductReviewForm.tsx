@@ -70,6 +70,17 @@ export function ProductReviewForm({ productId }: ProductReviewFormProps) {
 				placeholder="How does it fit? How does it feel?"
 			/>
 
+			<label className={styles.label} htmlFor="review-image">
+				Photo <span className={styles.optional}>(optional)</span>
+			</label>
+			<input
+				id="review-image"
+				name="image"
+				type="file"
+				accept="image/jpeg,image/png,image/webp,image/gif"
+				className={styles.fileInput}
+			/>
+
 			{state.error ? (
 				<p className={styles.error} role="alert">
 					{state.error}

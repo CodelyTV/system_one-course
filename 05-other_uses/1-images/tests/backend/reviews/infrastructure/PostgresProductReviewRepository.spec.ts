@@ -37,6 +37,29 @@ describeWithEnvironmentArranger(
 				"user-aibuilder",
 				5,
 				"Great fit",
+				null,
+				new Date().toISOString(),
+			);
+
+			await repository.save(review);
+
+			expect(
+				(await repository.search(review.id))?.toPrimitives(),
+			).toEqual(review.toPrimitives());
+		});
+
+		it("save a review with an image and read it back", async () => {
+			await seedUsersAndProduct();
+			const review = ProductReview.create(
+				"review-abcd1234",
+				"p1",
+				"user-aibuilder",
+				5,
+				"Look at this fit",
+				{
+					mediaType: "image/png",
+					data: Buffer.from("fake image bytes").toString("base64"),
+				},
 				new Date().toISOString(),
 			);
 
@@ -55,6 +78,7 @@ describeWithEnvironmentArranger(
 				"user-aibuilder",
 				5,
 				"Great fit",
+				null,
 				new Date().toISOString(),
 			);
 			await repository.save(review);
@@ -75,6 +99,7 @@ describeWithEnvironmentArranger(
 				"user-aibuilder",
 				2,
 				"The box arrived crushed",
+				null,
 				new Date().toISOString(),
 			);
 			review.publish();
@@ -97,6 +122,7 @@ describeWithEnvironmentArranger(
 					"user-aibuilder",
 					4,
 					null,
+					null,
 					new Date().toISOString(),
 				),
 			);
@@ -107,6 +133,7 @@ describeWithEnvironmentArranger(
 					"user-other",
 					2,
 					"Not for me",
+					null,
 					new Date().toISOString(),
 				),
 			);
@@ -125,6 +152,7 @@ describeWithEnvironmentArranger(
 					"user-other",
 					5,
 					"Love it",
+					null,
 					new Date().toISOString(),
 				),
 			);
@@ -135,6 +163,7 @@ describeWithEnvironmentArranger(
 					"user-other",
 					3,
 					"Shrank after washing",
+					null,
 					new Date().toISOString(),
 				),
 			);

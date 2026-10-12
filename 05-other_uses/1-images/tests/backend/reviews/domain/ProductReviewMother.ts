@@ -25,6 +25,7 @@ export class ProductReviewMother {
 			userId: `user-${faker.string.hexadecimal({ length: 8, prefix: "", casing: "lower" })}`,
 			rating: faker.number.int({ min: 1, max: 5 }),
 			comment: faker.lorem.sentence(),
+			image: null,
 			status: "published",
 			label: null,
 			createdAt: faker.date.recent().toISOString(),

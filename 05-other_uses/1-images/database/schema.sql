@@ -78,7 +78,10 @@ create table product_reviews (
 	user_id text not null references users(id),
 	rating integer not null check (rating between 1 and 5),
 	comment text,
+	image_media_type text,
+	image_data bytea,
 	status text not null check (status in ('pending-validation', 'published', 'spam')),
 	label text check (label in ('product', 'shipping', 'packaging', 'customer-service', 'price', 'other')),
-	created_at timestamptz not null default now()
+	created_at timestamptz not null default now(),
+	check ((image_media_type is null) = (image_data is null))
 );

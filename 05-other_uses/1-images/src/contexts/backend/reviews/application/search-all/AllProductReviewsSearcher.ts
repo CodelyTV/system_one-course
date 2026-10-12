@@ -11,6 +11,7 @@ export type ProductReviewResponse = {
 	authorName: string;
 	rating: number;
 	comment: string | null;
+	imageUrl: string | null;
 	label: ProductReviewLabelValue | null;
 	createdAt: string;
 	ownStatus: ProductReviewStatusValue | null;
@@ -52,6 +53,7 @@ export class AllProductReviewsSearcher {
 				authorName: nameByUserId.get(review.userId) ?? review.userId,
 				rating: review.rating.value,
 				comment: review.comment.value,
+				imageUrl: review.image?.toDataUrl() ?? null,
 				label: review.label?.value ?? null,
 				createdAt: review.createdAt,
 				ownStatus:
