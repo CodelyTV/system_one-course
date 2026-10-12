@@ -54,7 +54,7 @@ describe("ProductsSearcher should", () => {
 		expect(await searcher.search({ query: "warm hoodie" })).toEqual(
 			products.map(toProductResponse),
 		);
-		repository.expectSearchSimilarToHaveBeenCalledWith("warm hoodie", 6);
+		repository.expectSearchSimilarToHaveBeenCalledWith("warm hoodie");
 		repository.expectSearchAllNotToHaveBeenCalled();
 	});
 });

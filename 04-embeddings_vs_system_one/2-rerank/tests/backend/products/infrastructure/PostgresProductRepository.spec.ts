@@ -54,7 +54,7 @@ describeWithEnvironmentArranger(
 			).toEqual(product.toPrimitives());
 		});
 
-		it("search the products most similar to a query", async () => {
+		it("search only the products close enough to a query", async () => {
 			const hoodie = ProductMother.create({ name: "Aggregate Hoodie" });
 			const tee = ProductMother.create({ name: "Domain Event Tee" });
 			const trousers = ProductMother.create({
@@ -64,7 +64,7 @@ describeWithEnvironmentArranger(
 			await repository.save(tee);
 			await repository.save(trousers);
 
-			const similar = await repository.searchSimilar("a cozy hoodie", 1);
+			const similar = await repository.searchSimilar("a cozy hoodie");
 
 			expect(similar.map((product) => product.toPrimitives())).toEqual([
 				hoodie.toPrimitives(),

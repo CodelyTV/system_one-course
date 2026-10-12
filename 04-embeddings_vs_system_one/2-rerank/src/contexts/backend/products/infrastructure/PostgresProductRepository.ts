@@ -45,6 +45,8 @@ const productColumns = [
 
 const embeddingDimensions = 768;
 
+const maxCosineDistance = 0.72;
+
 export class PostgresProductRepository
 	extends PostgresRepository
 	implements ProductRepository
@@ -179,15 +181,14 @@ export class PostgresProductRepository
 		return this.search(new ProductId(row.product_id));
 	}
 
-	async searchSimilar(query: string, limit: number): Promise<Product[]> {
+	async searchSimilar(query: string): Promise<Product[]> {
 		const embedding = await this.generateEmbedding(query);
 
 		const productRows = await this.sql<ProductRow[]>`
 			select ${this.sql(productColumns)}
 			from products
-			where embedding is not null
+			where embedding <=> ${embedding}::vector <= ${maxCosineDistance}
 			order by embedding <=> ${embedding}::vector
-			limit ${limit}
 		`;
 
 		const variantRows = await this.searchVariants(

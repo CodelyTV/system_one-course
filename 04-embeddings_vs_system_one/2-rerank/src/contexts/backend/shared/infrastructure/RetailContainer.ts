@@ -16,6 +16,7 @@ import { ProductFinder } from "@/contexts/backend/products/application/find/Prod
 import { InventoryLister } from "@/contexts/backend/products/application/inventory/InventoryLister";
 import { LowStockLister } from "@/contexts/backend/products/application/low-stock/LowStockLister";
 import { ProductsSearcher } from "@/contexts/backend/products/application/search/ProductsSearcher";
+import { JevAiSdkRerankProductRepository } from "@/contexts/backend/products/infrastructure/JevAiSdkRerankProductRepository";
 import { PostgresProductRepository } from "@/contexts/backend/products/infrastructure/PostgresProductRepository";
 import { ProductReviewCreator } from "@/contexts/backend/reviews/application/create/ProductReviewCreator";
 import { LabelProductReviewOnProductReviewPublished } from "@/contexts/backend/reviews/application/label/LabelProductReviewOnProductReviewPublished";
@@ -75,10 +76,15 @@ class RetailContainer {
 		"openai/text-embedding-3-small",
 	);
 
-	private readonly productRepository = new PostgresProductRepository(
-		this.connection,
-		this.embeddingModel,
+	private readonly productRepository = new JevAiSdkRerankProductRepository(
+		new PostgresProductRepository(this.connection, this.embeddingModel),
+		this.evaluationModel,
 	);
+
+	// private readonly productRepository = new PostgresProductRepository(
+	// 	this.connection,
+	// 	this.embeddingModel,
+	// );
 
 	private readonly domainEventSubscribers: DomainEventSubscriber<DomainEvent>[] =
 		[];

@@ -10,7 +10,7 @@ export abstract class ProductRepository {
 
 	abstract searchByVariantId(variantId: string): Promise<Product | null>;
 
-	abstract searchSimilar(query: string, limit: number): Promise<Product[]>;
+	abstract searchSimilar(query: string): Promise<Product[]>;
 
 	abstract searchCategories(): Promise<string[]>;
 }

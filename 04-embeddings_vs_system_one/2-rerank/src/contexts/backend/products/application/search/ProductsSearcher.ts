@@ -7,15 +7,13 @@ export type ProductFilters = {
 	category?: string;
 };
 
-const similarProductsLimit = 6;
-
 export class ProductsSearcher {
 	constructor(private readonly repository: ProductRepository) {}
 
 	async search(filters: ProductFilters = {}): Promise<ProductResponse[]> {
 		const query = filters.query?.trim();
 		const products = query
-			? await this.repository.searchSimilar(query, similarProductsLimit)
+			? await this.repository.searchSimilar(query)
 			: await this.repository.searchAll();
 
 		return products
