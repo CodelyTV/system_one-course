@@ -1,0 +1,22 @@
+{
+	"name": "@codely/jev-browser",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"engines": {
+		"node": ">=24.0.0"
+	},
+	"scripts": {
+		"start": "node --env-file-if-exists=.env.local src/server.ts",
+		"test": "node --test \"tests/**/*.test.ts\"",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"ai": "7.0.138",
+		"playwright": "1.63.0"
+	},
+	"devDependencies": {
+		"@types/node": "25.9.4",
+		"typescript": "6.0.3"
+	}
+}

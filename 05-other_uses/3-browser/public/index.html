@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Jev Browser</title>
+		<link rel="icon" href="/turbotuga.png" />
+		<link rel="stylesheet" href="/styles.css" />
+	</head>
+	<body>
+		<div class="stage" data-stage>
+			<div class="screen">
+				<div class="browser__bar">
+					<span class="window__dots"><i></i><i></i><i></i></span>
+					<span class="browser__url" data-url>about:blank</span>
+					<span class="browser__step" data-step></span>
+				</div>
+				<div class="browser__view">
+					<img class="browser__frame" data-frame alt="Browser controlled by Jev" />
+					<section class="overlay" data-overlay>
+						<div class="overlay__icon emoji">🧭</div>
+						<h2>Waiting for a goal</h2>
+						<p>Write what you want to do in the browser. Jev looks at the page, chooses one action at a time and Playwright runs it.</p>
+					</section>
+				</div>
+			</div>
+
+			<aside class="brain">
+				<header class="brain__header">
+					<h2 class="heading"><span class="emoji">🧠</span>System One</h2>
+					<div class="brain__actions">
+						<span class="status" data-status data-status="idle">idle</span>
+						<span class="dot" data-connection data-on="false" title="Server"></span>
+					</div>
+				</header>
+
+				<div class="window">
+					<div class="window__bar">
+						<span class="window__dots"><i></i><i></i><i></i></span>
+						<span data-window-title>request.json</span>
+						<span class="window__model" data-model>typesafe-ai/jev</span>
+					</div>
+					<div class="window__body" data-request></div>
+				</div>
+			</aside>
+
+			<section class="history">
+				<header class="history__header">
+					<h2 class="heading"><span class="emoji">📜</span>Decisions</h2>
+					<span class="history__stats" data-stats>No decisions yet</span>
+				</header>
+				<ol class="log" data-log></ol>
+			</section>
+
+			<section class="goal">
+				<header class="history__header">
+					<h2 class="heading"><span class="emoji">🎯</span>Goal</h2>
+				</header>
+				<form class="goal__form" data-goal-form>
+					<textarea class="goal__input" name="goal" data-goal placeholder="Go to codely.com, accept the cookie banner, then find a blog post about MCP and open it"></textarea>
+					<div class="goal__examples">
+						<button type="button" class="chip" data-example="Go to codely.com, accept the cookie banner, then find a blog post about MCP and open it">📝 Blog post about MCP</button>
+						<button type="button" class="chip" data-example="Go to codely.com, accept the cookie banner, then open the pricing page">💶 Pricing</button>
+					</div>
+					<div class="goal__actions">
+						<button type="button" class="button button--muted" data-reset>↺ Reset</button>
+						<div class="goal__buttons">
+							<button type="button" class="button button--step" data-step-button>⏭ Step by step</button>
+							<button type="submit" class="button" data-run>▶ Run Jev</button>
+						</div>
+					</div>
+				</form>
+			</section>
+		</div>
+
+		<script type="module" src="/app.js"></script>
+	</body>
+</html>
