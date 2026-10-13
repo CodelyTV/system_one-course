@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Super Turbotuga</title>
+		<link rel="icon" href="/turbotuga.png" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Press+Start+2P&display=swap"
+		/>
+		<link rel="stylesheet" href="/styles.css" />
+	</head>
+	<body>
+		<div class="stage" data-stage>
+			<div class="screen">
+				<canvas id="game" tabindex="0" aria-label="Super Turbotuga"></canvas>
+
+				<section class="overlay overlay--title" data-overlay="title">
+					<img class="title__hero" src="/turbotuga.png" alt="Turbotuga" />
+					<div class="title__text">
+						<p class="title__kicker">Level 1-1 · Deploy to production</p>
+						<h1 class="title__name">SUPER<br /><span>TURBOTUGA</span></h1>
+						<p class="title__story">Dodge the bugs, jump over the 404s and the merge conflicts, and ship your code to production.</p>
+						<div class="title__buttons">
+							<button class="game-button game-button--primary" data-action="play-human">🎮 Play</button>
+							<button class="game-button game-button--brain" data-action="play-system-one">🧠 System One</button>
+						</div>
+						<p class="title__hint"><kbd>←</kbd><kbd>→</kbd> move · <kbd>Space</kbd> jump · <kbd>Shift</kbd> run · <kbd>Esc</kbd> menu</p>
+					</div>
+				</section>
+
+				<section class="overlay" data-overlay="waiting" hidden>
+					<div class="game-card">
+						<div class="game-card__icon">🧠</div>
+						<h2>Waiting for decisions via MCP</h2>
+						<p>The game exposes the <code>turbotuga</code> MCP server. A System One model looks at what is in front of Turbotuga and chooses the next action.</p>
+						<button class="game-button game-button--brain" data-action="start-pilot">▶ Play Jev</button>
+						<p class="game-card__alt">or from the terminal: <code>npm run pilot</code></p>
+					</div>
+				</section>
+
+				<section class="overlay" data-overlay="result" hidden>
+					<div class="game-card">
+						<div class="game-card__icon" data-result-icon>🚀</div>
+						<h2 data-result-title>Deployed to production!</h2>
+						<p data-result-text></p>
+						<p class="game-card__alt" data-result-who></p>
+						<div class="title__buttons">
+							<button class="game-button game-button--primary" data-action="again">↻ Play again</button>
+							<button class="game-button" data-action="menu">Menu</button>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<aside class="brain" data-panel data-mode="human">
+				<header class="brain__header">
+					<h2 class="heading"><span class="emoji">🧠</span>System One</h2>
+					<div class="brain__actions">
+						<span class="dot" data-connection data-on="false" title="Game server"></span>
+						<button class="button" data-action="toggle-pilot" data-pilot-button>▶ Play Jev</button>
+						<button class="button button--icon" data-action="mute" aria-label="Mute">🔊</button>
+					</div>
+				</header>
+
+				<div class="window">
+					<div class="window__bar">
+						<span class="window__dots"><i></i><i></i><i></i></span>
+						<span data-window-title>request.json</span>
+						<span class="window__model" data-model>typesafe-ai/jev</span>
+					</div>
+					<div class="window__body" data-request></div>
+				</div>
+			</aside>
+
+			<section class="history">
+				<header class="history__header">
+					<h2 class="heading"><span class="emoji">📜</span>Decisions</h2>
+					<span class="history__stats" data-stats>No decisions yet</span>
+				</header>
+				<ol class="log" data-log></ol>
+			</section>
+		</div>
+
+		<script type="module" src="/game/main.js"></script>
+	</body>
+</html>

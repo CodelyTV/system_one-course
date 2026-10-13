@@ -1,0 +1,8 @@
+{
+	"mcpServers": {
+		"turbotuga": {
+			"command": "node",
+			"args": ["src/mcp.ts"]
+		}
+	}
+}
